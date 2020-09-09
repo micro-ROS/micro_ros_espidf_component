@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+    branches: 
+      - '**'
+
+jobs:
+
+  micro_ros_idf:
+    runs-on: ubuntu-latest
+    container: espressif/idf
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: micro_ros_idf
+
+      - name: Dependencies
+        run: |
+          apt update
+          apt install lsb-release git
+          export DEBIAN_FRONTEND=noninteractive
+          sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+          curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+          apt update
+          apt install -y python3-colcon-common-extensions python3-pip
+          . $IDF_PATH/export.sh
+          pip3 install catkin_pkg lark-parser empy
+
+      - name: Build
+        run: |
+          . $IDF_PATH/export.sh
+          cd micro_ros_idf
+          idf.py build
+      
+      - name: Check binaries
+        run: |
+          (test -f micro_ros_idf/build/micro_ros_idf.bin) && true || false

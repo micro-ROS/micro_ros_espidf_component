@@ -30,3 +30,9 @@ idf.py flash
 idf.py monitor 
 ```
 
+Is possible to use a micro-ROS Agent just with this docker command:
+
+```bash
+docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v6
+```
+

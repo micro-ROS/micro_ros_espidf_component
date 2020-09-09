@@ -1,0 +1,74 @@
+menu "micro-ROS Settings"
+
+config MICRO_ROS_APP_STACK
+    int "Stack the micro-ROS app (Bytes)"
+    default 15000
+    help
+       Stack size in Bytes of the micro-ROS app
+
+config MICRO_ROS_AGENT_IP
+    string "micro-ROS Agent IP"
+    default "192.168.1.100"
+    help
+        micro-ROS Agent IP.
+
+config MICRO_ROS_AGENT_PORT
+    string "micro-ROS Agent Port"
+    default "8888"
+    help
+        micro-ROS Agent port.
+
+menu "UART Settings (for serial transport)"
+
+config MICROROS_UART_TXD
+    int "UART TX pin"
+    range -1 33
+    default -1
+    help
+        Select Tx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_RXD
+    int "UART RX pin"
+    range -1 33
+    default -1
+    help
+        Select Rx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_RTS
+    int "UART RTS pin"
+    range -1 33
+    default -1
+    help
+        Select RTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_CTS
+    int "UART CTS pin"
+    range -1 33
+    default -1
+    help
+        Select CTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+endmenu
+
+menu "WiFi Configuration"
+
+    config ESP_WIFI_SSID
+        string "WiFi SSID"
+        default "myssid"
+        help
+            SSID (network name) for the example to connect to.
+
+    config ESP_WIFI_PASSWORD
+        string "WiFi Password"
+        default "mypassword"
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+
+    config ESP_MAXIMUM_RETRY
+        int "Maximum retry"
+        default 5
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+endmenu
+
+endmenu

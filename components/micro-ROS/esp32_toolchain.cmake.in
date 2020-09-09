@@ -1,0 +1,84 @@
+include(CMakeForceCompiler)
+
+set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR xtensa)
+set(CMAKE_CROSSCOMPILING 1)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(PLATFORM_NAME "LwIP")
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+set(CMAKE_C_COMPILER @CMAKE_C_COMPILER@)
+set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
+
+set(CMAKE_C_FLAGS_INIT "@CFLAGS@" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS_INIT "@CXXFLAGS@" CACHE STRING "" FORCE)
+
+set(idf_path "@IDF_PATH@")
+
+add_definitions(-DLWIP_IPV4 -DLWIP_IPV6)
+
+include_directories(
+        "@BUILD_CONFIG_DIR@"
+        ${idf_path}/components/newlib/platform_include
+        ${idf_path}/components/protocomm/include
+        ${idf_path}/components/esp_rom/include
+        ${idf_path}/components/esp_system/include
+        ${idf_path}/components/esp_timer/include
+        ${idf_path}/components/soc/src/esp32/include
+        ${idf_path}/components/driver/include
+        ${idf_path}/components/wear_levelling/include
+        ${idf_path}/components/vfs/include
+        ${idf_path}/components/log/include
+        ${idf_path}/components/freertos/include
+        ${idf_path}/components/freertos/xtensa/include
+        ${idf_path}/components/soc/soc/esp32/include
+        ${idf_path}/components/wifi_provisioning/include
+        ${idf_path}/components/pthread/include
+        ${idf_path}/components/libsodium/libsodium/src/libsodium/include
+        ${idf_path}/components/coap/port/include
+        ${idf_path}/components/coap/libcoap/include
+        ${idf_path}/components/tcp_transport/include
+        ${idf_path}/components/unity/include
+        ${idf_path}/components/esp32/include
+        ${idf_path}/components/asio/port/include
+        ${idf_path}/components/asio/asio/asio/include
+        ${idf_path}/components/app_update/include
+        ${idf_path}/components/esp_ringbuf/include
+        ${idf_path}/components/soc/esp32/include
+        ${idf_path}/components/soc/include
+        ${idf_path}/components/efuse/test/include
+        ${idf_path}/components/efuse/esp32/include
+        ${idf_path}/components/efuse/include
+        ${idf_path}/components/mbedtls/port/include
+        ${idf_path}/components/mbedtls/mbedtls/include
+        ${idf_path}/components/xtensa/esp32/include
+        ${idf_path}/components/xtensa/include
+        ${idf_path}/components/app_trace/include
+        ${idf_path}/components/nvs_flash/include
+        ${idf_path}/components/jsmn/include
+        ${idf_path}/components/esp_eth/include
+        ${idf_path}/components/spiffs/include
+        ${idf_path}/components/ulp/include
+        ${idf_path}/components/mdns/include
+        ${idf_path}/components/freemodbus/modbus/include
+        ${idf_path}/components/freemodbus/common/include
+        ${idf_path}/components/esp_event/include
+        ${idf_path}/components/expat/port/include
+        ${idf_path}/components/bootloader_support/include
+        ${idf_path}/components/heap/include
+        ${idf_path}/components/wpa_supplicant/port/include
+        ${idf_path}/components/wpa_supplicant/include
+        ${idf_path}/components/tcpip_adapter/include
+        ${idf_path}/components/openssl/include
+        ${idf_path}/components/sdmmc/include
+        ${idf_path}/components/esp_local_ctrl/include
+        ${idf_path}/components/esp_common/include
+        
+        ${idf_path}/components/lwip/lwip/src/include/lwip/apps
+        ${idf_path}/components/lwip/lwip/src/include/compat/posix
+        ${idf_path}/components/lwip/lwip/src/include
+        ${idf_path}/components/lwip/port/esp32/include
+    )

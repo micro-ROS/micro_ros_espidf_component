@@ -19,4 +19,14 @@ Some pyhton3 packages are also required inside the IDF virtual environment:
 pip3 install catkin_pkg lark-parser empy
 ```
 
+## Usage
+
+```bash
+. $IDF_PATH/export.sh
+idf.py menuconfig
+# Set your micro-ROS configuration and WiFi credentials
+idf.py build 
+idf.py flash 
+idf.py monitor 
+```
 

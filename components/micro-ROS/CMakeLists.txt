@@ -35,6 +35,6 @@ target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/inclu
 add_dependencies(${COMPONENT_LIB} libmicroros-prebuilt)
 target_link_libraries(${COMPONENT_LIB} INTERFACE libmicroros-prebuilt)
 
-set_directory_properties( PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
+set_directory_properties( PROPERTIES ADDITIONAL_CLEAN_FILES
     "${COMPONENT_LIB}/include;${COMPONENT_LIB}/micro_ros_dev;${COMPONENT_LIB}/micro_ros_src;${COMPONENT_LIB}/esp32_toolchain.cmake" )
 

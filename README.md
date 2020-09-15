@@ -36,6 +36,25 @@ Is possible to use a micro-ROS Agent just with this docker command:
 docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v6
 ```
 
+## Using serial transport
+
+By default, micro-ROS component uses UDP transport, but is possible to enable UART transport setting the `colcon.meta` like:
+
+```json
+...
+"rmw_microxrcedds": {
+    "cmake-args": [
+        ...
+        "-DRMW_UXRCE_TRANSPORT=custom_serial",
+        "-DRMW_UXRCE_DEFAULT_SERIAL_DEVICE=1",
+        ...
+    ]
+},
+...
+```
+
+Available ports are `0`, `1` and `2` corresponding `UART_NUM_0`, `UART_NUM_1` and `UART_NUM_2`.
+
 ## Purpose of the Project
 
 This software is not ready for production use. It has neither been developed nor

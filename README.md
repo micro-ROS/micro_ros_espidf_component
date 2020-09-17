@@ -1,5 +1,7 @@
 # micro-ROS component for ESP-IDF
 
+This component has been tested in ESP-IDF v4.1
+
 ## Dependencies
 
 This componentes needs `colcon` in order to build micro-ROS packages:

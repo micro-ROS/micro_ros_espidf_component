@@ -22,8 +22,7 @@ add_definitions(-DLWIP_IPV4 -DLWIP_IPV6)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"
-
-        ${idf_path}/components/soc/soc/include
+        ${idf_path}/components/soc/include
         ${idf_path}/components/newlib/platform_include
         ${idf_path}/components/protocomm/include
         ${idf_path}/components/esp_rom/include
@@ -50,7 +49,6 @@ include_directories(
         ${idf_path}/components/app_update/include
         ${idf_path}/components/esp_ringbuf/include
         ${idf_path}/components/soc/esp32/include
-        ${idf_path}/components/soc/include
         ${idf_path}/components/efuse/test/include
         ${idf_path}/components/efuse/esp32/include
         ${idf_path}/components/efuse/include

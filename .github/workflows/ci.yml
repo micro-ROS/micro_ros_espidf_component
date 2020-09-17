@@ -9,7 +9,7 @@ jobs:
 
   micro_ros_idf:
     runs-on: ubuntu-latest
-    container: espressif/idf
+    container: espressif/idf:release-v4.1    
 
     steps:
       - uses: actions/checkout@v2

@@ -48,7 +48,8 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         ESP_LOGI(TAG,"connect to the AP fail");
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+        ESP_LOGI(TAG, "got ip:%s",
+                 ip4addr_ntoa(&event->ip_info.ip));
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
@@ -58,10 +59,9 @@ void wifi_init_sta()
 {
     s_wifi_event_group = xEventGroupCreate();
 
-    ESP_ERROR_CHECK(esp_netif_init());
+    tcpip_adapter_init();
 
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    esp_netif_create_default_wifi_sta();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
@@ -104,6 +104,8 @@ void wifi_init_sta()
     vEventGroupDelete(s_wifi_event_group);
 }
 
+
+
 void app_main(void)
 {   
     // Start networkign if required
@@ -121,5 +123,30 @@ void app_main(void)
 #endif  // UCLIENT_PROFILE_UDP
 
     // start microROS task
-    xTaskCreate(appMain, "uros_task", CONFIG_MICRO_ROS_APP_STACK, NULL, 5, NULL);
+
+    uint32_t args[2];
+
+    TaskHandle_t xHandle;
+
+    const uint8_t entities_len = 1;
+    const uint8_t topic_sizes_len = 1;
+    
+    const uint8_t entities[] = {1, 1, 5, 10, 15};
+    const uint32_t topic_sizes[] = {1, 123, 246, 368, 490};
+    
+    for(uint8_t i = 0; i < entities_len; i++){
+        for(uint8_t j = 0; j < topic_sizes_len; j++){
+            args[0] = entities[i];
+            args[1] = topic_sizes[j];
+            xTaskCreate(appMain, "uros_task", 12*2048, args, 5, &xHandle);
+
+            while(eTaskGetState(xHandle) != eReady){
+                usleep(100000);
+            }
+
+            usleep(100000);
+        }
+    }
+
+
 }

@@ -46,7 +46,7 @@ By default, micro-ROS component uses UDP transport, but is possible to enable UA
     "cmake-args": [
         ...
         "-DRMW_UXRCE_TRANSPORT=custom_serial",
-        "-DRMW_UXRCE_DEFAULT_SERIAL_DEVICE=1",
+        "-DRMW_UXRCE_DEFAULT_SERIAL_DEVICE=2",
         ...
     ]
 },
@@ -54,6 +54,8 @@ By default, micro-ROS component uses UDP transport, but is possible to enable UA
 ```
 
 Available ports are `0`, `1` and `2` corresponding `UART_NUM_0`, `UART_NUM_1` and `UART_NUM_2`.
+
+You can set set pins of the selected UART in the micro-ROS menu of `menuconfig`. For example for `UART_NUM_2` one configuration can be Tx on pin  IO16 and Rx on pin IO17.
 
 ## Purpose of the Project
 

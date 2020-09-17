@@ -2,7 +2,7 @@ EXTENSIONS_DIR = $(shell pwd)
 UROS_DIR = $(EXTENSIONS_DIR)/micro_ros_src
 BUILD_DIR ?= $(EXTENSIONS_DIR)/build
 
-DEBUG ?= 0
+DEBUG ?= 1
 
 ifeq ($(DEBUG), 1)
 	BUILD_TYPE = Debug
@@ -71,7 +71,6 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	cp -f ../serial_transport_external/esp32_serial_transport.c src/Micro-XRCE-DDS-Client/src/c/profile/transport/serial/serial_transport_external.c; \
     cp -f ../serial_transport_external/esp32_serial_transport.h src/Micro-XRCE-DDS-Client/include/uxr/client/profile/transport/serial/serial_transport_external.h;
 	
-
 $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake $(EXTENSIONS_DIR)/micro_ros_dev/install $(EXTENSIONS_DIR)/micro_ros_src/src
 	cd $(UROS_DIR); \
 	. ../micro_ros_dev/install/local_setup.sh; \

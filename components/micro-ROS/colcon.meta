@@ -23,19 +23,20 @@
         "microxrcedds_client": {
             "cmake-args": [
                 "-DUCLIENT_PIC=OFF",
-                "-DUCLIENT_PROFILE_DISCOVERY=OFF"
+                "-DUCLIENT_PROFILE_DISCOVERY=OFF",
+                "-DUCLIENT_EXTERNAL_SERIAL=ON"
             ]
         },
         "rmw_microxrcedds": {
             "cmake-args": [
-                "-DRMW_UXRCE_XML_BUFFER_LENGTH=400",
-                "-DRMW_UXRCE_TRANSPORT=udp",
                 "-DRMW_UXRCE_MAX_NODES=1",
-                "-DRMW_UXRCE_MAX_PUBLISHERS=1",
-                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=0",
+                "-DRMW_UXRCE_MAX_PUBLISHERS=0",
+                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=1",
+                "-DRMW_UXRCE_MAX_HISTORY=4",
                 "-DRMW_UXRCE_MAX_SERVICES=0",
                 "-DRMW_UXRCE_MAX_CLIENTS=0",
-                "-DRMW_UXRCE_MAX_HISTORY=1"
+                "-DRMW_UXRCE_TRANSPORT=custom_serial",
+                "-DRMW_UXRCE_DEFAULT_SERIAL_DEVICE=2",
             ]
         },
         "tracetools": {

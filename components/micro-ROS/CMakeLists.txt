@@ -25,7 +25,7 @@ externalproject_add(libmicroros_project
     )
 
 add_prebuilt_library(libmicroros-prebuilt ""
-                     REQUIRES lwip idf::libatomic)
+                     REQUIRES lwip)
 
 add_dependencies(libmicroros-prebuilt libmicroros_project)
 

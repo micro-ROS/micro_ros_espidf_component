@@ -14,7 +14,7 @@ sudo apt update
 sudo apt install python3-colcon-common-extensions
 ```
 
-Some pyhton3 packages are also required inside the IDF virtual environment:
+Some python3 packages are also required inside the IDF virtual environment:
 
 ```bash
 . $IDF_PATH/export.sh

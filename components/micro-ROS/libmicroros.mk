@@ -61,6 +61,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b foxy https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
 	git clone -b foxy https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
 	git clone -b foxy https://github.com/ros2/common_interfaces src/common_interfaces; \
+	git clone -b foxy https://github.com/ros2/example_interfaces src/example_interfaces; \ 
 	git clone -b foxy https://github.com/ros2/test_interface_files src/test_interface_files; \
 	git clone -b foxy https://github.com/ros2/rmw_implementation src/rmw_implementation; \
 	git clone -b foxy https://gitlab.com/micro-ROS/ros_tracing/ros2_tracing src/ros2_tracing; \

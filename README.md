@@ -38,6 +38,30 @@ Is possible to use a micro-ROS Agent just with this docker command:
 docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v6
 ```
 
+## Build with docker container
+
+It's possible to build this example application using preconfigured docker container. 
+
+1. Execute script to build an example app using docker container
+
+```bash
+./build_in_container.sh
+```
+
+Docker image microros/esp-idf-microros:latest will be automatically pulled from hub.docker.com
+and used to build an application.
+
+After build is finished build results will be accessible in a local ./build directory. 
+
+Dockerfile for this container is provided in the ./docker directory.
+
+2. Use you standart way to flash binaries to esp32
+
+For example, using esptool
+
+```bash
+esptool.py --chip esp32 -p <COM3> -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x8000 ./build/partition_table/partition-table.bin 0x1000 ./build/bootloader/bootloader.bin 0x10000 ./build/micro_ros_idf.bin 
+```
 ## Using serial transport
 
 By default, micro-ROS component uses UDP transport, but is possible to enable UART transport setting the `colcon.meta` like:

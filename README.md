@@ -38,6 +38,21 @@ Is possible to use a micro-ROS Agent just with this docker command:
 docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v6
 ```
 
+## Build with docker container
+
+It's possible to build this example application using preconfigured docker container. Execute this line to build an example app using docker container:
+
+```bash
+docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):$(pwd) --workdir $(pwd) microros/esp-idf-microros:latest /bin/bash  -c "idf.py build &&"
+```
+
+Docker image microros/esp-idf-microros:latest will be automatically pulled from hub.docker.com
+and used to build an application.
+
+After build is finished build results will be accessible in a local ./build directory. 
+
+Dockerfile for this container is provided in the ./docker directory.
+
 ## Using serial transport
 
 By default, micro-ROS component uses UDP transport, but is possible to enable UART transport setting the `colcon.meta` like:

@@ -43,7 +43,7 @@ docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v
 It's possible to build this example application using preconfigured docker container. Execute this line to build an example app using docker container:
 
 ```bash
-docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):$(pwd) --workdir $(pwd) microros/esp-idf-microros:latest /bin/bash  -c "idf.py build &&"
+docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):$(pwd) --workdir $(pwd) microros/esp-idf-microros:latest /bin/bash  -c "idf.py build"
 ```
 
 Docker image microros/esp-idf-microros:latest will be automatically pulled from hub.docker.com

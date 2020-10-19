@@ -40,12 +40,10 @@ docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v
 
 ## Build with docker container
 
-It's possible to build this example application using preconfigured docker container. 
-
-1. Execute script to build an example app using docker container
+It's possible to build this example application using preconfigured docker container. Execute this line to build an example app using docker container:
 
 ```bash
-./build_in_container.sh
+docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):$(pwd) --workdir $(pwd) microros/esp-idf-microros:latest /bin/bash  -c "idf.py build &&"
 ```
 
 Docker image microros/esp-idf-microros:latest will be automatically pulled from hub.docker.com
@@ -55,13 +53,6 @@ After build is finished build results will be accessible in a local ./build dire
 
 Dockerfile for this container is provided in the ./docker directory.
 
-2. Use you standart way to flash binaries to esp32
-
-For example, using esptool
-
-```bash
-esptool.py --chip esp32 -p <COM3> -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x8000 ./build/partition_table/partition-table.bin 0x1000 ./build/bootloader/bootloader.bin 0x10000 ./build/micro_ros_idf.bin 
-```
 ## Using serial transport
 
 By default, micro-ROS component uses UDP transport, but is possible to enable UART transport setting the `colcon.meta` like:

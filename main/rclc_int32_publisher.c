@@ -36,7 +36,10 @@ void appMain(void * arg)
 	rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
 	RCCHECK(rcl_init_options_init(&init_options, allocator));
 	rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
-	RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
+
+	// Static Agent IP and port can be used instead of autodisvery.
+	// RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
+	RCCHECK(rmw_uros_discover_agent(rmw_options));
 
 	// create init_options
 	RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
@@ -73,7 +76,7 @@ void appMain(void * arg)
 
 	while(1){
 		rclc_executor_spin_some(&executor, 100);
-		usleep(100000);
+		usleep(10000);
 	}
 
 	// free resources

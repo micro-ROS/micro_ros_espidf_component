@@ -26,7 +26,7 @@ pip3 install catkin_pkg lark-parser empy
 ```bash
 . $IDF_PATH/export.sh
 idf.py menuconfig
-# Set your micro-ROS configuration and WiFi credentials
+# Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings -> WiFi Configuration
 idf.py build 
 idf.py flash 
 idf.py monitor 

@@ -23,8 +23,11 @@ pip3 install catkin_pkg lark-parser empy
 
 ## Usage
 
+In order to test some examples:
+
 ```bash
 . $IDF_PATH/export.sh
+cd examples/int32_publisher
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
 idf.py build 

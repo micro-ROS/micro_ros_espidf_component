@@ -99,6 +99,6 @@ $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install
 		done; \
 		cd ..; rm -rf $$folder; \
 	done ; \
-	$(AR) rc libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); ranlib $(EXTENSIONS_DIR)/libmicroros.a; \
+	$(AR) -s rc libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); \
 	cd ..; rm -rf libmicroros; \
 	cp -R $(UROS_DIR)/install/include $(EXTENSIONS_DIR)/include;

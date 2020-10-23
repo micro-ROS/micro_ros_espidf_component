@@ -57,7 +57,7 @@ docker run -it --rm --net=host microros/micro-ros-agent:foxy udp4 --port 8888 -v
 It's possible to build this example application using preconfigured docker container. Execute this line to build an example app using docker container:
 
 ```bash
-docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):/micro_ros_espidf_component -v  /dev:/dev --privileged --workdir micro_ros_espidf_component microros/esp-idf-microros:latest /bin/bash  -c "cd examples/int32_publisher; idf.py build flash monitor"
+docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):/micro_ros_espidf_component -v  /dev:/dev --privileged --workdir /micro_ros_espidf_component microros/esp-idf-microros:latest /bin/bash  -c "cd examples/int32_publisher; idf.py menuconfig build flash monitor"
 ```
 
 Dockerfile for this container is provided in the ./docker directory and available in dockerhub.

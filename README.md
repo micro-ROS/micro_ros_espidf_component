@@ -23,7 +23,11 @@ pip3 install catkin_pkg lark-parser empy
 
 ## Usage
 
-In order to test some examples:
+You can clone this repo directly in the `modules` folder of your project
+
+## Example
+
+In order to test a int32_publisher example:
 
 ```bash
 . $IDF_PATH/export.sh
@@ -38,7 +42,6 @@ idf.py monitor
 To clean and rebuild all the micro-ROS library:
 
 ```bash
-cd components/micro-ROS
 make -f libmicroros.mk clean
 ```
 

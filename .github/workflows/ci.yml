@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: micro_ros_idf
+          path: micro_ros_espidf_component
 
       - name: Dependencies
         run: |
@@ -31,9 +31,9 @@ jobs:
       - name: Build
         run: |
           . $IDF_PATH/export.sh
-          cd micro_ros_idf
+          cd micro_ros_espidf_component/examples/int32_publisher
           idf.py build
       
       - name: Check binaries
         run: |
-          (test -f micro_ros_idf/build/micro_ros_idf.bin) && true || false
+          (test -f micro_ros_espidf_component/examples/int32_publisher/build/micro_ros_idf.bin) && true || false

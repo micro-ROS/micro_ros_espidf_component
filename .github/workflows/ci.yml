@@ -36,4 +36,4 @@ jobs:
       
       - name: Check binaries
         run: |
-          (test -f micro_ros_espidf_component/examples/int32_publisher/build/micro_ros_idf.bin) && true || false
+          (test -f micro_ros_espidf_component/examples/int32_publisher/build/int32_publisher.bin) && true || false

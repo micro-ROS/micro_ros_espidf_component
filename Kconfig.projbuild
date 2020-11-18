@@ -18,6 +18,14 @@ config MICRO_ROS_AGENT_PORT
     help
         micro-ROS Agent port.
 
+choice  
+    prompt "micro-ROS network interface select"
+    config  MICRO_ROS_ESP_NETIF_WLAN
+        bool "micro-ROS uses WLAN netif"
+    config  MICRO_ROS_ESP_NETIF_ENET
+        bool "micro-ROS uses Ethernet netif"
+endchoice
+    
 menu "UART Settings (for serial transport)"
 
 config MICROROS_UART_TXD
@@ -53,18 +61,21 @@ endmenu
 menu "WiFi Configuration"
 
     config ESP_WIFI_SSID
+        depends on MICRO_ROS_ESP_NETIF_WLAN
         string "WiFi SSID"
         default "myssid"
         help
             SSID (network name) for the example to connect to.
 
     config ESP_WIFI_PASSWORD
+        depends on MICRO_ROS_ESP_NETIF_WLAN
         string "WiFi Password"
         default "mypassword"
         help
             WiFi password (WPA or WPA2) for the example to use.
 
     config ESP_MAXIMUM_RETRY
+        depends on MICRO_ROS_ESP_NETIF_WLAN
         int "Maximum retry"
         default 5
         help

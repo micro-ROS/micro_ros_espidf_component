@@ -12,7 +12,7 @@ externalproject_add(libmicroros_project
     BINARY_DIR ${COMPONENT_DIR}
     CONFIGURE_COMMAND ""
     BUILD_COMMAND
-        ${submake} -f libmicroros.mk
+        ${submake} -j -f libmicroros.mk
             CC=${CMAKE_C_COMPILER}
             AR=${CMAKE_AR}
             CFLAGS=${CMAKE_C_FLAGS}

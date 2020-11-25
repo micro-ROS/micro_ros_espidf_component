@@ -45,7 +45,7 @@ void appMain(void * arg)
 	RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
 
 	// create node
-	rcl_node_t node = rcl_get_zero_initialized_node();
+	rcl_node_t node;
 	RCCHECK(rclc_node_init_default(&node, "esp32_int32_publisher", "", &support));
 
 	// create publisher
@@ -56,7 +56,7 @@ void appMain(void * arg)
 		"freertos_int32_publisher"));
 
 	// create timer,
-	rcl_timer_t timer = rcl_get_zero_initialized_timer();
+	rcl_timer_t timer;
 	const unsigned int timer_timeout = 1000;
 	RCCHECK(rclc_timer_init_default(
 		&timer,
@@ -65,7 +65,7 @@ void appMain(void * arg)
 		timer_callback));
 
 	// create executor
-	rclc_executor_t executor = rclc_executor_get_zero_initialized_executor();
+	rclc_executor_t executor;
 	RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
 
 	unsigned int rcl_wait_timeout = 1000;   // in ms

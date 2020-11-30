@@ -29,6 +29,7 @@ $(EXTENSIONS_DIR)/esp32_toolchain.cmake: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		sed "s/@CMAKE_CXX_COMPILER@/$(subst /,\/,$(CXX))/g" | \
 		sed "s/@CFLAGS@/$(subst /,\/,$(CFLAGS_INTERNAL))/g" | \
 		sed "s/@CXXFLAGS@/$(subst /,\/,$(CXXFLAGS_INTERNAL))/g" | \
+		sed "s/@IDF_TARGET@/$(subst /,\/,$(IDF_TARGET))/g" | \
 		sed "s/@IDF_PATH@/$(subst /,\/,$(IDF_PATH))/g" | \
 		sed "s/@BUILD_CONFIG_DIR@/$(subst /,\/,$(BUILD_DIR)/config)/g" \
 		> $(EXTENSIONS_DIR)/esp32_toolchain.cmake

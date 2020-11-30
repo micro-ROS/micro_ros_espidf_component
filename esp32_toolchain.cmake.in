@@ -17,12 +17,13 @@ set(CMAKE_C_FLAGS_INIT "@CFLAGS@" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_INIT "@CXXFLAGS@" CACHE STRING "" FORCE)
 
 set(idf_path "@IDF_PATH@")
+set(idf_target "@IDF_TARGET@")
 
 add_definitions(-DLWIP_IPV4 -DLWIP_IPV6)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"
-        ${idf_path}/components/hal/esp32/include
+        ${idf_path}/components/hal/${idf_target}/include
         ${idf_path}/components/hal/include
         ${idf_path}/components/esp_hw_support/include
         ${idf_path}/components/soc/include
@@ -31,14 +32,14 @@ include_directories(
         ${idf_path}/components/esp_rom/include
         ${idf_path}/components/esp_system/include
         ${idf_path}/components/esp_timer/include
-        ${idf_path}/components/soc/src/esp32/include
+        ${idf_path}/components/soc/src/${idf_target}/include
         ${idf_path}/components/driver/include
         ${idf_path}/components/wear_levelling/include
         ${idf_path}/components/vfs/include
         ${idf_path}/components/log/include
         ${idf_path}/components/freertos/include
         ${idf_path}/components/freertos/xtensa/include
-        ${idf_path}/components/soc/soc/esp32/include
+        ${idf_path}/components/soc/soc/${idf_target}/include
         ${idf_path}/components/wifi_provisioning/include
         ${idf_path}/components/pthread/include
         ${idf_path}/components/libsodium/libsodium/src/libsodium/include
@@ -46,18 +47,18 @@ include_directories(
         ${idf_path}/components/coap/libcoap/include
         ${idf_path}/components/tcp_transport/include
         ${idf_path}/components/unity/include
-        ${idf_path}/components/esp32/include
+        ${idf_path}/components/${idf_target}/include
         ${idf_path}/components/asio/port/include
         ${idf_path}/components/asio/asio/asio/include
         ${idf_path}/components/app_update/include
         ${idf_path}/components/esp_ringbuf/include
-        ${idf_path}/components/soc/esp32/include
+        ${idf_path}/components/soc/${idf_target}/include
         ${idf_path}/components/efuse/test/include
-        ${idf_path}/components/efuse/esp32/include
+        ${idf_path}/components/efuse/${idf_target}/include
         ${idf_path}/components/efuse/include
         ${idf_path}/components/mbedtls/port/include
         ${idf_path}/components/mbedtls/mbedtls/include
-        ${idf_path}/components/xtensa/esp32/include
+        ${idf_path}/components/xtensa/${idf_target}/include
         ${idf_path}/components/xtensa/include
         ${idf_path}/components/app_trace/include
         ${idf_path}/components/nvs_flash/include

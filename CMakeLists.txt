@@ -20,6 +20,7 @@ externalproject_add(libmicroros_project
             CXXFLAGS=${CMAKE_CXX_FLAGS}
             BUILD_DIR=${CMAKE_BINARY_DIR}
             IDF_PATH=${IDF_PATH}
+            IDF_TARGET=${IDF_TARGET}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
     )

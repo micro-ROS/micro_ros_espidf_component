@@ -90,7 +90,20 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DCMAKE_TOOLCHAIN_FILE=$(EXTENSIONS_DIR)/esp32_toolchain.cmake \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF; \
 
-$(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install
+patch_atomic_esp32s2:$(EXTENSIONS_DIR)/micro_ros_src/install
+# Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18
+ifeq ($(IDF_TARGET), esp32s2)
+		echo $(UROS_DIR)/atomic_workaround; \
+		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
+		$(AR) x $(UROS_DIR)/install/lib/librcutils.a; \
+		$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
+		$(AR) rc -s librcutils.a *.obj; \
+		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
+		rm -rf $(UROS_DIR)/atomic_workaround; \
+		cd ..; 
+endif
+
+$(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic_esp32s2
 	mkdir -p $(UROS_DIR)/libmicroros; cd $(UROS_DIR)/libmicroros; \
 	for file in $$(find $(UROS_DIR)/install/lib/ -name '*.a'); do \
 		folder=$$(echo $$file | sed -E "s/(.+)\/(.+).a/\2/"); \

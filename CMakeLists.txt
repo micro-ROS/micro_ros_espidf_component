@@ -15,6 +15,7 @@ externalproject_add(libmicroros_project
         ${submake} -j -f libmicroros.mk
             CC=${CMAKE_C_COMPILER}
             AR=${CMAKE_AR}
+            STRIP=${CMAKE_STRIP}
             CFLAGS=${CMAKE_C_FLAGS}
             CXX=${CMAKE_CXX_COMPILER}
             CXXFLAGS=${CMAKE_CXX_FLAGS}

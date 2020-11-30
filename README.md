@@ -1,6 +1,6 @@
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v4.1 with ESP32 and ESP32-S2.
+This component has been tested in ESP-IDF v4.1 and v4.2 with ESP32 and ESP32-S2.
 
 ## Dependencies
 

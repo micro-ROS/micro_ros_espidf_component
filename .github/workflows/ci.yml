@@ -14,18 +14,9 @@ jobs:
       matrix:
         idf_target: [ esp32, esp32s2 ]
         idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2" ]
-        include:
-          - docker_image: ubuntu:bionic
-            ros_distribution: dashing
-
-          - docker_image: ubuntu:bionic
-            ros_distribution: eloquent
-
-          - docker_image: ubuntu:focal
-            ros_distribution: foxy
-
-          - docker_image: ubuntu:focal
-            ros_distribution: rolling
+        exclude:
+          - idf_target: esp32s2
+            idf_version: "espressif/idf:release-v4.1"
     container:
       image: ${{ matrix.idf_version }}
 
@@ -52,4 +43,3 @@ jobs:
           cd micro_ros_espidf_component/examples/int32_publisher
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
-          (test -f micro_ros_espidf_component/examples/int32_publisher/build/int32_publisher.bin) && true || false

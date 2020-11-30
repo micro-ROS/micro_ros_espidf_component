@@ -15,11 +15,13 @@ externalproject_add(libmicroros_project
         ${submake} -j -f libmicroros.mk
             CC=${CMAKE_C_COMPILER}
             AR=${CMAKE_AR}
+            STRIP=${CMAKE_STRIP}
             CFLAGS=${CMAKE_C_FLAGS}
             CXX=${CMAKE_CXX_COMPILER}
             CXXFLAGS=${CMAKE_CXX_FLAGS}
             BUILD_DIR=${CMAKE_BINARY_DIR}
             IDF_PATH=${IDF_PATH}
+            IDF_TARGET=${IDF_TARGET}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
     )

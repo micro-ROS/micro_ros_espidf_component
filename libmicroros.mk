@@ -52,6 +52,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b foxy https://github.com/micro-ROS/rcl src/rcl; \
 	git clone -b master https://github.com/micro-ROS/rclc src/rclc; \
 	git clone -b foxy https://github.com/micro-ROS/rcutils src/rcutils; \
+	git clone -b foxy https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
 	git clone -b foxy https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \

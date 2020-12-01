@@ -14,6 +14,9 @@
 #include "esp_log.h"
 #include "esp_system.h"
 #include "nvs_flash.h"
+#ifdef CONFIG_PM_ENABLE
+#include "esp_pm.h"
+#endif /* CONFIG_PM_ENABLE */
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -72,7 +75,12 @@ void wifi_init_sta()
     wifi_config_t wifi_config = {
         .sta = {
             .ssid = ESP_WIFI_SSID,
-            .password = ESP_WIFI_PASS
+            .password = ESP_WIFI_PASS,
+#ifdef CONFIG_PM_ENABLE
+            .listen_interval = 5,
+/* Listen interval for ESP32 station to receive beacon when WIFI_PS_MAX_MODEM is set. 
+   Units: AP beacon intervals. Defaults to 3 if set to 0. */
+#endif /* CONFIG_PM_ENABLE */
         },
     };
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
@@ -80,6 +88,15 @@ void wifi_init_sta()
     ESP_ERROR_CHECK(esp_wifi_start() );
 
     ESP_LOGI(TAG, "wifi_init_sta finished.");
+
+#ifdef CONFIG_PM_ENABLE
+    ESP_LOGI(TAG, "esp_wifi_set_ps().");
+    esp_wifi_set_ps(WIFI_PS_MAX_MODEM);
+    /* Call esp_wifi_set_ps(WIFI_PS_MIN_MODEM) to enable Modem-sleep minimum power save mode 
+    or esp_wifi_set_ps(WIFI_PS_MAX_MODEM) to enable Modem-sleep maximum power save mode after 
+    calling esp_wifi_init(). When station connects to AP, Modem-sleep will start. 
+    When station disconnects from AP, Modem-sleep will stop. */
+#endif /* CONFIG_PM_ENABLE */
 
     /* Waiting until either the connection is established (WIFI_CONNECTED_BIT) or connection failed for the maximum
      * number of re-tries (WIFI_FAIL_BIT). The bits are set by event_handler() (see above) */
@@ -119,6 +136,27 @@ void app_main(void)
     ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
     wifi_init_sta();
 #endif  // UCLIENT_PROFILE_UDP
+
+#ifdef CONFIG_PM_ENABLE
+    // Configure dynamic frequency scaling:
+    // maximum and minimum frequencies are set in sdkconfig,
+    // automatic light sleep is enabled if tickless idle support is enabled.
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+    esp_pm_config_esp32s2_t pm_config = {};
+#else
+    esp_pm_config_esp32_t pm_config = {};
+#endif
+    pm_config.max_freq_mhz = 240;
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+    pm_config.min_freq_mhz = 10;
+#else
+    pm_config.min_freq_mhz = 20;
+#endif
+#if CONFIG_FREERTOS_USE_TICKLESS_IDLE
+    pm_config.light_sleep_enable = true;
+#endif
+    ESP_ERROR_CHECK(esp_pm_configure(&pm_config));
+#endif /* CONFIG_PM_ENABLE */
 
     // start microROS task
     xTaskCreate(appMain, "uros_task", CONFIG_MICRO_ROS_APP_STACK, NULL, 5, NULL);

@@ -12,9 +12,6 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#ifdef CONFIG_PM_ENABLE
-#include "esp_pm.h"
-#endif /* CONFIG_PM_ENABLE */
 
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc);vTaskDelete(NULL);}}
 #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
@@ -22,21 +19,11 @@
 rcl_publisher_t publisher;
 std_msgs__msg__Int32 msg;
 
-#ifdef CONFIG_PM_ENABLE
-esp_pm_lock_handle_t pmlock;
-#endif /* CONFIG_PM_ENABLE */
-
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
 	RCLC_UNUSED(last_call_time);
 	if (timer != NULL) {
-#ifdef CONFIG_PM_ENABLE
-                esp_pm_lock_acquire(pmlock);	// disable wifi sleep mode
-#endif /* CONFIG_PM_ENABLE */
 		RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
-#ifdef CONFIG_PM_ENABLE
-                esp_pm_lock_release(pmlock);	// allow wifi sleep mode 
-#endif /* CONFIG_PM_ENABLE */
 		msg.data++;
 	}
 }
@@ -45,10 +32,6 @@ void appMain(void * arg)
 {
 	rcl_allocator_t allocator = rcl_get_default_allocator();
 	rclc_support_t support;
-
-#ifdef CONFIG_PM_ENABLE
-        esp_pm_lock_create(ESP_PM_NO_LIGHT_SLEEP, 0, "pmlock", &pmlock);
-#endif /* CONFIG_PM_ENABLE */
 
 	rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
 	RCCHECK(rcl_init_options_init(&init_options, allocator));

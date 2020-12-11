@@ -24,7 +24,8 @@
         "microxrcedds_client": {
             "cmake-args": [
                 "-DUCLIENT_PIC=OFF",
-                "-DUCLIENT_PROFILE_DISCOVERY=ON"
+                "-DUCLIENT_PROFILE_DISCOVERY=ON",
+                "-DUCLIENT_MIN_HEARTBEAT_TIME_INTERVAL=100"
             ]
         },
         "rmw_microxrcedds": {
@@ -32,10 +33,10 @@
                 "-DRMW_UXRCE_XML_BUFFER_LENGTH=400",
                 "-DRMW_UXRCE_TRANSPORT=udp",
                 "-DRMW_UXRCE_MAX_NODES=1",
-                "-DRMW_UXRCE_MAX_PUBLISHERS=1",
-                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=1",
-                "-DRMW_UXRCE_MAX_SERVICES=1",
-                "-DRMW_UXRCE_MAX_CLIENTS=1",
+                "-DRMW_UXRCE_MAX_PUBLISHERS=5",
+                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=0",
+                "-DRMW_UXRCE_MAX_SERVICES=0",
+                "-DRMW_UXRCE_MAX_CLIENTS=0",
                 "-DRMW_UXRCE_MAX_HISTORY=1"
             ]
         },

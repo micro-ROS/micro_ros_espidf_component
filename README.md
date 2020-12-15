@@ -23,7 +23,7 @@ pip3 install catkin_pkg lark-parser empy
 
 ## Usage
 
-You can clone this repo directly in the `modules` folder of your project
+You can clone this repo directly in the `components` folder of your project
 
 ## Example
 

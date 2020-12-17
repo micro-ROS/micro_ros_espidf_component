@@ -1,4 +1,5 @@
 #include <string.h>
+#include <sdkconfig.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
@@ -11,6 +12,10 @@
 #include "lwip/sys.h"
 #include "esp_netif.h"
 #include "uros_network_interfaces.h"
+
+#ifdef CONFIG_PM_ENABLE
+#include "esp_pm.h"
+#endif /* CONFIG_PM_ENABLE */
 
 #ifdef CONFIG_MICRO_ROS_ESP_NETIF_WLAN
 
@@ -66,15 +71,12 @@ static void wifi_init_sta(void)
         .sta = {
             .ssid = ESP_WIFI_SSID,
             .password = ESP_WIFI_PASS,
-            /* Setting a password implies station will connect to all security modes including WEP/WPA.
-             * However these modes are deprecated and not advisable to be used. Incase your Access point
-             * doesn't support WPA2, these mode can be enabled by commenting below line */
-	     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
 
-            .pmf_cfg = {
-                .capable = true,
-                .required = false
-            },
+#ifdef CONFIG_PM_ENABLE
+            .listen_interval = 5,
+            /* Listen interval for ESP32 station to receive beacon when WIFI_PS_MAX_MODEM is set. 
+            Units: AP beacon intervals. Defaults to 3 if set to 0. */
+#endif //CONFIG_PM_ENABLE *
         },
     };
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
@@ -82,6 +84,15 @@ static void wifi_init_sta(void)
     ESP_ERROR_CHECK(esp_wifi_start() );
 
     ESP_LOGI(TAG, "wifi_init_sta finished.");
+
+#ifdef CONFIG_PM_ENABLE
+    ESP_LOGI(TAG, "esp_wifi_set_ps().");
+    esp_wifi_set_ps(WIFI_PS_MAX_MODEM);
+    /* Call esp_wifi_set_ps(WIFI_PS_MIN_MODEM) to enable Modem-sleep minimum power save mode 
+    or esp_wifi_set_ps(WIFI_PS_MAX_MODEM) to enable Modem-sleep maximum power save mode after 
+    calling esp_wifi_init(). When station connects to AP, Modem-sleep will start. 
+    When station disconnects from AP, Modem-sleep will stop. */
+#endif /* CONFIG_PM_ENABLE */
 
     /* Waiting until either the connection is established (WIFI_CONNECTED_BIT) or connection failed for the maximum
      * number of re-tries (WIFI_FAIL_BIT). The bits are set by event_handler() (see above) */

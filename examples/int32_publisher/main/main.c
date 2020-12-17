@@ -94,16 +94,10 @@ void app_main(void)
 #endif  // UCLIENT_PROFILE_UDP
 
     //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
-    xTaskCreatePinnedToCore(micro_ros_task, 
-                        "uros_task", 
-                        CONFIG_MICRO_ROS_APP_STACK, 
-                        NULL,
-                        CONFIG_MICRO_ROS_APP_TASK_PRIO, 
-                        NULL, 
-                        APP_CPU_NUM);
+    xTaskCreate(micro_ros_task, 
+            "uros_task", 
+            CONFIG_MICRO_ROS_APP_STACK, 
+            NULL,
+            CONFIG_MICRO_ROS_APP_TASK_PRIO, 
+            NULL); 
 }
-
-
-
-
-

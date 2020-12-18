@@ -1,11 +1,5 @@
 menu "micro-ROS Settings"
 
-config MICRO_ROS_APP_STACK
-    int "Stack the micro-ROS app (Bytes)"
-    default 15000
-    help
-       Stack size in Bytes of the micro-ROS app
-
 config MICRO_ROS_AGENT_IP
     string "micro-ROS Agent IP"
     default "192.168.1.100"

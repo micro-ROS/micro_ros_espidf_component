@@ -71,8 +71,9 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
     touch src/rclc/rclc_examples/COLCON_IGNORE; \
 	touch src/rcl/rcl_yaml_param_parser/COLCON_IGNORE; \
 	cp -f ../serial_transport_external/esp32_serial_transport.c src/Micro-XRCE-DDS-Client/src/c/profile/transport/serial/serial_transport_external.c; \
-    cp -f ../serial_transport_external/esp32_serial_transport.h src/Micro-XRCE-DDS-Client/include/uxr/client/profile/transport/serial/serial_transport_external.h;
-	
+    cp -f ../serial_transport_external/esp32_serial_transport.h src/Micro-XRCE-DDS-Client/include/uxr/client/profile/transport/serial/serial_transport_external.h; \
+	cp -rf ../extra_packages src/extra_packages || :;
+
 
 $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake $(EXTENSIONS_DIR)/micro_ros_dev/install $(EXTENSIONS_DIR)/micro_ros_src/src
 	cd $(UROS_DIR); \

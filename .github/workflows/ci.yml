@@ -35,7 +35,7 @@ jobs:
           apt update
           apt install -y python3-colcon-common-extensions python3-pip
           . $IDF_PATH/export.sh
-          # pip3 install catkin_pkg lark-parser empy
+          pip3 install catkin_pkg lark-parser empy
 
       - name: Build sample - int32_publisher
         run: |

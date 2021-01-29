@@ -39,6 +39,7 @@ include_directories(
         ${idf_path}/components/log/include
         ${idf_path}/components/freertos/include
         ${idf_path}/components/freertos/xtensa/include
+        ${idf_path}/components/freertos/port/xtensa/include
         ${idf_path}/components/soc/soc/${idf_target}/include
         ${idf_path}/components/wifi_provisioning/include
         ${idf_path}/components/pthread/include

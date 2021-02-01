@@ -9,6 +9,7 @@ jobs:
 
   micro_ros_idf:
     runs-on: ubuntu-latest
+    shell: bash
     strategy:
       fail-fast: false
       matrix:

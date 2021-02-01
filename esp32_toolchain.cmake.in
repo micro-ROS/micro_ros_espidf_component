@@ -23,6 +23,7 @@ add_definitions(-DLWIP_IPV4 -DLWIP_IPV6)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"
+        ${idf_path}/components/freertos/port/xtensa/include
         ${idf_path}/components/hal/${idf_target}/include
         ${idf_path}/components/hal/include
         ${idf_path}/components/esp_hw_support/include

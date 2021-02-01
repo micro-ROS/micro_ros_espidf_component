@@ -59,4 +59,13 @@ jobs:
           cd micro_ros_espidf_component/examples/low_consumption
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
+    
+      - name: Build sample - int32_publisher_custom_transport
+        shell: bash
+        run: |
+          . $IDF_PATH/export.sh
+          sed -i 's/DRMW_UXRCE_TRANSPORT=udp/DRMW_UXRCE_TRANSPORT=custom/' micro_ros_espidf_component/colcon.meta
+          cd micro_ros_espidf_component/examples/int32_publisher_custom_transport
+          idf.py set-target ${{ matrix.idf_target }}
+          idf.py build
   

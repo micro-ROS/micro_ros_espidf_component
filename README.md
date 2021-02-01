@@ -64,15 +64,14 @@ Dockerfile for this container is provided in the ./docker directory and availabl
 
 ## Using serial transport
 
-By default, micro-ROS component uses UDP transport, but is possible to enable UART transport setting the `colcon.meta` like:
+By default, micro-ROS component uses UDP transport, but is possible to enable UART transport or any other custom transport setting the `colcon.meta` like:
 
 ```json
 ...
 "rmw_microxrcedds": {
     "cmake-args": [
         ...
-        "-DRMW_UXRCE_TRANSPORT=custom_serial",
-        "-DRMW_UXRCE_DEFAULT_SERIAL_DEVICE=1",
+        "-DRMW_UXRCE_TRANSPORT=custom",
         ...
     ]
 },

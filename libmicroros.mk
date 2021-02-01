@@ -48,12 +48,12 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
 	git clone -b foxy https://github.com/eProsima/micro-CDR src/micro-CDR; \
-	git clone -b foxy https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
+	git clone -b feature/refactor_external_transports https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 	git clone -b foxy https://github.com/micro-ROS/rcl src/rcl; \
 	git clone -b master https://github.com/micro-ROS/rclc src/rclc; \
 	git clone -b foxy https://github.com/micro-ROS/rcutils src/rcutils; \
 	git clone -b foxy https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
-	git clone -b foxy https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
+	git clone -b feature/refactor_external_transports https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
 	git clone -b master https://github.com/ros2/tinydir_vendor src/tinydir_vendor; \
@@ -70,8 +70,6 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
     touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
     touch src/rclc/rclc_examples/COLCON_IGNORE; \
 	touch src/rcl/rcl_yaml_param_parser/COLCON_IGNORE; \
-	cp -f ../serial_transport_external/esp32_serial_transport.c src/Micro-XRCE-DDS-Client/src/c/profile/transport/serial/serial_transport_external.c; \
-    cp -f ../serial_transport_external/esp32_serial_transport.h src/Micro-XRCE-DDS-Client/include/uxr/client/profile/transport/serial/serial_transport_external.h; \
 	cp -rf ../extra_packages src/extra_packages || :;
 
 

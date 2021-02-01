@@ -16,7 +16,7 @@ jobs:
       matrix:
         branch: [foxy, main]
         idf_target: [ esp32, esp32s2 ]
-        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2" ]
+        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:latest" ]
         exclude:
           - idf_target: esp32s2
             idf_version: "espressif/idf:release-v4.1"
@@ -30,6 +30,7 @@ jobs:
           ref: ${{ matrix.branch }}
 
       - name: Dependencies
+        shell: bash
         run: |
           apt update
           apt install lsb-release git
@@ -44,6 +45,7 @@ jobs:
           pip3 install importlib-resources
 
       - name: Build sample - int32_publisher
+        shell: bash
         run: |
           . $IDF_PATH/export.sh
           cd micro_ros_espidf_component/examples/int32_publisher
@@ -51,6 +53,7 @@ jobs:
           idf.py build
       
       - name: Build sample - low_consumption
+        shell: bash
         run: |
           . $IDF_PATH/export.sh
           cd micro_ros_espidf_component/examples/low_consumption

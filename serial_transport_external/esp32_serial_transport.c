@@ -16,10 +16,6 @@ bool uxr_init_serial_platform(struct uxrSerialPlatform* platform, int fd, uint8_
 
     if (fd == 0) {
         platform->uart_port = UART_NUM_0;
-    } else if (fd == 1) {
-        platform->uart_port = UART_NUM_1;
-    } else if (fd == 2) {
-        platform->uart_port = UART_NUM_2;
     } else {
         return false;
     }

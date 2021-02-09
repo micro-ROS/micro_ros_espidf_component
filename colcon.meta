@@ -24,7 +24,9 @@
         "microxrcedds_client": {
             "cmake-args": [
                 "-DUCLIENT_PIC=OFF",
-                "-DUCLIENT_PROFILE_DISCOVERY=ON"
+                "-DUCLIENT_PROFILE_DISCOVERY=ON",
+                "-DUCLIENT_EXTERNAL_SERIAL=ON",
+                "-DUCLIENT_PROFILE_TCP=OFF"
             ]
         },
         "rmw_microxrcedds": {

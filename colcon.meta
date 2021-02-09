@@ -25,7 +25,9 @@
             "cmake-args": [
                 "-DUCLIENT_PIC=OFF",
                 "-DUCLIENT_PROFILE_DISCOVERY=ON",
-                "-DUCLIENT_EXTERNAL_SERIAL=ON",
+                "-DUCLIENT_PROFILE_UDP=ON",
+                "-DUCLIENT_PROFILE_CUSTOM_TRANSPORT=ON",
+                "-DUCLIENT_PROFILE_SERIAL=OFF",
                 "-DUCLIENT_PROFILE_TCP=OFF"
             ]
         },

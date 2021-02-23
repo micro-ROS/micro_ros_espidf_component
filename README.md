@@ -78,6 +78,8 @@ By default, micro-ROS component uses UDP transport, but is possible to enable UA
 ...
 ```
 
+An example on how to implement this external transports is available in `examples/int32_publisher_custom_transport`.
+
 Available ports are `0`, `1` and `2` corresponding `UART_NUM_0`, `UART_NUM_1` and `UART_NUM_2`.
 
 Is possible to use a micro-ROS Agent just with this docker command:

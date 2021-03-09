@@ -38,16 +38,8 @@ void micro_ros_task(void * arg)
 	rcl_allocator_t allocator = rcl_get_default_allocator();
 	rclc_support_t support;
 
-	rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
-	RCCHECK(rcl_init_options_init(&init_options, allocator));
-	rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
-
-	// Static Agent IP and port can be used instead of autodisvery.
-	RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
-	//RCCHECK(rmw_uros_discover_agent(rmw_options));
-
 	// create init_options
-	RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
+	RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
 
 	// create node
 	rcl_node_t node;
@@ -88,10 +80,11 @@ void micro_ros_task(void * arg)
   	vTaskDelete(NULL);
 }
 
+static size_t uart_port = UART_NUM_0;
+
 void app_main(void)
 {   
 #if defined(RMW_UXRCE_TRANSPORT_CUSTOM)
-	size_t uart_port = UART_NUM_1;
 	rmw_uros_set_custom_transport(
 		true,
 		(void *) &uart_port,
@@ -104,7 +97,6 @@ void app_main(void)
 #error micro-ROS transports misconfigured
 #endif  // RMW_UXRCE_TRANSPORT_CUSTOM
 
-    //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
     xTaskCreate(micro_ros_task, 
             "uros_task", 
             CONFIG_MICRO_ROS_APP_STACK, 

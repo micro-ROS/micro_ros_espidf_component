@@ -29,7 +29,7 @@ void publisher_task(void * arg)
 	{
 		RCSOFTCHECK(rcl_publish(publisher, &msg, NULL));
 		msg.data++;
-		sleep(1);
+		usleep(100000);
 	}
 }
 
@@ -61,52 +61,58 @@ void micro_ros_task(void * arg)
 
 	// create publisher
 	rcl_publisher_t publisher_1;
-	RCCHECK(rclc_publisher_init_default(
+	RCCHECK(rclc_publisher_init_best_effort(
 		&publisher_1,
 		&node,
 		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
 		"freertos_multithread_publisher_1"));
 	
 	rcl_publisher_t publisher_2;
-	RCCHECK(rclc_publisher_init_default(
+	RCCHECK(rclc_publisher_init_best_effort(
 		&publisher_2,
 		&node,
 		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
 		"freertos_multithread_publisher_2"));
 
 	rcl_subscription_t subscriber_1;
-		RCCHECK(rclc_subscription_init_default(
+		RCCHECK(rclc_subscription_init_best_effort(
 		&subscriber_1,
 		&node,
 		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
 		"freertos_multithread_publisher_1"));
 
+	rcl_subscription_t subscriber_2;
+		RCCHECK(rclc_subscription_init_default(
+		&subscriber_2,
+		&node,
+		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
+		"outside_topic"));
+
 	// create executor
 	rclc_executor_t executor;
-	RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
+	RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
 
-	std_msgs__msg__Int32 msg;
-	rclc_executor_add_subscription(&executor, &subscriber_1, &msg, subscription_callback, ON_NEW_DATA);
-
-	msg.data = 0;
+	std_msgs__msg__Int32 msg[2];
+	rclc_executor_add_subscription(&executor, &subscriber_1, &msg[0], subscription_callback, ON_NEW_DATA);
+	rclc_executor_add_subscription(&executor, &subscriber_2, &msg[1], subscription_callback, ON_NEW_DATA);
 
 	xTaskCreate(publisher_task, 
 		"publisher_1_task", 
-		4000, 
+		20000, 
 		(void*) &publisher_1,
 		CONFIG_MICRO_ROS_APP_TASK_PRIO+1, 
 		NULL); 
 		
 	xTaskCreate(publisher_task, 
 		"publisher_2_task", 
-		4000, 
+		20000, 
 		(void*) &publisher_2,
 		CONFIG_MICRO_ROS_APP_TASK_PRIO+1, 
 		NULL);
 
 	while(1){
 		rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
-		usleep(10000);
+		usleep(1000);
 	}
 
 	// free resources
@@ -128,7 +134,7 @@ void app_main(void)
     //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
     xTaskCreate(micro_ros_task, 
             "uros_task", 
-            20000, 
+            50000, 
             NULL,
             CONFIG_MICRO_ROS_APP_TASK_PRIO, 
             NULL); 

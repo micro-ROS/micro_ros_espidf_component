@@ -48,12 +48,12 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
 	git clone -b foxy https://github.com/eProsima/micro-CDR src/micro-CDR; \
-	git clone -b foxy https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
+	git clone -b feature/multithread https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 	git clone -b foxy https://github.com/micro-ROS/rcl src/rcl; \
 	git clone -b foxy https://github.com/ros2/rclc src/rclc; \
 	git clone -b foxy https://github.com/micro-ROS/rcutils src/rcutils; \
 	git clone -b foxy https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
-	git clone -b foxy https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
+	git clone -b feature/multithread https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
 	git clone -b foxy https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
 	git clone -b master https://github.com/ros2/tinydir_vendor src/tinydir_vendor; \
@@ -88,7 +88,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DBUILD_TESTING=OFF \
 		-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
 		-DCMAKE_TOOLCHAIN_FILE=$(EXTENSIONS_DIR)/esp32_toolchain.cmake \
-		-DCMAKE_VERBOSE_MAKEFILE=OFF; \
+		-DCMAKE_VERBOSE_MAKEFILE=ON; \
 
 patch_atomic_esp32s2:$(EXTENSIONS_DIR)/micro_ros_src/install
 # Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18

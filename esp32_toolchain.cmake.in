@@ -19,7 +19,9 @@ set(CMAKE_CXX_FLAGS_INIT "@CXXFLAGS@" CACHE STRING "" FORCE)
 set(idf_path "@IDF_PATH@")
 set(idf_target "@IDF_TARGET@")
 
-add_definitions(-DLWIP_IPV4 -DLWIP_IPV6)
+add_compile_definitions(LWIP_IPV4)
+add_compile_definitions(LWIP_IPV6)
+add_compile_definitions(PLATFORM_NAME_FREERTOS)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"

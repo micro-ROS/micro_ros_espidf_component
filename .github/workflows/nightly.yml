@@ -16,7 +16,7 @@ jobs:
       matrix:
         branch: [foxy, main]
         idf_target: [ esp32, esp32s2 ]
-        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:latest" ]
+        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:latest" ]
         exclude:
           - idf_target: esp32s2
             idf_version: "espressif/idf:release-v4.1"

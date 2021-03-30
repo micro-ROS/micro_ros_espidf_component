@@ -12,11 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        idf_target: [ esp32, esp32s2 ]
+        idf_target: [ esp32, esp32s2, esp32c3]
         idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:latest" ]
         exclude:
           - idf_target: esp32s2
             idf_version: "espressif/idf:release-v4.1"
+          - idf_target: esp32c3
+            idf_version: "espressif/idf:release-v4.1"
+          - idf_target: esp32c3
+            idf_version: "espressif/idf:release-v4.2"
     container:
       image: ${{ matrix.idf_version }}
 

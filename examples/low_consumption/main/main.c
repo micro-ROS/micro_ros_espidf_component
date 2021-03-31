@@ -117,6 +117,8 @@ void app_main(void)
     // automatic light sleep is enabled if tickless idle support is enabled.
 #ifdef CONFIG_IDF_TARGET_ESP32S2
     esp_pm_config_esp32s2_t pm_config = {};
+#elif CONFIG_IDF_TARGET_ESP32C3
+	esp_pm_config_esp32c3_t pm_config = {};
 #else
     esp_pm_config_esp32_t pm_config = {};
 #endif

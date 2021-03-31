@@ -1,6 +1,6 @@
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v4.1, v4.2 and v4.3 with ESP32 and ESP32-S2.
+This component has been tested in ESP-IDF v4.1, v4.2 and v4.3 with ESP32, ESP32-S2 and ESP32-C3.
 
 ## Dependencies
 
@@ -32,6 +32,8 @@ In order to test a int32_publisher example:
 ```bash
 . $IDF_PATH/export.sh
 cd examples/int32_publisher
+# Set target board [esp32|esp32s2|esp32c3]
+idf.py set-target esp32
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
 idf.py build 

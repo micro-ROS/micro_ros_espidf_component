@@ -95,7 +95,7 @@ void micro_ros_task(void * arg)
 	// Spin forever.
 	send_msg.data = 0;
 	while(1){
-		rclc_executor_spin_some(&executor, 100);
+		rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
 		usleep(100000);
 	}
 

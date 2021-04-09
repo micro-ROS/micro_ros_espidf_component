@@ -8,6 +8,11 @@ else()
 set(submake "make")
 endif()
 
+set(APP_COLCON_META "${PROJECT_DIR}/app-colcon.meta")
+if(NOT EXISTS "${APP_COLCON_META}")
+set(APP_COLCON_META "")
+endif()
+
 externalproject_add(libmicroros_project
     PREFIX     ${CMAKE_BINARY_DIR}/libmicroros-prefix
     SOURCE_DIR ${COMPONENT_DIR}
@@ -24,6 +29,7 @@ externalproject_add(libmicroros_project
             BUILD_DIR=${CMAKE_BINARY_DIR}
             IDF_PATH=${IDF_PATH}
             IDF_TARGET=${IDF_TARGET}
+            APP_COLCON_META=${APP_COLCON_META}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
     )

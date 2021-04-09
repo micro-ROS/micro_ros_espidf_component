@@ -79,7 +79,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 	colcon build \
 		--merge-install \
 		--packages-ignore-regex=.*_cpp \
-		--metas $(EXTENSIONS_DIR)/colcon.meta \
+		--metas $(EXTENSIONS_DIR)/colcon.meta $(APP_COLCON_META) \
 		--cmake-args \
 		"--no-warn-unused-cli" \
 		-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=OFF \

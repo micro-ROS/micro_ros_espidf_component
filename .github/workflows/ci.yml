@@ -41,6 +41,8 @@ jobs:
           apt install -y python3-colcon-common-extensions python3-pip
           . $IDF_PATH/export.sh
           pip3 install catkin_pkg lark-parser empy
+          # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
+          pip3 install importlib-resources
 
       - name: Build sample - int32_publisher
         shell: bash

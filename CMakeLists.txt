@@ -30,6 +30,8 @@ externalproject_add(libmicroros_project
             IDF_PATH=${IDF_PATH}
             IDF_TARGET=${IDF_TARGET}
             APP_COLCON_META=${APP_COLCON_META}
+            IDF_VERSION_MAJOR=${IDF_VERSION_MAJOR}
+            IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
     )

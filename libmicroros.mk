@@ -97,6 +97,7 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
 		$(AR) x $(UROS_DIR)/install/lib/librcutils.a; \
 		$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
+		$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
 		$(AR) rc -s librcutils.a *.obj; \
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
 		rm -rf $(UROS_DIR)/atomic_workaround; \

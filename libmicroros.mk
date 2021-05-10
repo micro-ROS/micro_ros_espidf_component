@@ -97,7 +97,7 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
 		$(AR) x $(UROS_DIR)/install/lib/librcutils.a; \
 		$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
-		if [ $(IDF_VERSION_MAJOR) >= 4 ] && [ $(IDF_VERSION_MINOR) >= 3 ]; then \
+		if [ $(IDF_VERSION_MAJOR) -ge 4 ] && [ $(IDF_VERSION_MINOR) -ge 3 ]; then \
 			$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
 		fi; \
 		$(AR) rc -s librcutils.a *.obj; \

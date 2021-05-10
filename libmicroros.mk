@@ -75,6 +75,8 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 
 $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake $(EXTENSIONS_DIR)/micro_ros_dev/install $(EXTENSIONS_DIR)/micro_ros_src/src
 	cd $(UROS_DIR); \
+	unset AMENT_PREFIX_PATH; \
+	PATH=$(subst /opt/ros/$(ROS_DISTRO)/bin,,$(PATH)); \
 	. ../micro_ros_dev/install/local_setup.sh; \
 	colcon build \
 		--merge-install \

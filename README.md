@@ -4,7 +4,7 @@ This component has been tested in ESP-IDF v4.1, v4.2 and v4.3 with ESP32, ESP32-
 
 ## Dependencies
 
-This componentes needs `colcon` in order to build micro-ROS packages:
+This component needs `colcon` in order to build micro-ROS packages:
 
 <!-- apt install lsb-release git -->
 ```bash
@@ -23,7 +23,9 @@ pip3 install catkin_pkg lark-parser empy
 
 ## Usage
 
-You can clone this repo directly in the `components` folder of your project
+You can clone this repo directly in the `components` folder of your project.
+
+If you encounter issues during the build process, ensure that you are running in a clean shell environment _without_ the ROS 2 setup script sourced.
 
 ## Example
 

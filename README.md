@@ -4,21 +4,11 @@ This component has been tested in ESP-IDF v4.1, v4.2 and v4.3 with ESP32, ESP32-
 
 ## Dependencies
 
-This component needs `colcon` in order to build micro-ROS packages:
-
-<!-- apt install lsb-release git -->
-```bash
-sudo sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-sudo curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-sudo apt update
-sudo apt install python3-colcon-common-extensions
-```
-
-Some python3 packages are also required inside the IDF virtual environment:
+This component needs `colcon` and other Python 3 packages inside the IDF virtual environment in order to build micro-ROS packages:
 
 ```bash
 . $IDF_PATH/export.sh
-pip3 install catkin_pkg lark-parser empy
+pip3 install catkin_pkg lark-parser empy colcon-common-extensions
 ```
 
 ## Usage

@@ -1,6 +1,6 @@
 name: Nightly
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       name:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [foxy, main]
+        branch: [foxy, main, galactic]
         idf_target: [ esp32, esp32s2, esp32c3]
         idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3" ]
         exclude:
@@ -51,7 +51,7 @@ jobs:
           cd micro_ros_espidf_component/examples/int32_publisher
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
-      
+
       - name: Build sample - low_consumption
         shell: bash
         run: |
@@ -59,7 +59,7 @@ jobs:
           cd micro_ros_espidf_component/examples/low_consumption
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
-    
+
       - name: Build sample - int32_publisher_custom_transport
         shell: bash
         run: |

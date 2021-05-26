@@ -43,7 +43,7 @@ $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	git clone -b ros2 https://github.com/ament/googletest src/googletest; \
 	git clone -b master https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
 	git clone -b master https://github.com/ament/ament_index src/ament_index; \
-	colcon build --cmake-args -DBUILD_TESTING=OFF; 
+	colcon build --cmake-args -DBUILD_TESTING=OFF;
 
 $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
@@ -67,6 +67,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b master https://github.com/ros2/rmw_implementation src/rmw_implementation; \
 	git clone -b master https://github.com/ros2/rcl_logging src/rcl_logging; \
 	git clone -b master https://gitlab.com/micro-ROS/ros_tracing/ros2_tracing src/ros2_tracing; \
+	git clone -b main https://github.com/micro-ROS/micro_ros_utilities; \
     touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \
@@ -107,7 +108,7 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		$(X_AR) rc -s librcutils.a *.obj; \
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
 		rm -rf $(UROS_DIR)/atomic_workaround; \
-		cd ..; 
+		cd ..;
 endif
 
 $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic

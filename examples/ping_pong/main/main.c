@@ -1,10 +1,4 @@
-#include <rcl/rcl.h>
-#include <rcl/error_handling.h>
-#include <rclc/rclc.h>
-#include <rclc/executor.h>
-
-#include <std_msgs/msg/header.h>
-
+#include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
@@ -13,6 +7,19 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #endif
+
+#include "esp_log.h"
+#include "esp_system.h"
+
+#include <uros_network_interfaces.h>
+#include <std_msgs/msg/header.h>
+#include <rcl/rcl.h>
+#include <rcl/error_handling.h>
+#include <rclc/rclc.h>
+#include <rclc/executor.h>
+#include <rmw_microros/rmw_microros.h>
+#include "uxr/client/config.h"
+
 
 #define STRING_BUFFER_LEN 50
 
@@ -83,15 +90,28 @@ void micro_ros_task(void * arg)
 	rcl_allocator_t allocator = rcl_get_default_allocator();
 	rclc_support_t support;
 
+#if 0
 	// create init_options
-	RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+	//RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+#endif
+
+	rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
+	RCCHECK(rcl_init_options_init(&init_options, allocator));
+	rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
+
+	// Static Agent IP and port can be used instead of autodisvery.
+	RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP,
+						  CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
+
+	// create init_options
+	RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
 
 	// create node
-	rcl_node_t node;
+	rcl_node_t node = rcl_get_zero_initialized_node();
 	RCCHECK(rclc_node_init_default(&node, "pingpong_node", "", &support));
 
 	// Create a reliable ping publisher
-	RCCHECK(rclc_publisher_init_default(&ping_publisher, &node,
+	RCCHECK(rclc_publisher_init_best_effort(&ping_publisher, &node,
 		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Header), "/microROS/ping"));
 
 	// Create a best effort pong publisher

@@ -92,7 +92,7 @@ void micro_ros_task(void * arg)
 		NULL);
 
 	while(1){
-		usleep(10000);
+		sleep(100);
 	}
 
 	// free resources

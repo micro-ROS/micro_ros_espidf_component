@@ -1,0 +1,9 @@
+{
+    "names": {
+        "microxrcedds_client": {
+            "cmake-args": [
+                "-DUCLIENT_PROFILE_MULTITHREAD=ON"
+            ]
+        },
+    }
+}

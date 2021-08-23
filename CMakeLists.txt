@@ -13,6 +13,11 @@ if(NOT EXISTS "${APP_COLCON_META}")
 set(APP_COLCON_META "")
 endif()
 
+set(EXTRA_ROS_PACKAGES "${PROJECT_DIR}/extra_ros_packages")
+if(NOT EXISTS "${EXTRA_ROS_PACKAGES}")
+set(EXTRA_ROS_PACKAGES "${COMPONENT_DIR}/extra_packages")
+endif()
+
 externalproject_add(libmicroros_project
     PREFIX     ${CMAKE_BINARY_DIR}/libmicroros-prefix
     SOURCE_DIR ${COMPONENT_DIR}
@@ -32,6 +37,7 @@ externalproject_add(libmicroros_project
             APP_COLCON_META=${APP_COLCON_META}
             IDF_VERSION_MAJOR=${IDF_VERSION_MAJOR}
             IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
+            EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
     )

@@ -1,6 +1,6 @@
 
 
-FROM espressif/idf:release-v4.1
+FROM espressif/idf:release-v4.3
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf

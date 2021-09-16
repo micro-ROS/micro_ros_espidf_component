@@ -28,7 +28,8 @@
                 "-DUCLIENT_PROFILE_UDP=ON",
                 "-DUCLIENT_PROFILE_CUSTOM_TRANSPORT=ON",
                 "-DUCLIENT_PROFILE_SERIAL=OFF",
-                "-DUCLIENT_PROFILE_TCP=OFF"
+                "-DUCLIENT_PROFILE_TCP=OFF",
+                "-DUCLIENT_MIN_HEARTBEAT_TIME_INTERVAL=1"
             ]
         },
         "rmw_microxrcedds": {

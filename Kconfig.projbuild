@@ -1,56 +1,68 @@
 menu "micro-ROS Settings"
 
-config MICRO_ROS_AGENT_IP
-    string "micro-ROS Agent IP"
-    default "192.168.1.100"
-    help
-        micro-ROS Agent IP.
+#####################################
+#    CHOOSE MICRO-ROS MIDDLEWARE    #
+#####################################
 
-config MICRO_ROS_AGENT_PORT
-    string "micro-ROS Agent Port"
-    default "8888"
-    help
-        micro-ROS Agent port.
+choice
+    prompt "micro-ROS middleware"
+    config  MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
+        bool "micro-ROS over eProsima Micro XRCE-DDS"
+    config  MICRO_ROS_ESP_EMBEDDEDRTPS_MIDDLEWARE
+        bool "micro-ROS over embeddedRTPS (EXPERIMENTAL)"
+endchoice
 
-choice  
+##################################
+#    CHOOSE NETWORK INTERFACE    #
+##################################
+
+choice
     prompt "micro-ROS network interface select"
     config  MICRO_ROS_ESP_NETIF_WLAN
-        bool "micro-ROS over network uses WLAN netif"
+        bool "WLAN interface"
     config  MICRO_ROS_ESP_NETIF_ENET
-        bool "micro-ROS over network uses Ethernet netif"
+        bool "Ethernet interface"
+if MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
+    config  MICRO_ROS_ESP_UART_TRANSPORT
+        bool "Micro XRCE-DDS over UART. Check int32_publisher_custom_transport"
+endif
 endchoice
-    
-menu "UART Settings (for serial transport)"
 
-config MICROROS_UART_TXD
-    int "UART TX pin"
-    range -1 33
-    default -1
-    help
-        Select Tx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
 
-config MICROROS_UART_RXD
-    int "UART RX pin"
-    range -1 33
-    default -1
-    help
-        Select Rx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+#####################
+#    WLAN CONFIG    #
+#####################
 
-config MICROROS_UART_RTS
-    int "UART RTS pin"
-    range -1 33
-    default -1
-    help
-        Select RTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+if MICRO_ROS_ESP_NETIF_WLAN
 
-config MICROROS_UART_CTS
-    int "UART CTS pin"
-    range -1 33
-    default -1
-    help
-        Select CTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+menu "WiFi Configuration"
 
+    config ESP_WIFI_SSID
+        string "WiFi SSID"
+        default "myssid"
+        help
+            SSID (network name) for the example to connect to.
+
+    config ESP_WIFI_PASSWORD
+        string "WiFi Password"
+        default "mypassword"
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+
+    config ESP_MAXIMUM_RETRY
+        int "Maximum retry"
+        default 5
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 endmenu
+
+endif # MICRO_ROS_ESP_NETIF_WLAN
+
+#########################
+#    ETHERNET CONFIG    #
+#########################
+
+if MICRO_ROS_ESP_NETIF_ENET
 
 menu "Ethernet Configuration"
     config MICRO_ROS_USE_SPI_ETHERNET
@@ -203,25 +215,66 @@ menu "Ethernet Configuration"
             Set PHY address according your board schematic.
 endmenu
 
-menu "WiFi Configuration"
+endif # MICRO_ROS_ESP_NETIF_ENET
 
-    config ESP_WIFI_SSID
-        string "WiFi SSID"
-        default "myssid"
-        help
-            SSID (network name) for the example to connect to.
+#########################
+#    XRCE-DDS CONFIG    #
+#########################
 
-    config ESP_WIFI_PASSWORD
-        string "WiFi Password"
-        default "mypassword"
-        help
-            WiFi password (WPA or WPA2) for the example to use.
+if MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE && !MICRO_ROS_ESP_UART_TRANSPORT
 
-    config ESP_MAXIMUM_RETRY
-        int "Maximum retry"
-        default 5
-        help
-            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+config MICRO_ROS_AGENT_IP
+    string "micro-ROS Agent IP"
+    default "192.168.1.100"
+    help
+        micro-ROS Agent IP.
+
+config MICRO_ROS_AGENT_PORT
+    string "micro-ROS Agent Port"
+    default "8888"
+    help
+        micro-ROS Agent port.
+
+endif
+
+
+#####################
+#    UART CONFIG    #
+#####################
+
+if MICRO_ROS_ESP_UART_TRANSPORT
+menu "UART Settings"
+
+config MICROROS_UART_TXD
+    int "UART TX pin"
+    range -1 33
+    default -1
+    help
+        Select Tx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_RXD
+    int "UART RX pin"
+    range -1 33
+    default -1
+    help
+        Select Rx Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_RTS
+    int "UART RTS pin"
+    range -1 33
+    default -1
+    help
+        Select RTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
+config MICROROS_UART_CTS
+    int "UART CTS pin"
+    range -1 33
+    default -1
+    help
+        Select CTS Down pin for uart connection or -1 for no change (Only used if serial transport is used for microros).
+
 endmenu
+
+endif # MICRO_ROS_ESP_UART_TRANSPORT
 
 endmenu

@@ -18,6 +18,16 @@ if(NOT EXISTS "${EXTRA_ROS_PACKAGES}")
 set(EXTRA_ROS_PACKAGES "${COMPONENT_DIR}/extra_packages")
 endif()
 
+if(${CONFIG_MICRO_ROS_ESP_EMBEDDEDRTPS_MIDDLEWARE})
+message(STATUS "Using embeddedRTPS middleware")
+set(MIDDLEWARE "embeddedrtps")
+else()
+message(STATUS "Using Micro XRCE-DDS middleware")
+set(MIDDLEWARE "microxrcedds")
+endif()
+
+# message(FATAL_ERROR "Failed to get cmake properties")
+
 externalproject_add(libmicroros_project
     PREFIX     ${CMAKE_BINARY_DIR}/libmicroros-prefix
     SOURCE_DIR ${COMPONENT_DIR}
@@ -31,6 +41,7 @@ externalproject_add(libmicroros_project
             X_CFLAGS=${CMAKE_C_FLAGS}
             X_CXX=${CMAKE_CXX_COMPILER}
             X_CXXFLAGS=${CMAKE_CXX_FLAGS}
+            MIDDLEWARE=${MIDDLEWARE}
             BUILD_DIR=${CMAKE_BINARY_DIR}
             IDF_PATH=${IDF_PATH}
             IDF_TARGET=${IDF_TARGET}

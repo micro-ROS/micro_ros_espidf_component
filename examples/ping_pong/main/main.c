@@ -18,7 +18,6 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <rmw_microros/rmw_microros.h>
-#include "uxr/client/config.h"
 
 
 #define STRING_BUFFER_LEN 50
@@ -171,17 +170,16 @@ void micro_ros_task(void * arg)
 
 
 void app_main(void)
-{   
-#ifdef UCLIENT_PROFILE_UDP
-    // Start the networking if required
+{
+#ifdef CONFIG_MICRO_ROS_ESP_NETIF_WLAN || CONFIG_MICRO_ROS_ESP_NETIF_ENET
     ESP_ERROR_CHECK(uros_network_interface_initialize());
-#endif  // UCLIENT_PROFILE_UDP
+#endif
 
     //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
-    xTaskCreate(micro_ros_task, 
-            "uros_task", 
-            CONFIG_MICRO_ROS_APP_STACK, 
+    xTaskCreate(micro_ros_task,
+            "uros_task",
+            CONFIG_MICRO_ROS_APP_STACK,
             NULL,
-            CONFIG_MICRO_ROS_APP_TASK_PRIO, 
-            NULL); 
+            CONFIG_MICRO_ROS_APP_TASK_PRIO,
+            NULL);
 }

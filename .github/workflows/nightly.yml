@@ -72,6 +72,7 @@ jobs:
           idf.py build
 
       - name: EmbeddedRTPS
+        if: ${{ matrix.branch == 'galactic' }}
         shell: bash
         run: |
           . $IDF_PATH/export.sh

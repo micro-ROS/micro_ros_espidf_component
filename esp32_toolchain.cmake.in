@@ -25,7 +25,6 @@ set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
 set(CMAKE_C_FLAGS_INIT "@CFLAGS@" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_INIT "@CXXFLAGS@" CACHE STRING "" FORCE)
 
-
 add_definitions(-DLWIP_IPV4 -DLWIP_IPV6 -DPLATFORM_NAME_FREERTOS)
 
 include_directories(
@@ -63,9 +62,9 @@ include_directories(
         ${idf_path}/components/espcoredump/include
         ${idf_path}/components/esp_timer/include
         ${idf_path}/components/esp_ipc/include
-        ${idf_path}/components/soc/soc/esp32/include
-        ${idf_path}/components/soc/soc/esp32/../include
-        ${idf_path}/components/soc/soc/esp32/private_include
+        ${idf_path}/components/soc/soc/${idf_target}/include
+        ${idf_path}/components/soc/soc/${idf_target}/../include
+        ${idf_path}/components/soc/soc/${idf_target}/private_include
         ${idf_path}/components/vfs/include
         ${idf_path}/components/esp_wifi/include
         ${idf_path}/components/esp_wifi/${idf_target}/include

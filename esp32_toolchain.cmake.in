@@ -45,6 +45,7 @@ include_directories(
         ${idf_path}/components/soc/src/esp32/.
         ${idf_path}/components/soc/src/esp32/include
         ${idf_path}/components/soc/include
+        ${idf_path}/components/soc/esp32/include
         ${idf_path}/components/esp_rom/include
         ${idf_path}/components/esp_common/include
         ${idf_path}/components/esp_system/include

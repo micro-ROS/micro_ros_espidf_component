@@ -6,6 +6,7 @@ menu "micro-ROS Settings"
 
 choice
     prompt "micro-ROS middleware"
+    default MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
     config  MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
         bool "micro-ROS over eProsima Micro XRCE-DDS"
     config  MICRO_ROS_ESP_EMBEDDEDRTPS_MIDDLEWARE

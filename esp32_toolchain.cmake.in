@@ -2,6 +2,9 @@ include(CMakeForceCompiler)
 
 set(CMAKE_SYSTEM_NAME Generic)
 
+set(idf_target "@IDF_TARGET@")
+set(idf_path "@IDF_PATH@")
+
 if("${idf_target}" STREQUAL "esp32c3")
     set(CMAKE_SYSTEM_PROCESSOR riscv)
 else()
@@ -22,8 +25,6 @@ set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
 set(CMAKE_C_FLAGS_INIT "@CFLAGS@" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_INIT "@CXXFLAGS@" CACHE STRING "" FORCE)
 
-set(idf_path "@IDF_PATH@")
-set(idf_target "@IDF_TARGET@")
 
 add_definitions(-DLWIP_IPV4 -DLWIP_IPV6 -DPLATFORM_NAME_FREERTOS)
 

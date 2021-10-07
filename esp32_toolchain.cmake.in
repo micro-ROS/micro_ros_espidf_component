@@ -2,8 +2,6 @@ include(CMakeForceCompiler)
 
 set(CMAKE_SYSTEM_NAME Generic)
 
-set(idf_target "@IDF_TARGET@")
-
 if("${idf_target}" STREQUAL "esp32c3")
     set(CMAKE_SYSTEM_PROCESSOR riscv)
 else()
@@ -34,6 +32,10 @@ include_directories(
         ${idf_path}/components/newlib/platform_include
         ${idf_path}/components/freertos/include
         ${idf_path}/components/freertos/${CMAKE_SYSTEM_PROCESSOR}/include
+        ${idf_path}/components/freertos/port/${CMAKE_SYSTEM_PROCESSOR}/include
+        ${idf_path}/components/esp_hw_support/include
+        ${idf_path}/components/hal/include
+        ${idf_path}/components/hal/${idf_target}/include
         ${idf_path}/components/heap/include
         ${idf_path}/components/log/include
         ${idf_path}/components/lwip/include/apps
@@ -42,21 +44,21 @@ include_directories(
         ${idf_path}/components/lwip/port/esp32/include
         ${idf_path}/components/lwip/port/esp32/include/arch
         ${idf_path}/components/lwip/port/esp32/tcp_isn
-        ${idf_path}/components/soc/src/esp32/.
-        ${idf_path}/components/soc/src/esp32/include
+        ${idf_path}/components/soc/src/${idf_target}/.
+        ${idf_path}/components/soc/src/${idf_target}/include
         ${idf_path}/components/soc/include
-        ${idf_path}/components/soc/esp32/include
+        ${idf_path}/components/soc/${idf_target}/include
         ${idf_path}/components/esp_rom/include
         ${idf_path}/components/esp_common/include
         ${idf_path}/components/esp_system/include
         ${idf_path}/components/${CMAKE_SYSTEM_PROCESSOR}/include
-        ${idf_path}/components/${CMAKE_SYSTEM_PROCESSOR}/esp32/include
-        ${idf_path}/components/esp32/include
+        ${idf_path}/components/${CMAKE_SYSTEM_PROCESSOR}/${idf_target}/include
+        ${idf_path}/components/${idf_target}/include
         ${idf_path}/components/driver/include
-        ${idf_path}/components/driver/esp32/include
+        ${idf_path}/components/driver/${idf_target}/include
         ${idf_path}/components/esp_ringbuf/include
         ${idf_path}/components/efuse/include
-        ${idf_path}/components/efuse/esp32/include
+        ${idf_path}/components/efuse/${idf_target}/include
         ${idf_path}/components/espcoredump/include
         ${idf_path}/components/esp_timer/include
         ${idf_path}/components/esp_ipc/include
@@ -65,7 +67,7 @@ include_directories(
         ${idf_path}/components/soc/soc/esp32/private_include
         ${idf_path}/components/vfs/include
         ${idf_path}/components/esp_wifi/include
-        ${idf_path}/components/esp_wifi/esp32/include
+        ${idf_path}/components/esp_wifi/${idf_target}/include
         ${idf_path}/components/esp_event/include
         ${idf_path}/components/esp_netif/include
         ${idf_path}/components/esp_eth/include
@@ -118,7 +120,7 @@ include_directories(
         ${idf_path}/components/fatfs/src
         ${idf_path}/components/freemodbus/common/include
         ${idf_path}/components/idf_test/include
-        ${idf_path}/components/idf_test/include/esp32
+        ${idf_path}/components/idf_test/include/${idf_target}
         ${idf_path}/components/jsmn/include
         ${idf_path}/components/json/cJSON
         ${idf_path}/components/libsodium/libsodium/src/libsodium/include

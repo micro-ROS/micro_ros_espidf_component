@@ -83,7 +83,7 @@ void micro_ros_task(void * arg)
 static size_t uart_port = UART_NUM_0;
 
 void app_main(void)
-{   
+{
 #if defined(RMW_UXRCE_TRANSPORT_CUSTOM)
 	rmw_uros_set_custom_transport(
 		true,
@@ -97,10 +97,10 @@ void app_main(void)
 #error micro-ROS transports misconfigured
 #endif  // RMW_UXRCE_TRANSPORT_CUSTOM
 
-    xTaskCreate(micro_ros_task, 
-            "uros_task", 
-            CONFIG_MICRO_ROS_APP_STACK, 
+    xTaskCreate(micro_ros_task,
+            "uros_task",
+            CONFIG_MICRO_ROS_APP_STACK,
             NULL,
-            CONFIG_MICRO_ROS_APP_TASK_PRIO, 
-            NULL); 
+            CONFIG_MICRO_ROS_APP_TASK_PRIO,
+            NULL);
 }

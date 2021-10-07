@@ -13,7 +13,10 @@
 #include <std_msgs/msg/int32.h>
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
+
+#ifdef CONFIG_MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
 #include <rmw_microros/rmw_microros.h>
+#endif
 
 #ifdef CONFIG_PM_ENABLE
 #include "esp_pm.h"

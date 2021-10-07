@@ -50,10 +50,10 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	mkdir micro_ros_src; cd micro_ros_src; \
 	if [ "$(MIDDLEWARE)" = "embeddedrtps" ]; then \
 		git clone -b working_esp32 https://github.com/pablogs9/embeddedRTPS src/embeddedRTPS; \
-		git clone -b embeddedrtps https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
+		git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
 	else \
 		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
-		git clone -b galactic https://github.com/micro-ROS/rmw-microxrcedds src/rmw-microxrcedds; \
+		git clone -b galactic https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
 	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
 	git clone -b galactic https://github.com/micro-ROS/rcl src/rcl; \

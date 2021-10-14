@@ -50,7 +50,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	mkdir micro_ros_src; cd micro_ros_src; \
 	if [ "$(MIDDLEWARE)" = "embeddedrtps" ]; then \
 		git clone -b working_esp32 https://github.com/pablogs9/embeddedRTPS src/embeddedRTPS; \
-		git clone -b feature/cmake_options https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
+		git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
 	else \
 		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 		git clone -b galactic https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
@@ -68,6 +68,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b galactic https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
 	git clone -b galactic https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
 	git clone -b galactic https://github.com/ros2/common_interfaces src/common_interfaces; \
+	git clone -b galactic https://github.com/ros2/example_interfaces src/example_interfaces; \
 	git clone -b galactic https://github.com/ros2/test_interface_files src/test_interface_files; \
 	git clone -b galactic https://github.com/ros2/rmw_implementation src/rmw_implementation; \
 	git clone -b galactic https://github.com/ros2/rcl_logging src/rcl_logging; \

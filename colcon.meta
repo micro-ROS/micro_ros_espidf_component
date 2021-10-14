@@ -45,14 +45,13 @@
                 "-DRMW_UXRCE_MAX_HISTORY=1"
             ]
         },
-        "rmw_embeddedrtps": {
+        "embeddedrtps": {
             "cmake-args": [
-                "-DRMW_ERTPS_MAX_NODES=1",
-                "-DRMW_ERTPS_MAX_PUBLISHERS=2",
-                "-DRMW_ERTPS_MAX_SUBSCRIPTIONS=2",
-                "-DRMW_ERTPS_MAX_SERVICES=1",
-                "-DRMW_ERTPS_MAX_CLIENTS=1",
-                "-DRMW_ERTPS_MAX_HISTORY=10"
+                "-DERTPS_MAX_PUBLISHERS=2",
+                "-DERTPS_MAX_SUBSCRIPTIONS=2",
+                "-DERTPS_MAX_SERVICES=1",
+                "-DERTPS_MAX_CLIENTS=1",
+                "-DERTPS_MAX_HISTORY=10"
             ]
         },
         "tracetools": {

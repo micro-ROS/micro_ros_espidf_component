@@ -11,6 +11,13 @@ This component needs `colcon` and other Python 3 packages inside the IDF virtual
 pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
 ```
 
+## Middlewares available
+
+This package support the usage of micro-ROS on top of two different middlewares:
+- [eProsima Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/): the default micro-ROS middleware.
+- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2.
+
+In order to select it, use `idf.py menuconfig` and go to `micro-ROS Settings > micro-ROS middleware`
 ## Usage
 
 You can clone this repo directly in the `components` folder of your project.
@@ -28,9 +35,9 @@ cd examples/int32_publisher
 idf.py set-target esp32
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
-idf.py build 
-idf.py flash 
-idf.py monitor 
+idf.py build
+idf.py flash
+idf.py monitor
 ```
 
 To clean and rebuild all the micro-ROS library:

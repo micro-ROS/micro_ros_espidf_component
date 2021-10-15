@@ -29,6 +29,7 @@ static EventGroupHandle_t s_wifi_event_group;
 static const char *TAG = "wifi_station_netif";
 static int s_retry_num = 0;
 
+uint8_t IP_ADDRESS[4];
 
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
@@ -46,6 +47,10 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         ESP_LOGI(TAG,"connect to the AP fail");
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        IP_ADDRESS[0] = esp_ip4_addr_get_byte(&event->ip_info.ip, 0);
+        IP_ADDRESS[1] = esp_ip4_addr_get_byte(&event->ip_info.ip, 1);
+        IP_ADDRESS[2] = esp_ip4_addr_get_byte(&event->ip_info.ip, 2);
+        IP_ADDRESS[3] = esp_ip4_addr_get_byte(&event->ip_info.ip, 3);
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
@@ -74,7 +79,7 @@ static void wifi_init_sta(void)
 
 #ifdef CONFIG_PM_ENABLE
             .listen_interval = 5,
-            /* Listen interval for ESP32 station to receive beacon when WIFI_PS_MAX_MODEM is set. 
+            /* Listen interval for ESP32 station to receive beacon when WIFI_PS_MAX_MODEM is set.
             Units: AP beacon intervals. Defaults to 3 if set to 0. */
 #endif //CONFIG_PM_ENABLE *
         },
@@ -88,9 +93,9 @@ static void wifi_init_sta(void)
 #ifdef CONFIG_PM_ENABLE
     ESP_LOGI(TAG, "esp_wifi_set_ps().");
     esp_wifi_set_ps(WIFI_PS_MAX_MODEM);
-    /* Call esp_wifi_set_ps(WIFI_PS_MIN_MODEM) to enable Modem-sleep minimum power save mode 
-    or esp_wifi_set_ps(WIFI_PS_MAX_MODEM) to enable Modem-sleep maximum power save mode after 
-    calling esp_wifi_init(). When station connects to AP, Modem-sleep will start. 
+    /* Call esp_wifi_set_ps(WIFI_PS_MIN_MODEM) to enable Modem-sleep minimum power save mode
+    or esp_wifi_set_ps(WIFI_PS_MAX_MODEM) to enable Modem-sleep maximum power save mode after
+    calling esp_wifi_init(). When station connects to AP, Modem-sleep will start.
     When station disconnects from AP, Modem-sleep will stop. */
 #endif /* CONFIG_PM_ENABLE */
 

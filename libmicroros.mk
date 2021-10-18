@@ -52,7 +52,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 		git clone -b galactic https://github.com/pablogs9/embeddedRTPS src/embeddedRTPS; \
 		git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
 	else \
-		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
+		git clone -b master https://github.com/roncapat/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 		git clone -b galactic https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
 	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \

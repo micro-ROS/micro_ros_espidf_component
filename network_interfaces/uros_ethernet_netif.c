@@ -10,10 +10,12 @@
 #include "sdkconfig.h"
 #if CONFIG_ETH_USE_SPI_ETHERNET
 #include "driver/spi_master.h"
-#endif 
+#endif
 #include "uros_network_interfaces.h"
 
 #ifdef CONFIG_MICRO_ROS_ESP_NETIF_ENET
+
+uint8_t IP_ADDRESS[4];
 
 static const char *TAG = "eth_interface";
 
@@ -57,6 +59,11 @@ static void got_ip_event_handler(void *arg, esp_event_base_t event_base,
     ESP_LOGI(TAG, "ETHMASK:" IPSTR, IP2STR(&ip_info->netmask));
     ESP_LOGI(TAG, "ETHGW:" IPSTR, IP2STR(&ip_info->gw));
     ESP_LOGI(TAG, "~~~~~~~~~~~");
+
+    IP_ADDRESS[0] = esp_ip4_addr_get_byte(&event->ip_info.ip, 0);
+    IP_ADDRESS[1] = esp_ip4_addr_get_byte(&event->ip_info.ip, 1);
+    IP_ADDRESS[2] = esp_ip4_addr_get_byte(&event->ip_info.ip, 2);
+    IP_ADDRESS[3] = esp_ip4_addr_get_byte(&event->ip_info.ip, 3);
 }
 
 esp_err_t uros_network_interface_initialize(void)

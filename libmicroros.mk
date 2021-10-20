@@ -49,8 +49,13 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
 	if [ "$(MIDDLEWARE)" = "embeddedrtps" ]; then \
+<<<<<<< HEAD
 		git clone -b main https://github.com/pablogs9/embeddedRTPS src/embeddedRTPS; \
 		git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
+=======
+		git clone -b galactic https://github.com/micro-ROS/embeddedRTPS src/embeddedRTPS; \
+		git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
+>>>>>>> 86efbad (Fix embeddedRTPS repo (#102))
 	else \
 		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 		git clone -b main https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \

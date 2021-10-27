@@ -67,5 +67,5 @@ target_link_libraries(${COMPONENT_LIB} INTERFACE libmicroros-prebuilt)
 set_directory_properties( PROPERTIES ADDITIONAL_CLEAN_FILES
     "${COMPONENT_DIR}/include;${COMPONENT_DIR}/micro_ros_dev;${COMPONENT_DIR}/micro_ros_src;${COMPONENT_DIR}/esp32_toolchain.cmake" )
 
-add_custom_target(clean-ros COMMAND ${submake} -f libmicroros.mk clean
+add_custom_target(clean-microros COMMAND ${submake} -f libmicroros.mk clean
                             WORKING_DIRECTORY ${COMPONENT_DIR})

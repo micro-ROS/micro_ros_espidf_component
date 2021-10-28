@@ -43,7 +43,7 @@ idf.py monitor
 To clean and rebuild all the micro-ROS library:
 
 ```bash
-make -f libmicroros.mk clean
+idf.py clean-microros
 ```
 
 Is possible to use a micro-ROS Agent just with this docker command:

@@ -132,4 +132,7 @@ include_directories(
         ${idf_path}/components/unity/include
         ${idf_path}/components/unity/unity/src
         ${idf_path}/components/wifi_provisioning/include
+
+        ${idf_path}/components/freertos/include/esp_additions/freertos
+        ${idf_path}/components/freertos/include/esp_additions
     )

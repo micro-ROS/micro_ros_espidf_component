@@ -77,7 +77,6 @@ include_directories(
         ${idf_path}/components/esp_eth/include
         ${idf_path}/components/spiffs/include
         ${idf_path}/components/ulp/include
-<<<<<<< HEAD
         ${idf_path}/components/mdns/include
         ${idf_path}/components/freemodbus/modbus/include
         ${idf_path}/components/freemodbus/common/include
@@ -96,11 +95,7 @@ include_directories(
         ${idf_path}/components/lwip/lwip/src/include/lwip/apps
         ${idf_path}/components/lwip/lwip/src/include/compat/posix
         ${idf_path}/components/lwip/lwip/src/include
-        ${idf_path}/components/lwip/port/esp32/include
-=======
-        ${idf_path}/components/unity/include
-        ${idf_path}/components/unity/unity/src
-        ${idf_path}/components/wifi_provisioning/include
+        ${idf_path}/components/lwip/port/${idf_target}/include
 
         ${idf_path}/components/freertos/include/esp_additions/freertos
         ${idf_path}/components/freertos/include/esp_additions
@@ -108,5 +103,4 @@ include_directories(
         ${idf_path}/components/esp_hw_support/include/soc
         ${idf_path}/components/esp_hw_support/include/soc/${idf_target}
         ${idf_path}/components/esp_hw_support/port/${idf_target}/.
->>>>>>> 56ff175 (Add support for ESP-IDF v4.4 (#110))
     )

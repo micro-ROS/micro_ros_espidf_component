@@ -42,7 +42,7 @@ $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	git clone -b foxy https://github.com/ament/ament_package src/ament_package; \
 	git clone -b foxy https://github.com/ament/googletest src/googletest; \
 	git clone -b foxy https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
-	colcon build; 
+	colcon build;
 
 $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
@@ -103,18 +103,14 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		if [ $(IDF_VERSION_MAJOR) -ge 4 ] && [ $(IDF_VERSION_MINOR) -ge 3 ]; then \
 			$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
 		fi; \
-<<<<<<< HEAD
-		$(AR) rc -s librcutils.a *.obj; \
-=======
 		if [ $(IDF_VERSION_MAJOR) -ge 4 ] && [ $(IDF_VERSION_MINOR) -ge 4 ]; then \
 			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_load_8; \
 			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_store_8; \
 		fi; \
 		$(X_AR) rc -s librcutils.a *.obj; \
->>>>>>> 56ff175 (Add support for ESP-IDF v4.4 (#110))
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
 		rm -rf $(UROS_DIR)/atomic_workaround; \
-		cd ..; 
+		cd ..;
 endif
 
 $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic

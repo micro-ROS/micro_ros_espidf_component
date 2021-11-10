@@ -135,4 +135,8 @@ include_directories(
 
         ${idf_path}/components/freertos/include/esp_additions/freertos
         ${idf_path}/components/freertos/include/esp_additions
+        ${idf_path}/components/esp_hw_support/include
+        ${idf_path}/components/esp_hw_support/include/soc
+        ${idf_path}/components/esp_hw_support/include/soc/${idf_target}
+        ${idf_path}/components/esp_hw_support/port/${idf_target}/.
     )

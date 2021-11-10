@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         idf_target: [ esp32, esp32s2, esp32c3]
-        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3" ]
+        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:release-v4.4" ]
         exclude:
           - idf_target: esp32s2
             idf_version: "espressif/idf:release-v4.1"

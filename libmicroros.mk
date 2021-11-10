@@ -10,8 +10,8 @@ else
 	BUILD_TYPE = Release
 endif
 
-CFLAGS_INTERNAL := $(CFLAGS) -ffunction-sections -fdata-sections
-CXXFLAGS_INTERNAL := $(CXXFLAGS) -ffunction-sections -fdata-sections
+CFLAGS_INTERNAL := $(X_CFLAGS) -ffunction-sections -fdata-sections
+CXXFLAGS_INTERNAL := $(X_CXXFLAGS) -ffunction-sections -fdata-sections
 
 all: $(EXTENSIONS_DIR)/libmicroros.a
 
@@ -25,8 +25,8 @@ clean:
 $(EXTENSIONS_DIR)/esp32_toolchain.cmake: $(EXTENSIONS_DIR)/esp32_toolchain.cmake.in
 	rm -f $(EXTENSIONS_DIR)/esp32_toolchain.cmake; \
 	cat $(EXTENSIONS_DIR)/esp32_toolchain.cmake.in | \
-		sed "s/@CMAKE_C_COMPILER@/$(subst /,\/,$(CC))/g" | \
-		sed "s/@CMAKE_CXX_COMPILER@/$(subst /,\/,$(CXX))/g" | \
+		sed "s/@CMAKE_C_COMPILER@/$(subst /,\/,$(X_CC))/g" | \
+		sed "s/@CMAKE_CXX_COMPILER@/$(subst /,\/,$(X_CXX))/g" | \
 		sed "s/@CFLAGS@/$(subst /,\/,$(CFLAGS_INTERNAL))/g" | \
 		sed "s/@CXXFLAGS@/$(subst /,\/,$(CXXFLAGS_INTERNAL))/g" | \
 		sed "s/@IDF_TARGET@/$(subst /,\/,$(IDF_TARGET))/g" | \
@@ -98,10 +98,10 @@ patch_atomic:$(EXTENSIONS_DIR)/micro_ros_src/install
 ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		echo $(UROS_DIR)/atomic_workaround; \
 		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
-		$(AR) x $(UROS_DIR)/install/lib/librcutils.a; \
-		$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
+		$(X_AR) x $(UROS_DIR)/install/lib/librcutils.a; \
+		$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
 		if [ $(IDF_VERSION_MAJOR) -ge 4 ] && [ $(IDF_VERSION_MINOR) -ge 3 ]; then \
-			$(STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
+			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
 		fi; \
 		if [ $(IDF_VERSION_MAJOR) -ge 4 ] && [ $(IDF_VERSION_MINOR) -ge 4 ]; then \
 			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_load_8; \
@@ -117,12 +117,12 @@ $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_a
 	mkdir -p $(UROS_DIR)/libmicroros; cd $(UROS_DIR)/libmicroros; \
 	for file in $$(find $(UROS_DIR)/install/lib/ -name '*.a'); do \
 		folder=$$(echo $$file | sed -E "s/(.+)\/(.+).a/\2/"); \
-		mkdir -p $$folder; cd $$folder; $(AR) x $$file; \
+		mkdir -p $$folder; cd $$folder; $(X_AR) x $$file; \
 		for f in *; do \
 			mv $$f ../$$folder-$$f; \
 		done; \
 		cd ..; rm -rf $$folder; \
 	done ; \
-	$(AR) rc -s libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); \
+	$(X_AR) rc -s libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); \
 	cd ..; rm -rf libmicroros; \
 	cp -R $(UROS_DIR)/install/include $(EXTENSIONS_DIR)/include;

@@ -125,12 +125,12 @@ $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_a
 	mkdir -p $(UROS_DIR)/libmicroros; cd $(UROS_DIR)/libmicroros; \
 	for file in $$(find $(UROS_DIR)/install/lib/ -name '*.a'); do \
 		folder=$$(echo $$file | sed -E "s/(.+)\/(.+).a/\2/"); \
-		mkdir -p $$folder; cd $$folder; $(AR) x $$file; \
+		mkdir -p $$folder; cd $$folder; $(X_AR) x $$file; \
 		for f in *; do \
 			mv $$f ../$$folder-$$f; \
 		done; \
 		cd ..; rm -rf $$folder; \
 	done ; \
-	$(AR) rc -s libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); \
+	$(X_AR) rc -s libmicroros.a *.obj; cp libmicroros.a $(EXTENSIONS_DIR); \
 	cd ..; rm -rf libmicroros; \
 	cp -R $(UROS_DIR)/install/include $(EXTENSIONS_DIR)/include;

@@ -57,7 +57,7 @@ jobs:
 
       - name: Build sample - low_consumption
         shell: bash
-        if: matrix.idf_target != 'esp32c3'
+        if: matrix.idf_target != 'esp32c3' && matrix.idf_target != 'esp32s3'
         run: |
           . $IDF_PATH/export.sh
           cd micro_ros_espidf_component/examples/low_consumption

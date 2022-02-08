@@ -61,6 +61,11 @@ add_dependencies(libmicroros-prebuilt libmicroros_project)
 set_target_properties(libmicroros-prebuilt PROPERTIES IMPORTED_LOCATION ${COMPONENT_DIR}/libmicroros.a)
 target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include)
 
+set(INCLUDE_ROS2_PACKAGES rmw;rcl;rcl_action;rcl_lifecycle;rcl_logging_interface)
+foreach(pkg ${INCLUDE_ROS2_PACKAGES})
+    target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include/${pkg})
+endforeach()
+
 add_dependencies(${COMPONENT_LIB} libmicroros-prebuilt)
 target_link_libraries(${COMPONENT_LIB} INTERFACE libmicroros-prebuilt)
 

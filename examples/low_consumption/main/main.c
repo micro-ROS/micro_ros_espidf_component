@@ -39,7 +39,7 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 #endif /* CONFIG_PM_ENABLE */
 		RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
 #ifdef CONFIG_PM_ENABLE
-                esp_pm_lock_release(pmlock);	// allow wifi sleep mode 
+                esp_pm_lock_release(pmlock);	// allow wifi sleep mode
 #endif /* CONFIG_PM_ENABLE */
 		msg.data++;
 	}
@@ -105,14 +105,9 @@ void micro_ros_task(void * arg)
 }
 
 void app_main(void)
-<<<<<<< HEAD
-{   
+{
 #ifdef UCLIENT_PROFILE_UDP
     // Start the networking if required
-=======
-{
-#if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
->>>>>>> eb6b9b7 (Fix service server example (#128))
     ESP_ERROR_CHECK(uros_network_interface_initialize());
 #endif  // UCLIENT_PROFILE_UDP
 
@@ -140,10 +135,10 @@ void app_main(void)
 #endif /* CONFIG_PM_ENABLE */
 
     //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
-    xTaskCreate(micro_ros_task, 
-            "uros_task", 
-            CONFIG_MICRO_ROS_APP_STACK, 
+    xTaskCreate(micro_ros_task,
+            "uros_task",
+            CONFIG_MICRO_ROS_APP_STACK,
             NULL,
-            CONFIG_MICRO_ROS_APP_TASK_PRIO, 
+            CONFIG_MICRO_ROS_APP_TASK_PRIO,
             NULL);
 }

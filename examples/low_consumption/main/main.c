@@ -105,9 +105,14 @@ void micro_ros_task(void * arg)
 }
 
 void app_main(void)
+<<<<<<< HEAD
 {   
 #ifdef UCLIENT_PROFILE_UDP
     // Start the networking if required
+=======
+{
+#if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
+>>>>>>> eb6b9b7 (Fix service server example (#128))
     ESP_ERROR_CHECK(uros_network_interface_initialize());
 #endif  // UCLIENT_PROFILE_UDP
 

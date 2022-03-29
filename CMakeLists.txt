@@ -26,32 +26,25 @@ message(STATUS "Using Micro XRCE-DDS middleware")
 set(MIDDLEWARE "microxrcedds")
 endif()
 
-# message(FATAL_ERROR "Failed to get cmake properties")
-
-externalproject_add(libmicroros_project
-    PREFIX     ${CMAKE_BINARY_DIR}/libmicroros-prefix
-    SOURCE_DIR ${COMPONENT_DIR}
-    BINARY_DIR ${COMPONENT_DIR}
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND
+execute_process(
+    WORKING_DIRECTORY ${COMPONENT_DIR}
+    COMMAND
         ${submake} -j -f libmicroros.mk
-            X_CC=${CMAKE_C_COMPILER}
-            X_AR=${CMAKE_AR}
-            X_STRIP=${CMAKE_STRIP}
-            X_CFLAGS=${CMAKE_C_FLAGS}
-            X_CXX=${CMAKE_CXX_COMPILER}
-            X_CXXFLAGS=${CMAKE_CXX_FLAGS}
-            MIDDLEWARE=${MIDDLEWARE}
-            BUILD_DIR=${CMAKE_BINARY_DIR}
-            IDF_PATH=${IDF_PATH}
-            IDF_TARGET=${IDF_TARGET}
-            APP_COLCON_META=${APP_COLCON_META}
-            IDF_VERSION_MAJOR=${IDF_VERSION_MAJOR}
-            IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
-            EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
-    INSTALL_COMMAND ""
-    BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
-    )
+                X_CC=${CMAKE_C_COMPILER}
+                X_AR=${CMAKE_AR}
+                X_STRIP=${CMAKE_STRIP}
+                X_CFLAGS=${CMAKE_C_FLAGS}
+                X_CXX=${CMAKE_CXX_COMPILER}
+                X_CXXFLAGS=${CMAKE_CXX_FLAGS}
+                MIDDLEWARE=${MIDDLEWARE}
+                BUILD_DIR=${CMAKE_BINARY_DIR}
+                IDF_PATH=${IDF_PATH}
+                IDF_TARGET=${IDF_TARGET}
+                APP_COLCON_META=${APP_COLCON_META}
+                IDF_VERSION_MAJOR=${IDF_VERSION_MAJOR}
+                IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
+                EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
+)
 
 add_prebuilt_library(libmicroros-prebuilt ""
                      REQUIRES lwip)
@@ -61,9 +54,12 @@ add_dependencies(libmicroros-prebuilt libmicroros_project)
 set_target_properties(libmicroros-prebuilt PROPERTIES IMPORTED_LOCATION ${COMPONENT_DIR}/libmicroros.a)
 target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include)
 
-set(INCLUDE_ROS2_PACKAGES rmw;rcl;rcl_action;rcl_lifecycle;rcl_logging_interface;rosidl_runtime_c;rosidl_typesupport_interface)
-foreach(pkg ${INCLUDE_ROS2_PACKAGES})
-    target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include/${pkg})
+file(GLOB include_folders LIST_DIRECTORIES true CONFIGURE_DEPENDS ${COMPONENT_DIR}/include/*)
+foreach(include_folder ${include_folders})
+    if(IS_DIRECTORY ${include_folder})
+        get_filename_component(folder_name ${include_folder} NAME)
+        target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include/${folder_name})
+    endif()
 endforeach()
 
 add_dependencies(${COMPONENT_LIB} libmicroros-prebuilt)

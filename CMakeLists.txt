@@ -66,6 +66,7 @@ foreach(include_folder ${include_folders})
     if(IS_DIRECTORY ${include_folder})
         get_filename_component(folder_name ${include_folder} NAME)
         target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include/${folder_name})
+        message(STATUS "micro-ROS Adding ${include_folder} to target")
     endif()
 endforeach()
 

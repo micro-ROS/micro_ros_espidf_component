@@ -1,3 +1,13 @@
+<br/>
+
+<a>
+   <p align="center">
+      <img width="40%" src=".images/espressif_logo.png">
+      <img width="40%" src=".images/microros_logo.png">
+   </p>
+</a>
+<br/>
+
 # micro-ROS component for ESP-IDF
 
 This component has been tested in ESP-IDF v4.1, v4.2, v4.3 and v4.4 with ESP32, ESP32-S2, ESP32-S3 and ESP32-C3.

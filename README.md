@@ -1,12 +1,5 @@
-<br/>
-
-<a>
-   <p align="center">
-      <img width="40%" src=".images/espressif_logo.png">
-      <img width="40%" src=".images/microros_logo.png">
-   </p>
-</a>
-<br/>
+![banner](.images/banner-dark-theme.png#gh-dark-mode-only)
+![banner](.images/banner-light-theme.png#gh-light-mode-only)
 
 # micro-ROS component for ESP-IDF
 

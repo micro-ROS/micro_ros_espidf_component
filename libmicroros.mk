@@ -37,42 +37,42 @@ $(EXTENSIONS_DIR)/esp32_toolchain.cmake: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	rm -rf micro_ros_dev; \
 	mkdir micro_ros_dev; cd micro_ros_dev; \
-	git clone -b master https://github.com/ament/ament_cmake src/ament_cmake; \
-	git clone -b master https://github.com/ament/ament_lint src/ament_lint; \
-	git clone -b master https://github.com/ament/ament_package src/ament_package; \
-	git clone -b ros2 https://github.com/ament/googletest src/googletest; \
-	git clone -b master https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
-	git clone -b master https://github.com/ament/ament_index src/ament_index; \
+	git clone -b humble https://github.com/ament/ament_cmake src/ament_cmake; \
+	git clone -b humble https://github.com/ament/ament_lint src/ament_lint; \
+	git clone -b humble https://github.com/ament/ament_package src/ament_package; \
+	git clone -b humble https://github.com/ament/googletest src/googletest; \
+	git clone -b humble https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
+	git clone -b humble https://github.com/ament/ament_index src/ament_index; \
 	colcon build --cmake-args -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=gcc;
 
 $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
 	if [ "$(MIDDLEWARE)" = "embeddedrtps" ]; then \
-		git clone -b main https://github.com/micro-ROS/embeddedRTPS src/embeddedRTPS; \
-		git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
+		git clone -b humble https://github.com/micro-ROS/embeddedRTPS src/embeddedRTPS; \
+		git clone -b humble https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
 	else \
 		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
-		git clone -b main https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
+		git clone -b humble https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
-	git clone -b foxy https://github.com/eProsima/micro-CDR src/micro-CDR; \
-	git clone -b master https://github.com/micro-ROS/rcl src/rcl; \
-	git clone -b master https://github.com/ros2/rclc src/rclc; \
-	git clone -b master https://github.com/micro-ROS/rcutils src/rcutils; \
-	git clone -b main https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
-	git clone -b master https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
-	git clone -b main https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
-	git clone -b master https://github.com/ros2/rosidl src/rosidl; \
-	git clone -b master https://github.com/ros2/rmw src/rmw; \
-	git clone -b master https://github.com/ros2/rcl_interfaces src/rcl_interfaces; \
-	git clone -b master https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
-	git clone -b master https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
-	git clone -b master https://github.com/ros2/common_interfaces src/common_interfaces; \
-	git clone -b master https://github.com/ros2/test_interface_files src/test_interface_files; \
-	git clone -b master https://github.com/ros2/rmw_implementation src/rmw_implementation; \
-	git clone -b master https://github.com/ros2/rcl_logging src/rcl_logging; \
-	git clone -b master https://gitlab.com/micro-ROS/ros_tracing/ros2_tracing src/ros2_tracing; \
-	git clone -b main https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
+	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
+	git clone -b humble https://github.com/micro-ROS/rcl src/rcl; \
+	git clone -b humble https://github.com/ros2/rclc src/rclc; \
+	git clone -b humble https://github.com/micro-ROS/rcutils src/rcutils; \
+	git clone -b humble https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
+	git clone -b humble https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
+	git clone -b humble https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
+	git clone -b humble https://github.com/ros2/rosidl src/rosidl; \
+	git clone -b humble https://github.com/ros2/rmw src/rmw; \
+	git clone -b humble https://github.com/ros2/rcl_interfaces src/rcl_interfaces; \
+	git clone -b humble https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
+	git clone -b humble https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
+	git clone -b humble https://github.com/ros2/common_interfaces src/common_interfaces; \
+	git clone -b humble https://github.com/ros2/test_interface_files src/test_interface_files; \
+	git clone -b humble https://github.com/ros2/rmw_implementation src/rmw_implementation; \
+	git clone -b humble https://github.com/ros2/rcl_logging src/rcl_logging; \
+	git clone -b humble https://gitlab.com/ros-tracing/ros2_tracing src/ros2_tracing; \
+	git clone -b humble https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
     touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \

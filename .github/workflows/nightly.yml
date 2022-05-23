@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [foxy, main, galactic]
+        branch: [foxy, main, galactic, humble]
         idf_target: [ esp32, esp32s2, esp32c3, esp32s3]
         idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:release-v4.4" ]
         exclude:

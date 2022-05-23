@@ -90,7 +90,7 @@ Is possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # Serial micro-ROS Agent
-docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:foxy serial --dev [YOUR BOARD PORT] -v6
+docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble serial --dev [YOUR BOARD PORT] -v6
 ```
 
 ## Purpose of the Project

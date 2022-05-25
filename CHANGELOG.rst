@@ -2,8 +2,8 @@
 Changelog for package micro_ros_espidf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.0.0 (2022-05-25)
+------------------
 * Update banner (`#143 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/143>`_)
 * Fixed build when PATH contains spaces (`#140 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/140>`_)
 * Add logos (`#137 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/137>`_)

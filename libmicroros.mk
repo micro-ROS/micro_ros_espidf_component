@@ -68,6 +68,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b humble https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
 	git clone -b humble https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
 	git clone -b humble https://github.com/ros2/common_interfaces src/common_interfaces; \
+	git clone -b galactic https://github.com/ros2/example_interfaces src/example_interfaces; \
 	git clone -b humble https://github.com/ros2/test_interface_files src/test_interface_files; \
 	git clone -b humble https://github.com/ros2/rmw_implementation src/rmw_implementation; \
 	git clone -b humble https://github.com/ros2/rcl_logging src/rcl_logging; \

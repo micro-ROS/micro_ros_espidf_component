@@ -74,6 +74,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b master https://github.com/ros2/rcl_logging src/rcl_logging; \
 	git clone -b master https://gitlab.com/micro-ROS/ros_tracing/ros2_tracing src/ros2_tracing; \
 	git clone -b main https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
+	git clone -b rolling https://github.com/ros2/rosidl_core src/rosidl_core; \
     touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \

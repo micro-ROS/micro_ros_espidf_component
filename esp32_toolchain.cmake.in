@@ -33,11 +33,16 @@ include_directories(
         ${idf_path}/components/freertos/include
         ${idf_path}/components/freertos/${CMAKE_SYSTEM_PROCESSOR}/include
         ${idf_path}/components/freertos/port/${CMAKE_SYSTEM_PROCESSOR}/include
+	${idf_path}/components/freertos/FreeRTOS-Kernel/portable/${CMAKE_SYSTEM_PROCESSOR}/include
+	${idf_path}/components/freertos/FreeRTOS-Kernel/include
+	${idf_path}/components/freertos/esp_additions/include
+	${idf_path}/components/freertos/esp_additions/include/freertos
         ${idf_path}/components/esp_hw_support/include
         ${idf_path}/components/hal/include
         ${idf_path}/components/hal/${idf_target}/include
         ${idf_path}/components/heap/include
         ${idf_path}/components/log/include
+        ${idf_path}/components/lwip/include
         ${idf_path}/components/lwip/include/apps
         ${idf_path}/components/lwip/include/apps/sntp
         ${idf_path}/components/lwip/lwip/src/include

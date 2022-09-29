@@ -49,6 +49,8 @@ jobs:
           pip3 install catkin_pkg lark-parser empy colcon-common-extensions
           # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
           pip3 install importlib-resources
+          # this installs the modules also for global python interpreter, needed for IDF v5
+          /usr/bin/pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
 
       - name: Build sample - int32_publisher
         shell: bash

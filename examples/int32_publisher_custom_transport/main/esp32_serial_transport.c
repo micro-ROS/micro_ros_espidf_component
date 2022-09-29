@@ -49,6 +49,6 @@ size_t esp32_serial_write(struct uxrCustomTransport* transport, const uint8_t * 
 
 size_t esp32_serial_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
     size_t * uart_port = (size_t*) transport->args;
-    const int rxBytes = uart_read_bytes(*uart_port, buf, len, timeout / portTICK_RATE_MS);
+    const int rxBytes = uart_read_bytes(*uart_port, buf, len, timeout / portTICK_PERIOD_MS);
     return rxBytes;
 }

@@ -31,7 +31,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 	(void) last_call_time;
 	if (timer != NULL) {
 		RCSOFTCHECK(rcl_publish(&publisher, &send_msg, NULL));
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
+		printf("Sent: %ld\n", send_msg.data);
+#else
 		printf("Sent: %d\n", send_msg.data);
+#endif
 		send_msg.data++;
 	}
 }
@@ -39,7 +43,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 void subscription_callback(const void * msgin)
 {
 	const std_msgs__msg__Int32 * msg = (const std_msgs__msg__Int32 *)msgin;
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
+	printf("Received: %ld\n", msg->data);
+#else
 	printf("Received: %d\n", msg->data);
+#endif
 }
 
 void micro_ros_task(void * arg)

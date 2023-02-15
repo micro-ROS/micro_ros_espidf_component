@@ -1,6 +1,6 @@
 idf_component_register(SRCS "network_interfaces/uros_ethernet_netif.c" "network_interfaces/uros_wlan_netif.c"
                        INCLUDE_DIRS "network_interfaces"
-                       REQUIRES nvs_flash)
+                       REQUIRES nvs_flash esp_wifi esp_eth)
 
 if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
 set(submake "$(MAKE)")
@@ -26,6 +26,22 @@ message(STATUS "Using Micro XRCE-DDS middleware")
 set(MIDDLEWARE "microxrcedds")
 endif()
 
+# Create a list of packages to get includes
+idf_build_get_property(PACKAGES BUILD_COMPONENTS)
+
+# Add includes for each package
+foreach(package ${PACKAGES})
+    idf_component_get_property(${package}_dir ${package} COMPONENT_DIR)
+    idf_component_get_property(${package}_includes ${package} INCLUDE_DIRS)
+    list(TRANSFORM ${package}_includes PREPEND " -I${${package}_dir}/")
+    string(REPLACE ";" "" ${package}_includes_string "${${package}_includes}")
+endforeach()
+
+# Create a string with all packages with a for loop
+foreach(package ${PACKAGES})
+    string(APPEND IDF_INCLUDES "${${package}_includes_string}")
+endforeach()
+
 execute_process(
     WORKING_DIRECTORY ${COMPONENT_DIR}
     COMMAND
@@ -38,6 +54,7 @@ execute_process(
                 X_CXXFLAGS=${CMAKE_CXX_FLAGS}
                 MIDDLEWARE=${MIDDLEWARE}
                 BUILD_DIR=${CMAKE_BINARY_DIR}
+                IDF_INCLUDES=${IDF_INCLUDES}
                 IDF_PATH=${IDF_PATH}
                 IDF_TARGET=${IDF_TARGET}
                 APP_COLCON_META=${APP_COLCON_META}

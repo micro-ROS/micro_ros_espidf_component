@@ -52,7 +52,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 		git clone -b main https://github.com/micro-ROS/embeddedRTPS src/embeddedRTPS; \
 		git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
 	else \
-		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
+		git clone -b feature/c_version https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
 		git clone -b main https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
 	git clone -b foxy https://github.com/eProsima/micro-CDR src/micro-CDR; \
@@ -102,7 +102,8 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
 		-DCMAKE_TOOLCHAIN_FILE=$(EXTENSIONS_DIR)/esp32_toolchain.cmake \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF \
-        -DIDF_INCLUDES='${IDF_INCLUDES}';
+        -DIDF_INCLUDES='${IDF_INCLUDES}' \
+		-DUCLIENT_C_STANDARD=17;
 
 patch_atomic:$(EXTENSIONS_DIR)/micro_ros_src/install
 # Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18

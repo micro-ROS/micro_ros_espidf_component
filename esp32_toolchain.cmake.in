@@ -22,15 +22,12 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_C_COMPILER @CMAKE_C_COMPILER@)
 set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
 
-# C17 needed for esp_macros.h
-SET(CMAKE_C_STANDARD 17 CACHE INTERNAL "")
-
 set(FLAGS "-mlongcalls -ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${FLAGS} ${IDF_INCLUDES}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti ${FLAGS}")
 
-add_definitions(-DESP_PLATFORM -DLWIP_IPV4 -DLWIP_IPV6 -DPLATFORM_NAME_FREERTOS)
+add_compile_definitions(ESP_PLATFORM LWIP_IPV4 LWIP_IPV6 PLATFORM_NAME_FREERTOS)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"

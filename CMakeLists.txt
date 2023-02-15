@@ -8,6 +8,12 @@ else()
 set(submake "make")
 endif()
 
+if (${IDF_VERSION_MAJOR} EQUAL 5)
+    set(CMAKE_C_STANDARD 17)
+else()
+     set(CMAKE_C_STANDARD 14)
+endif()
+
 set(APP_COLCON_META "${PROJECT_DIR}/app-colcon.meta")
 if(NOT EXISTS "${APP_COLCON_META}")
 set(APP_COLCON_META "")
@@ -52,6 +58,7 @@ execute_process(
                 X_CFLAGS=${CMAKE_C_FLAGS}
                 X_CXX=${CMAKE_CXX_COMPILER}
                 X_CXXFLAGS=${CMAKE_CXX_FLAGS}
+                C_STANDARD=${CMAKE_C_STANDARD}
                 MIDDLEWARE=${MIDDLEWARE}
                 BUILD_DIR=${CMAKE_BINARY_DIR}
                 IDF_INCLUDES=${IDF_INCLUDES}

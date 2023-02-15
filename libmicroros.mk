@@ -103,7 +103,8 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DCMAKE_TOOLCHAIN_FILE=$(EXTENSIONS_DIR)/esp32_toolchain.cmake \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF \
         -DIDF_INCLUDES='${IDF_INCLUDES}' \
-		-DUCLIENT_C_STANDARD=17;
+		-DCMAKE_C_STANDARD=$(C_STANDARD) \
+		-DUCLIENT_C_STANDARD=$(C_STANDARD);
 
 patch_atomic:$(EXTENSIONS_DIR)/micro_ros_src/install
 # Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18

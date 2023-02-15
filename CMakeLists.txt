@@ -1,6 +1,6 @@
 idf_component_register(SRCS "network_interfaces/uros_ethernet_netif.c" "network_interfaces/uros_wlan_netif.c"
                        INCLUDE_DIRS "network_interfaces"
-                       REQUIRES nvs_flash esp_wifi esp_eth)
+                       REQUIRES nvs_flash esp_wifi esp_eth lwip)
 
 if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
 set(submake "$(MAKE)")
@@ -11,7 +11,7 @@ endif()
 if (${IDF_VERSION_MAJOR} EQUAL 5)
     set(CMAKE_C_STANDARD 17)
 else()
-     set(CMAKE_C_STANDARD 14)
+    set(CMAKE_C_STANDARD 11)
 endif()
 
 set(APP_COLCON_META "${PROJECT_DIR}/app-colcon.meta")

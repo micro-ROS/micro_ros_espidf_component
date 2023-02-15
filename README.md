@@ -3,7 +3,7 @@
 
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v4.1, v4.2, v4.3 and v4.4 with ESP32, ESP32-S2, ESP32-S3 and ESP32-C3.
+This component has been tested in ESP-IDF v4.1, v4.2, v4.3, v4.4, and v5.0 with ESP32, ESP32-S2, ESP32-S3 and ESP32-C3.
 
 ## Dependencies
 
@@ -64,7 +64,7 @@ It's possible to build this example application using preconfigured docker conta
 docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):/micro_ros_espidf_component -v  /dev:/dev --privileged --workdir /micro_ros_espidf_component microros/esp-idf-microros:latest /bin/bash  -c "cd examples/int32_publisher; idf.py menuconfig build flash monitor"
 ```
 
-Dockerfile for this container is provided in the ./docker directory and available in dockerhub.
+Dockerfile for this container is provided in the ./docker directory and available in dockerhub. This approach uses ESP-IDF v5.
 
 ## Using serial transport
 

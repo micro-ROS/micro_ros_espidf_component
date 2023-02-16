@@ -3,6 +3,7 @@ include(CMakeForceCompiler)
 set(CMAKE_SYSTEM_NAME Generic)
 
 set(idf_target "@IDF_TARGET@")
+set(idf_path "@IDF_PATH@")
 
 if("${idf_target}" STREQUAL "esp32c3")
     set(CMAKE_SYSTEM_PROCESSOR riscv)

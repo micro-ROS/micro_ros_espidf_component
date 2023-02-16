@@ -24,31 +24,6 @@ if(NOT EXISTS "${EXTRA_ROS_PACKAGES}")
 set(EXTRA_ROS_PACKAGES "${COMPONENT_DIR}/extra_packages")
 endif()
 
-<<<<<<< HEAD
-externalproject_add(libmicroros_project
-    PREFIX     ${CMAKE_BINARY_DIR}/libmicroros-prefix
-    SOURCE_DIR ${COMPONENT_DIR}
-    BINARY_DIR ${COMPONENT_DIR}
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND
-        ${submake} -j -f libmicroros.mk
-            X_CC=${CMAKE_C_COMPILER}
-            X_AR=${CMAKE_AR}
-            X_STRIP=${CMAKE_STRIP}
-            X_CFLAGS=${CMAKE_C_FLAGS}
-            X_CXX=${CMAKE_CXX_COMPILER}
-            X_CXXFLAGS=${CMAKE_CXX_FLAGS}
-            BUILD_DIR=${CMAKE_BINARY_DIR}
-            IDF_PATH=${IDF_PATH}
-            IDF_TARGET=${IDF_TARGET}
-            APP_COLCON_META=${APP_COLCON_META}
-            IDF_VERSION_MAJOR=${IDF_VERSION_MAJOR}
-            IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
-            EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
-    INSTALL_COMMAND ""
-    BUILD_BYPRODUCTS ${COMPONENT_DIR}/libmicroros.a
-    )
-=======
 if(${CONFIG_MICRO_ROS_ESP_EMBEDDEDRTPS_MIDDLEWARE})
 message(STATUS "Using embeddedRTPS middleware")
 set(MIDDLEWARE "embeddedrtps")
@@ -94,7 +69,6 @@ execute_process(
                 IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
                 EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
 )
->>>>>>> a71fb63 (Add IDF 5 support and deprecate versions 4.1 and 4.2 (#176))
 
 add_prebuilt_library(libmicroros-prebuilt ""
                      REQUIRES lwip)

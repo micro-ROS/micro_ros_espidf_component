@@ -68,8 +68,6 @@ jobs:
           sed -i 's/DRMW_UXRCE_TRANSPORT=udp/DRMW_UXRCE_TRANSPORT=custom/' colcon.meta
           cd examples/int32_publisher_custom_transport
           idf.py set-target ${{ matrix.idf_target }}
-<<<<<<< HEAD
-=======
           idf.py build
 
       - name: EmbeddedRTPS
@@ -81,5 +79,4 @@ jobs:
           make -f libmicroros.mk clean
           cd examples/int32_publisher_embeddedrtps
           idf.py set-target ${{ matrix.idf_target }}
->>>>>>> a71fb63 (Add IDF 5 support and deprecate versions 4.1 and 4.2 (#176))
           idf.py build

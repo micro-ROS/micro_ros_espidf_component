@@ -1,10 +1,6 @@
 
 
-<<<<<<< HEAD
-FROM espressif/idf:release-v4.1
-=======
 FROM espressif/idf:release-v5.0
->>>>>>> a71fb63 (Add IDF 5 support and deprecate versions 4.1 and 4.2 (#176))
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf

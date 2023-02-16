@@ -26,37 +26,9 @@ set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${FLAGS} ${IDF_INCLUDES}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti ${FLAGS} ${IDF_INCLUDES}")
 
-<<<<<<< HEAD
-set(idf_path "@IDF_PATH@")
-set(idf_target "@IDF_TARGET@")
-
-add_definitions(-DLWIP_IPV4 -DLWIP_IPV6 -DPLATFORM_NAME_FREERTOS)
-
-include_directories(
-         "@BUILD_CONFIG_DIR@"
-        ${idf_path}/components/newlib/platform_include
-        ${idf_path}/components/freertos/include
-        ${idf_path}/components/freertos/${CMAKE_SYSTEM_PROCESSOR}/include
-        ${idf_path}/components/freertos/port/${CMAKE_SYSTEM_PROCESSOR}/include
-        ${idf_path}/components/esp_hw_support/include
-        ${idf_path}/components/hal/include
-        ${idf_path}/components/hal/${idf_target}/include
-        ${idf_path}/components/heap/include
-        ${idf_path}/components/log/include
-        ${idf_path}/components/lwip/include/apps
-        ${idf_path}/components/lwip/include/apps/sntp
-        ${idf_path}/components/lwip/lwip/src/include
-        ${idf_path}/components/lwip/port/esp32/include
-        ${idf_path}/components/lwip/port/esp32/include/arch
-        ${idf_path}/components/lwip/port/esp32/tcp_isn
-        ${idf_path}/components/soc/src/${idf_target}/.
-        ${idf_path}/components/soc/src/${idf_target}/include
-        ${idf_path}/components/soc/include
-=======
 add_compile_definitions(ESP_PLATFORM LWIP_IPV4 LWIP_IPV6 PLATFORM_NAME_FREERTOS)
 
 include_directories(
         "@BUILD_CONFIG_DIR@"
->>>>>>> a71fb63 (Add IDF 5 support and deprecate versions 4.1 and 4.2 (#176))
         ${idf_path}/components/soc/${idf_target}/include
     )

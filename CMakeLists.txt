@@ -24,14 +24,6 @@ if(NOT EXISTS "${EXTRA_ROS_PACKAGES}")
 set(EXTRA_ROS_PACKAGES "${COMPONENT_DIR}/extra_packages")
 endif()
 
-if(${CONFIG_MICRO_ROS_ESP_EMBEDDEDRTPS_MIDDLEWARE})
-message(STATUS "Using embeddedRTPS middleware")
-set(MIDDLEWARE "embeddedrtps")
-else()
-message(STATUS "Using Micro XRCE-DDS middleware")
-set(MIDDLEWARE "microxrcedds")
-endif()
-
 # Create a list of packages to get includes
 idf_build_get_property(PACKAGES BUILD_COMPONENTS)
 

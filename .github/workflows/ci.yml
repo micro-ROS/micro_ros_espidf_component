@@ -13,18 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         idf_target: [ esp32, esp32s2, esp32s3, esp32c3]
-        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:release-v4.4" ]
+        idf_version: [ "espressif/idf:release-v4.3", "espressif/idf:release-v4.4", "espressif/idf:release-v5.0" ]
         exclude:
-          - idf_target: esp32s2
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32c3
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32c3
-            idf_version: "espressif/idf:release-v4.2"
-          - idf_target: esp32s3
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32s3
-            idf_version: "espressif/idf:release-v4.2"
           - idf_target: esp32s3
             idf_version: "espressif/idf:release-v4.3"
 
@@ -44,6 +34,13 @@ jobs:
           apt install -y git python3-pip
           . $IDF_PATH/export.sh
           pip3 install catkin_pkg lark-parser empy colcon-common-extensions
+<<<<<<< HEAD
+=======
+          # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
+          pip3 install importlib-resources
+          # this installs the modules also for global python interpreter, needed for IDF v5
+          /usr/bin/pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
+>>>>>>> a71fb63 (Add IDF 5 support and deprecate versions 4.1 and 4.2 (#176))
 
       - name: Build sample - int32_publisher
         shell: bash

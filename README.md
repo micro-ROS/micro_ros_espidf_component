@@ -3,7 +3,7 @@
 
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v4.1, v4.2, v4.3, v4.4, and v5.0 with ESP32, ESP32-S2, ESP32-S3 and ESP32-C3.
+This component has been tested in ESP-IDF v4.3, v4.4, and v5.0 with ESP32, ESP32-S2, ESP32-S3 and ESP32-C3.
 
 ## Dependencies
 

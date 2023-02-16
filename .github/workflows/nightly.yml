@@ -14,20 +14,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [foxy, main, galactic, humble]
+        branch: [foxy, main, humble]
         idf_target: [ esp32, esp32s2, esp32c3, esp32s3]
-        idf_version: [ "espressif/idf:release-v4.1", "espressif/idf:release-v4.2", "espressif/idf:release-v4.3", "espressif/idf:release-v4.4" ]
+        idf_version: [ "espressif/idf:release-v4.3", "espressif/idf:release-v4.4", "espressif/idf:release-v5.0" ]
         exclude:
-          - idf_target: esp32s2
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32c3
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32c3
-            idf_version: "espressif/idf:release-v4.2"
-          - idf_target: esp32s3
-            idf_version: "espressif/idf:release-v4.1"
-          - idf_target: esp32s3
-            idf_version: "espressif/idf:release-v4.2"
           - idf_target: esp32s3
             idf_version: "espressif/idf:release-v4.3"
     container:
@@ -49,6 +39,8 @@ jobs:
           pip3 install catkin_pkg lark-parser empy colcon-common-extensions
           # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
           pip3 install importlib-resources
+          # this installs the modules also for global python interpreter, needed for IDF v5
+          /usr/bin/pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
 
       - name: Build sample - int32_publisher
         shell: bash
@@ -79,7 +71,7 @@ jobs:
           idf.py build
 
       - name: EmbeddedRTPS
-        if: ${{ matrix.branch == 'galactic' }}
+        if: ${{ matrix.branch == 'humble' }}
         shell: bash
         run: |
           . $IDF_PATH/export.sh

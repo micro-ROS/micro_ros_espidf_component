@@ -6,11 +6,6 @@
                 "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
             ]
         },
-        "rosidl_generator_c": {
-            "cmake-args": [
-                "-DROSIDL_GENERATOR_C_DISABLE_TYPE_DESCRIPTION_CODEGEN=ON"
-            ]
-        },
         "rcl":{
             "cmake-args":[
                 "-DRCL_MICROROS=ON"

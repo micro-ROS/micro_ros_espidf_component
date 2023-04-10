@@ -3,7 +3,7 @@ UROS_DIR = $(EXTENSIONS_DIR)/micro_ros_src
 BUILD_DIR ?= $(EXTENSIONS_DIR)/build
 
 DEBUG ?= 0
-BUILD_TYPE = Release
+BUILD_TYPE = Debug
 
 # ifeq ($(DEBUG), 1)
 # 	BUILD_TYPE = Debug

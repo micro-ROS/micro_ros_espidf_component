@@ -3,16 +3,17 @@ UROS_DIR = $(EXTENSIONS_DIR)/micro_ros_src
 BUILD_DIR ?= $(EXTENSIONS_DIR)/build
 
 DEBUG ?= 0
-BUILD_TYPE = Debug
-
-# ifeq ($(DEBUG), 1)
-# 	BUILD_TYPE = Debug
-# else
-# 	BUILD_TYPE = Release
-# endif
-
 CFLAGS_INTERNAL := $(X_CFLAGS) -ffunction-sections -fdata-sections
 CXXFLAGS_INTERNAL := $(X_CXXFLAGS) -ffunction-sections -fdata-sections
+
+ifeq ($(DEBUG), 1)
+	BUILD_TYPE = Debug
+else
+	BUILD_TYPE = Release
+	CFLAGS_INTERNAL := $(CFLAGS_INTERNAL) -DNDEBUG
+	CXXFLAGS_INTERNAL := $(CXXFLAGS_INTERNAL) -DNDEBUG
+endif
+
 
 all: $(EXTENSIONS_DIR)/libmicroros.a
 

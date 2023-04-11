@@ -7,7 +7,7 @@ DEBUG ?= 0
 ifeq ($(DEBUG), 1)
 	BUILD_TYPE = Debug
 else
-	BUILD_TYPE = RelWithDebInfo
+	BUILD_TYPE = Release
 endif
 
 CFLAGS_INTERNAL := $(X_CFLAGS) -ffunction-sections -fdata-sections

@@ -43,6 +43,9 @@ foreach(package ${PACKAGES})
     string(REPLACE ";" "" ${package}_includes_string "${${package}_includes}")
 endforeach()
 
+# Workaround for https://github.com/ros2/rosidl/pull/739
+string(APPEND IDF_INCLUDES "-I${COMPONENT_DIR}/include_override")
+
 # Create a string with all packages with a for loop
 foreach(package ${PACKAGES})
     string(APPEND IDF_INCLUDES "${${package}_includes_string}")

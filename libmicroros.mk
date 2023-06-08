@@ -57,7 +57,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	fi; \
 	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
 	git clone -b rolling https://github.com/micro-ROS/rcl src/rcl; \
-	git clone -b master https://github.com/ros2/rclc src/rclc; \
+	git clone -b rolling https://github.com/ros2/rclc src/rclc; \
 	git clone -b rolling https://github.com/micro-ROS/rcutils src/rcutils; \
 	git clone -b rolling https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
 	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \

@@ -2,8 +2,8 @@
 Changelog for package micro_ros_espidf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.0.1 (2023-06-12)
+------------------
 * Add IDF 5 support and deprecate versions 4.1 and 4.2 (backport `#176 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/176>`_) (`#177 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/177>`_)
 * Add example_interfaces package (`#149 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/149>`_)
 

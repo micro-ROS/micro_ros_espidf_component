@@ -2,6 +2,18 @@
 Changelog for package micro_ros_espidf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update CI (`#198 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/198>`_)
+* Update repository branches (`#196 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/196>`_)
+* Replace repo with micro-ROS fork (`#192 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/192>`_)
+* Fix rolling sources (`#185 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/185>`_)
+* Ignore tracetools tests (`#184 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/184>`_)
+* Update to new RCL fork (`#182 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/182>`_)
+* Add IDF 5 support and deprecate versions 4.1 and 4.2 (`#176 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/176>`_)
+* Add rosidl_core_generators (`#158 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/158>`_)
+* Add example_interfaces package (backport `#149 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/149>`_) (`#150 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/150>`_)
+
 4.0.0 (2022-05-25)
 ------------------
 * Update banner (`#143 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/143>`_)

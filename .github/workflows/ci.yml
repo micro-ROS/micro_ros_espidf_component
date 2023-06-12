@@ -22,7 +22,7 @@ jobs:
       image: ${{ matrix.idf_version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: micro_ros_espidf_component
 

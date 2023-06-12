@@ -2,8 +2,8 @@
 Changelog for package micro_ros_espidf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.1.0 (2023-06-12)
+------------------
 * Update CI (`#198 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/198>`_)
 * Update repository branches (`#196 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/196>`_)
 * Replace repo with micro-ROS fork (`#192 <https://github.com/micro-ROS/micro_ros_espidf_component/issues/192>`_)

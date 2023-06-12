@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [foxy, main, humble]
+        branch: [humble, iron, rolling]
         idf_target: [ esp32, esp32s2, esp32c3, esp32s3]
         idf_version: [ "espressif/idf:release-v4.3", "espressif/idf:release-v4.4", "espressif/idf:release-v5.0" ]
         exclude:
@@ -24,7 +24,7 @@ jobs:
       image: ${{ matrix.idf_version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: micro_ros_espidf_component
           ref: ${{ matrix.branch }}

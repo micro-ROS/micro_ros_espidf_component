@@ -56,6 +56,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 		git clone -b iron https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
 	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
+<<<<<<< HEAD
 	git clone -b iron https://github.com/micro-ROS/rcl src/rcl; \
 	git clone -b iron https://github.com/ros2/rclc src/rclc; \
 	git clone -b iron https://github.com/micro-ROS/rcutils src/rcutils; \
@@ -76,6 +77,28 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b iron https://github.com/ros2/ros2_tracing src/ros2_tracing; \
 	git clone -b iron https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
 	git clone -b iron https://github.com/ros2/rosidl_core src/rosidl_core; \
+=======
+	git clone -b rolling https://github.com/micro-ROS/rcl src/rcl; \
+	git clone -b rolling https://github.com/ros2/rclc src/rclc; \
+	git clone -b rolling https://github.com/micro-ROS/rcutils src/rcutils; \
+	git clone -b rolling https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
+	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
+	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
+	git clone -b rolling https://github.com/ros2/rosidl src/rosidl; \
+	git clone -b rolling https://github.com/ros2/rosidl_dynamic_typesupport src/rosidl_dynamic_typesupport; \
+	git clone -b rolling https://github.com/ros2/rmw src/rmw; \
+	git clone -b rolling https://github.com/ros2/rcl_interfaces src/rcl_interfaces; \
+	git clone -b rolling https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
+	git clone -b rolling https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
+	git clone -b rolling https://github.com/ros2/common_interfaces src/common_interfaces; \
+	git clone -b rolling https://github.com/ros2/example_interfaces src/example_interfaces; \
+	git clone -b rolling https://github.com/ros2/test_interface_files src/test_interface_files; \
+	git clone -b rolling https://github.com/ros2/rmw_implementation src/rmw_implementation; \
+	git clone -b rolling https://github.com/ros2/rcl_logging src/rcl_logging; \
+	git clone -b rolling https://github.com/ros2/ros2_tracing src/ros2_tracing; \
+	git clone -b rolling https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
+	git clone -b rolling https://github.com/ros2/rosidl_core src/rosidl_core; \
+>>>>>>> e2de3f5 (Remove micro-ROS fork (#204))
     touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE; \
     touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \

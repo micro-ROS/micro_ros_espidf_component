@@ -39,6 +39,14 @@ jobs:
           # this installs the modules also for global python interpreter, needed for IDF v5
           /usr/bin/pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
 
+      # This line can be removed when https://github.com/colcon/colcon-python-setup-py/issues/56 is solved
+      - name: Patch setuptools
+        shell: bash
+        if: matrix.idf_version == 'espressif/idf:release-v4.4'
+        run: |
+          . $IDF_PATH/export.sh
+          pip3 install setuptools==68.1.2
+
       - name: Build sample - int32_publisher
         shell: bash
         run: |

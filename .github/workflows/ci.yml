@@ -33,11 +33,11 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           apt install -y git python3-pip
           . $IDF_PATH/export.sh
-          pip3 install catkin_pkg lark-parser empy colcon-common-extensions
+          pip3 install catkin_pkg lark-parser colcon-common-extensions
           # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
           pip3 install importlib-resources
           # this installs the modules also for global python interpreter, needed for IDF v5
-          /usr/bin/pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
+          /usr/bin/pip3 install catkin_pkg lark-parser colcon-common-extensions importlib-resources
 
       # This line can be removed when https://github.com/colcon/colcon-python-setup-py/issues/56 is solved
       - name: Patch setuptools

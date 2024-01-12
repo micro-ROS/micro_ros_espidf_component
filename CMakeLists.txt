@@ -3,7 +3,7 @@ idf_component_register(SRCS "network_interfaces/uros_ethernet_netif.c" "network_
                        REQUIRES nvs_flash esp_wifi esp_eth lwip)
 
 if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
-set(submake "$(MAKE)")
+set(submake "make")
 else()
 set(submake "make")
 endif()
@@ -50,6 +50,7 @@ endforeach()
 
 execute_process(
     WORKING_DIRECTORY ${COMPONENT_DIR}
+    RESULT_VARIABLE libmicroros_ret
     COMMAND
         ${submake} -j -f libmicroros.mk
                 X_CC=${CMAKE_C_COMPILER}
@@ -69,6 +70,9 @@ execute_process(
                 IDF_VERSION_MINOR=${IDF_VERSION_MINOR}
                 EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
 )
+if(libmicroros_ret AND NOT libmicroros_ret EQUAL 0)
+  message(FATAL_ERROR "FAILED: ${libmicroros_ret}")
+endif()
 
 add_prebuilt_library(libmicroros-prebuilt ""
                      REQUIRES lwip)

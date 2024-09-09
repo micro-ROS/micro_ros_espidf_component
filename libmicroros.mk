@@ -131,8 +131,8 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
 		fi; \
 		$(X_AR) rc -s librcutils.a *.obj; \
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
-		rm -rf $(UROS_DIR)/atomic_workaround; \
-		cd ..;
+		cd ..; \
+		rm -rf $(UROS_DIR)/atomic_workaround;
 endif
 
 $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic

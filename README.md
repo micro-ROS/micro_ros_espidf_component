@@ -11,7 +11,7 @@ This component needs `colcon` and other Python 3 packages inside the IDF virtual
 
 ```bash
 . $IDF_PATH/export.sh
-pip3 install catkin_pkg lark-parser colcon-common-extensions
+pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4
 ```
 
 ## Middlewares available

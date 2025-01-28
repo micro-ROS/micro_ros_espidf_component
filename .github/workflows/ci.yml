@@ -14,6 +14,10 @@ jobs:
       matrix:
         idf_target: [ esp32, esp32s2, esp32s3, esp32c3, esp32c6]
         idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2" ]
+        exclude:
+          # Skip IDF v4 + ESP32C6 combination
+          - idf_target: esp32c6
+            idf_version: espressif/idf:release-v4.4
 
     container:
       image: ${{ matrix.idf_version }}

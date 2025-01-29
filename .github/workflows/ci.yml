@@ -12,8 +12,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        idf_target: [ esp32, esp32s2, esp32s3, esp32c3]
+        idf_target: [ esp32, esp32s2, esp32s3, esp32c3, esp32c6]
         idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2" ]
+        exclude:
+          # Skip IDF v4 + ESP32C6 combination
+          - idf_target: esp32c6
+            idf_version: espressif/idf:release-v4.4
 
     container:
       image: ${{ matrix.idf_version }}
@@ -54,7 +58,7 @@ jobs:
 
       - name: Build sample - low_consumption
         shell: bash
-        if: matrix.idf_target != 'esp32c3' && matrix.idf_target != 'esp32s3'
+        if: matrix.idf_target != 'esp32c3' && matrix.idf_target != 'esp32s3' && matrix.idf_target != 'esp32c6'
         run: |
           . $IDF_PATH/export.sh
           cd micro_ros_espidf_component/examples/low_consumption

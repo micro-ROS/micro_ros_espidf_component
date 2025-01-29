@@ -5,7 +5,9 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(idf_target "@IDF_TARGET@")
 set(idf_path "@IDF_PATH@")
 
-if("${idf_target}" STREQUAL "esp32c3")
+set(RISCV_TARGETS "esp32c3" "esp32c6")
+
+if("${idf_target}" IN_LIST RISCV_TARGETS)
     set(CMAKE_SYSTEM_PROCESSOR riscv)
     set(FLAGS "-ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
 else()

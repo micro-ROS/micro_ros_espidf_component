@@ -107,7 +107,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 
 patch_atomic:$(EXTENSIONS_DIR)/micro_ros_src/install
 # Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18
-ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3))
+ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3 esp32c6))
 		echo $(UROS_DIR)/atomic_workaround; \
 		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
 		$(X_AR) x $(UROS_DIR)/install/lib/librcutils.a; \

@@ -1,18 +1,19 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "esp_log.h"
 #include "esp_system.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-#include <uros_network_interfaces.h>
-#include <rcl/rcl.h>
 #include <rcl/error_handling.h>
-#include <rclc/rclc.h>
+#include <rcl/rcl.h>
 #include <rclc/executor.h>
+#include <rclc/rclc.h>
 #include <rclc_parameter/rclc_parameter.h>
+#include <uros_network_interfaces.h>
+#include <uxr/client/config.h>
 
 #include <rmw_microros/rmw_microros.h>
 #include <uxr/client/config.h>
@@ -27,30 +28,31 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
     (void) timer;
     (void) last_call_time;
 
-    int value;
+    int64_t value;
     rclc_parameter_get_int(&param_server, "param2", &value);
     value++;
-    rclc_parameter_set_int(&param_server, "param2", (int64_t) value);
+    rclc_parameter_set_int(&param_server, "param2", value);
 }
 
-void on_parameter_changed(Parameter * param)
-{
-    printf("Parameter %s modified.", param->name.data);
-    switch (param->value.type)
+bool on_parameter_changed(const Parameter *old_param, const Parameter *new_param, void *context)
+    {
+    printf("Parameter %s modified.", new_param->name.data);
+    switch (new_param->value.type)
     {
     case RCLC_PARAMETER_BOOL:
-        printf(" New value: %d (bool)", param->value.bool_value);
+        printf(" New value: %d (bool)", new_param->value.bool_value);
         break;
     case RCLC_PARAMETER_INT:
-        printf(" New value: %lld (int)", param->value.integer_value);
+        printf(" New value: %lld (int)", new_param->value.integer_value);
         break;
     case RCLC_PARAMETER_DOUBLE:
-        printf(" New value: %f (double)", param->value.double_value);
+        printf(" New value: %f (double)", new_param->value.double_value);
         break;
     default:
         break;
     }
     printf("\n");
+    return true;
 }
 
 void micro_ros_task(void * arg)
@@ -79,15 +81,16 @@ void micro_ros_task(void * arg)
 
     // create timer,
     rcl_timer_t timer;
-    rclc_timer_init_default(
+    rclc_timer_init_default2(
         &timer,
         &support,
         RCL_MS_TO_NS(1000),
-        timer_callback);
+        timer_callback,
+        true);
 
     // Create executor
     rclc_executor_t executor;
-    rclc_executor_init(&executor, &support.context, RCLC_PARAMETER_EXECUTOR_HANDLES_NUMBER + 1, &allocator);
+    rclc_executor_init(&executor, &support.context, RCLC_EXECUTOR_PARAMETER_SERVER_HANDLES + 1, &allocator);
     rclc_executor_add_parameter_server(&executor, &param_server, on_parameter_changed);
     rclc_executor_add_timer(&executor, &timer);
 
@@ -101,7 +104,7 @@ void micro_ros_task(void * arg)
     rclc_parameter_set_double(&param_server, "param3", 0.01);
 
     bool param1;
-    int param2;
+    int64_t param2;
     double param3;
 
     rclc_parameter_get_bool(&param_server, "param1", &param1);

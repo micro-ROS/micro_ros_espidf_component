@@ -133,8 +133,8 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3 esp32c6))
 		fi; \
 		$(X_AR) rc -s librcutils.a *.obj; \
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
-		rm -rf $(UROS_DIR)/atomic_workaround; \
-		cd ..;
+		cd ..; \
+		rm -rf $(UROS_DIR)/atomic_workaround;
 endif
 ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32))
 		echo $(UROS_DIR)/atomic_workaround; \

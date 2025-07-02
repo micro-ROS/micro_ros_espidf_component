@@ -82,11 +82,12 @@ void micro_ros_task(void * arg)
 	// Create timer.
 	rcl_timer_t timer = rcl_get_zero_initialized_timer();
 	const unsigned int timer_timeout = 1000;
-	RCCHECK(rclc_timer_init_default(
+	RCCHECK(rclc_timer_init_default2(
 		&timer,
 		&support,
 		RCL_MS_TO_NS(timer_timeout),
-		timer_callback));
+		timer_callback,
+		true));
 
 	// Create executor.
 	rclc_executor_t executor = rclc_executor_get_zero_initialized_executor();

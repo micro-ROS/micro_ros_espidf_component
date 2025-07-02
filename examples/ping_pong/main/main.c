@@ -131,9 +131,10 @@ void micro_ros_task(void * arg)
 		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Header), "/microROS/pong"));
 
 
-	// Create a 3 seconds ping timer timer,
+	// Create a 2 seconds ping timer timer,
 	rcl_timer_t timer;
-	RCCHECK(rclc_timer_init_default(&timer, &support, RCL_MS_TO_NS(2000), ping_timer_callback));
+	RCCHECK(rclc_timer_init_default2(&timer, &support, RCL_MS_TO_NS(2000),
+		ping_timer_callback, true));
 
 
 	// Create executor

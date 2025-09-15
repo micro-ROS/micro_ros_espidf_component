@@ -4,6 +4,7 @@
   <name>micro_ros_espidf</name>
   <version>3.0.2</version>
   <description>micro-ROS tools for Espressif ESP-IDF</description>
-  <maintainer email="pablogarrido@eprosima.com">Pablo Garrido</maintainer>
+  <maintainer email="eugeniocollado@eprosima.com">Eugenio Collado</maintainer>
+  <maintainer email="carlosespinoza@eprosima.com">Carlos Espinoza</maintainer>
   <license>Apache License 2.0</license>
 </package>

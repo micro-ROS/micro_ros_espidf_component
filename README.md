@@ -58,13 +58,29 @@ docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888 
 
 ## Build with docker container
 
-It's possible to build this example application using preconfigured docker container. Execute this line to build an example app using docker container:
+It's possible to build this example application using the official Espressif [docker images](https://hub.docker.com/r/espressif/idf), following the same steps:
 
 ```bash
-docker run -it --rm --user espidf --volume="/etc/timezone:/etc/timezone:ro" -v  $(pwd):/micro_ros_espidf_component -v  /dev:/dev --privileged --workdir /micro_ros_espidf_component microros/esp-idf-microros:latest /bin/bash  -c "cd examples/int32_publisher; idf.py menuconfig build flash monitor"
-```
+docker pull espressif/idf:release-v5.2
+# Run ESP-IDF container
+docker run --name micro-ros-espidf-component-test -it espressif/idf:release-v5.2 bash
 
-Dockerfile for this container is provided in the ./docker directory and available in dockerhub. This approach uses ESP-IDF v5.
+git clone https://github.com/micro-ROS/micro_ros_espidf_component.git
+cd micro_ros_espidf_component/
+
+# Install dependencies
+pip3 install catkin_pkg lark-parser colcon-common-extensions
+
+$IDF_PATH/export.sh
+cd examples/int32_publisher
+# Set target board [esp32|esp32s2|esp32s3|esp32c3]
+idf.py set-target esp32
+idf.py menuconfig
+# Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
+idf.py build
+idf.py flash
+idf.py monitor
+```
 
 ## Using serial transport
 

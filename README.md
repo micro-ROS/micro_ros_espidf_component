@@ -53,7 +53,7 @@ Is possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # UDPv4 micro-ROS Agent
-docker run -it --rm --net=host microros/micro-ros-agent:kilted udp4 --port 8888 -v6
+docker run -it --rm --net=host microros/micro-ros-agent:jazzy udp4 --port 8888 -v6
 ```
 
 ## Build with docker container
@@ -106,7 +106,7 @@ Is possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # Serial micro-ROS Agent
-docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:kilted serial --dev [YOUR BOARD PORT] -v6
+docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:jazzy serial --dev [YOUR BOARD PORT] -v6
 ```
 
 ## Purpose of the Project

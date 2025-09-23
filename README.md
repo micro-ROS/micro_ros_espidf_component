@@ -63,7 +63,7 @@ It's possible to build this example application using the official Espressif [do
 ```bash
 docker pull espressif/idf:release-v5.2
 # Run ESP-IDF container
-docker run --name idf-component-test -it espressif/idf:release-v5.2 bash
+docker run --name micro-ros-espidf-component-test -it espressif/idf:release-v5.2 bash
 
 git clone https://github.com/micro-ROS/micro_ros_espidf_component.git
 cd micro_ros_espidf_component/

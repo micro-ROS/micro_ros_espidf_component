@@ -53,11 +53,7 @@ Is possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # UDPv4 micro-ROS Agent
-<<<<<<< HEAD
 docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888 -v6
-=======
-docker run -it --rm --net=host microros/micro-ros-agent:kilted udp4 --port 8888 -v6
->>>>>>> 3fb203b (Change README build steps to use the official ESP-IDF image (#300))
 ```
 
 ## Build with docker container
@@ -110,11 +106,7 @@ Is possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # Serial micro-ROS Agent
-<<<<<<< HEAD
 docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble serial --dev [YOUR BOARD PORT] -v6
-=======
-docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:kilted serial --dev [YOUR BOARD PORT] -v6
->>>>>>> 3fb203b (Change README build steps to use the official ESP-IDF image (#300))
 ```
 
 ## Purpose of the Project

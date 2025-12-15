@@ -21,6 +21,11 @@ jobs:
           # Skip IDF v4 + ESP32C6 combination
           - idf_target: esp32c6
             idf_version: espressif/idf:release-v4.4
+          # Skip IDF v4 for rolling and kilted
+          - branch: rolling
+            idf_version: espressif/idf:release-v4.4
+          - branch: kilted
+            idf_version: espressif/idf:release-v4.4
 
 
     container:

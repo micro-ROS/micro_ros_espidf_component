@@ -3,7 +3,9 @@
 
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v4.4, and v5.2 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
+This component has been tested in ESP-IDF v5.2 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
+
+_Note: ESP-IDF v4.4 is supported only in ROS 2 Humble and Jazzy due to Python version incompatibilities._
 
 ## Dependencies
 

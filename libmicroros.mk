@@ -44,6 +44,7 @@ $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	git clone -b rolling https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
 	git clone -b rolling https://github.com/ament/ament_index src/ament_index; \
 	touch src/ament_cmake_ros/rmw_test_fixture_implementation/COLCON_IGNORE; \
+	touch src/ament_cmake_ros/rmw_test_fixture/COLCON_IGNORE; \
 	colcon build --cmake-args -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=gcc;
 
 $(EXTENSIONS_DIR)/micro_ros_src/src:

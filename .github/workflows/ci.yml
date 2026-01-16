@@ -12,12 +12,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        idf_target: [ esp32, esp32s2, esp32s3, esp32c3, esp32c6]
-        idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2" ]
+        idf_target: [ esp32, esp32s2, esp32s3, esp32c3, esp32c6, esp32p4]
+        idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2", "espressif/idf:release-v5.5" ]
         exclude:
           # Skip IDF v4 + ESP32C6 combination
           - idf_target: esp32c6
             idf_version: espressif/idf:release-v4.4
+          # Skip IDF v4 + ESP32-P4 combination
+          - idf_target: esp32p4
+            idf_version: espressif/idf:release-v4.4
+          # Skip IDF v5.2 + ESP32-P4 combination
+          - idf_target: esp32p4
+            idf_version: espressif/idf:release-v5.2
 
     container:
       image: ${{ matrix.idf_version }}
@@ -38,7 +44,12 @@ jobs:
           # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
           pip3 install importlib-resources
           # this installs the modules also for global python interpreter, needed for IDF v5
-          /usr/bin/pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4 importlib-resources
+          # IDF 5.5 uses Python 3.12 which has externally-managed-environment protection
+          if [ "${{ matrix.idf_version }}" == "espressif/idf:release-v5.5" ]; then \
+            /usr/bin/pip3 install --break-system-packages catkin_pkg lark-parser colcon-common-extensions empy==3.3.4 importlib-resources; \
+          else \
+            /usr/bin/pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4 importlib-resources; \
+          fi
 
       # This line can be removed when https://github.com/colcon/colcon-python-setup-py/issues/56 is solved
       - name: Patch setuptools
@@ -58,7 +69,7 @@ jobs:
 
       - name: Build sample - low_consumption
         shell: bash
-        if: matrix.idf_target != 'esp32c3' && matrix.idf_target != 'esp32s3' && matrix.idf_target != 'esp32c6'
+        if: matrix.idf_target != 'esp32c3' && matrix.idf_target != 'esp32s3' && matrix.idf_target != 'esp32c6' && matrix.idf_target != 'esp32p4'
         run: |
           . $IDF_PATH/export.sh
           cd micro_ros_espidf_component/examples/low_consumption

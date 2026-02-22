@@ -74,20 +74,31 @@ esp_err_t uros_network_interface_initialize(void)
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     esp_netif_config_t cfg = ESP_NETIF_DEFAULT_ETH();
     esp_netif_t *eth_netif = esp_netif_new(&cfg);
-    // Set default handlers to process TCP/IP stuffs
+    // Set default handlers to process TCP/IP stuffs (removed in ESP-IDF 5.5+)
+#if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 5, 0)
     ESP_ERROR_CHECK(esp_eth_set_default_handlers(eth_netif));
+#endif
     // Register user defined event handers
     ESP_ERROR_CHECK(esp_event_handler_register(ETH_EVENT, ESP_EVENT_ANY_ID, &eth_event_handler, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_ETH_GOT_IP, &got_ip_event_handler, NULL));
 
     eth_mac_config_t mac_config = ETH_MAC_DEFAULT_CONFIG();
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 5, 0)
+    eth_esp32_emac_config_t esp32_emac_config = ETH_ESP32_EMAC_DEFAULT_CONFIG();
+#endif
     eth_phy_config_t phy_config = ETH_PHY_DEFAULT_CONFIG();
     phy_config.phy_addr = CONFIG_MICRO_ROS_ETH_PHY_ADDR;
     phy_config.reset_gpio_num = CONFIG_MICRO_ROS_ETH_PHY_RST_GPIO;
 #if CONFIG_MICRO_ROS_USE_INTERNAL_ETHERNET
+#if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 5, 0)
     mac_config.smi_mdc_gpio_num = CONFIG_MICRO_ROS_ETH_MDC_GPIO;
     mac_config.smi_mdio_gpio_num = CONFIG_MICRO_ROS_ETH_MDIO_GPIO;
     esp_eth_mac_t *mac = esp_eth_mac_new_esp32(&mac_config);
+#else
+    esp32_emac_config.smi_gpio.mdc_num = CONFIG_MICRO_ROS_ETH_MDC_GPIO;
+    esp32_emac_config.smi_gpio.mdio_num = CONFIG_MICRO_ROS_ETH_MDIO_GPIO;
+    esp_eth_mac_t *mac = esp_eth_mac_new_esp32(&esp32_emac_config, &mac_config);
+#endif
 #if CONFIG_MICRO_ROS_ETH_PHY_IP101
     esp_eth_phy_t *phy = esp_eth_phy_new_ip101(&phy_config);
 #elif CONFIG_MICRO_ROS_ETH_PHY_RTL8201

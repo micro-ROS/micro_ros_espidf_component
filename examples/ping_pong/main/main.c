@@ -40,9 +40,10 @@ int device_id;
 int seq_no;
 int pong_count;
 
-void ping_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
+void ping_timer_callback(rcl_timer_t * timer, int64_t last_call_time, uintptr_t arg)
 {
 	RCLC_UNUSED(last_call_time);
+	RCLC_UNUSED(arg);
 
 	if (timer != NULL) {
 

@@ -32,9 +32,10 @@ std_msgs__msg__Int32 msg;
 esp_pm_lock_handle_t pmlock;
 #endif /* CONFIG_PM_ENABLE */
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time, uintptr_t arg)
 {
 	RCLC_UNUSED(last_call_time);
+	RCLC_UNUSED(arg);
 	if (timer != NULL) {
 #ifdef CONFIG_PM_ENABLE
                 esp_pm_lock_acquire(pmlock);	// disable wifi sleep mode

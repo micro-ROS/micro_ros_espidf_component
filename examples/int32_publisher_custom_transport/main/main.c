@@ -24,9 +24,10 @@
 rcl_publisher_t publisher;
 std_msgs__msg__Int32 msg;
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time, uintptr_t arg)
 {
 	RCLC_UNUSED(last_call_time);
+	RCLC_UNUSED(arg);
 	if (timer != NULL) {
 		RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
 		msg.data++;

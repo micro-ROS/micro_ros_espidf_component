@@ -47,6 +47,8 @@ $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	touch src/ament_cmake_ros/rmw_test_fixture/COLCON_IGNORE; \
 	colcon build --cmake-args -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=gcc;
 
+# ros2/rosidl needs to be pinned to an older version as ros2/rosidl#942 added rosidl_buffer as
+# a dependency for various rosidl packages and we can't build it currently.
 $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
@@ -58,13 +60,16 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 		git clone -b rolling https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
 	fi; \
 	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
-	git clone -b rolling https://github.com/micro-ROS/rcl src/rcl; \
+	git clone -b upstream-patches https://github.com/micro-ROS/rcl src/rcl; \
 	git clone -b rolling https://github.com/ros2/rclc src/rclc; \
 	git clone -b rolling https://github.com/micro-ROS/rcutils src/rcutils; \
 	git clone -b rolling https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
 	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
 	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
 	git clone -b rolling https://github.com/ros2/rosidl src/rosidl; \
+	cd src/rosidl; \
+	git reset --hard 5f4ace0288ecf942307ed62b9239ab5986884676; \
+	cd ../..; \
 	git clone -b rolling https://github.com/ros2/rosidl_dynamic_typesupport src/rosidl_dynamic_typesupport; \
 	git clone -b rolling https://github.com/ros2/rmw src/rmw; \
 	git clone -b rolling https://github.com/ros2/rcl_interfaces src/rcl_interfaces; \
@@ -78,13 +83,16 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	git clone -b rolling https://github.com/ros2/ros2_tracing src/ros2_tracing; \
 	git clone -b rolling https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
 	git clone -b rolling https://github.com/ros2/rosidl_core src/rosidl_core; \
-    touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
-    touch src/rcl_logging/rcl_logging_log4cxx/COLCON_IGNORE; \
-    touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \
-    touch src/rclc/rclc_examples/COLCON_IGNORE; \
 	touch src/rcl/rcl_yaml_param_parser/COLCON_IGNORE; \
-	touch src/ros2_tracing/test_tracetools/COLCON_IGNORE; \
+	touch src/rclc/rclc_examples/COLCON_IGNORE; \
+	touch src/rcl_logging/rcl_logging_implementation/COLCON_IGNORE; \
+	touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \
 	touch src/ros2_tracing/lttngpy/COLCON_IGNORE; \
+	touch src/ros2_tracing/test_tracetools/COLCON_IGNORE; \
+	touch src/rosidl/rosidl_buffer/COLCON_IGNORE; \
+	touch src/rosidl/rosidl_buffer_backend/COLCON_IGNORE; \
+	touch src/rosidl/rosidl_buffer_backend_registry/COLCON_IGNORE; \
+	touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
 	cp -rfL $(EXTRA_ROS_PACKAGES) src/extra_packages || :; \
 	test -f src/extra_packages/extra_packages.repos && cd src/extra_packages && vcs import --input extra_packages.repos || :;
 

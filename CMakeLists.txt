@@ -97,6 +97,7 @@ add_dependencies(libmicroros-prebuilt libmicroros_project)
 
 set_target_properties(libmicroros-prebuilt PROPERTIES IMPORTED_LOCATION ${COMPONENT_DIR}/libmicroros.a)
 target_include_directories(libmicroros-prebuilt INTERFACE ${COMPONENT_DIR}/include)
+target_compile_definitions(libmicroros-prebuilt INTERFACE RCL_MICROROS)
 
 file(GLOB include_folders LIST_DIRECTORIES true CONFIGURE_DEPENDS ${COMPONENT_DIR}/include/*)
 foreach(include_folder ${include_folders})
@@ -106,6 +107,7 @@ foreach(include_folder ${include_folders})
     endif()
 endforeach()
 
+target_compile_definitions(${COMPONENT_LIB} PUBLIC RCL_MICROROS)
 add_dependencies(${COMPONENT_LIB} libmicroros-prebuilt)
 target_link_libraries(${COMPONENT_LIB} INTERFACE libmicroros-prebuilt)
 

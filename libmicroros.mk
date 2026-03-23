@@ -135,20 +135,21 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3 esp32c6))
 		cd ..; \
 		rm -rf $(UROS_DIR)/atomic_workaround;
 endif
-ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32))
+# ESP32-S3, ESP32-P4, ESP32: only need workaround in IDF 5.5
+ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s3 esp32p4 esp32))
+	@if [ $(IDF_VERSION_MAJOR) -eq 5 ] && [ $(IDF_VERSION_MINOR) -eq 5 ]; then \
 		echo $(UROS_DIR)/atomic_workaround; \
 		mkdir $(UROS_DIR)/atomic_workaround; cd $(UROS_DIR)/atomic_workaround; \
 		$(X_AR) x $(UROS_DIR)/install/lib/librcutils.a; \
 		$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_fetch_add_8; \
-		if [ $(IDF_VERSION_MAJOR) -ge 5 ] && [ $(IDF_VERSION_MINOR) -ge 3 ]; then \
-			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_load_8; \
-			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_store_8; \
-			$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
-		fi; \
+		$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_load_8; \
+		$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_store_8; \
+		$(X_STRIP) atomic_64bits.c.obj --strip-symbol=__atomic_exchange_8; \
 		$(X_AR) rc -s librcutils.a *.obj; \
 		cp -rf librcutils.a  $(UROS_DIR)/install/lib/librcutils.a; \
 		cd ..; \
-		rm -rf $(UROS_DIR)/atomic_workaround;
+		rm -rf $(UROS_DIR)/atomic_workaround; \
+	fi
 endif
 
 $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic

@@ -5,11 +5,18 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(idf_target "@IDF_TARGET@")
 set(idf_path "@IDF_PATH@")
 
-set(RISCV_TARGETS "esp32c3" "esp32c6")
+set(RISCV_TARGETS "esp32c3" "esp32c6" "esp32p4")
+set(RISCV_HARD_FLOAT_TARGETS "esp32p4")
 
 if("${idf_target}" IN_LIST RISCV_TARGETS)
     set(CMAKE_SYSTEM_PROCESSOR riscv)
-    set(FLAGS "-ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
+    if("${idf_target}" IN_LIST RISCV_HARD_FLOAT_TARGETS)
+        # ESP32-P4 uses hardware floating point
+        set(FLAGS "-march=rv32imafc -mabi=ilp32f -ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
+    else()
+        # ESP32-C3/C6 use soft-float
+        set(FLAGS "-ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
+    endif()
 else()
     set(CMAKE_SYSTEM_PROCESSOR xtensa)
     set(FLAGS "-mlongcalls -ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
@@ -35,3 +42,9 @@ include_directories(
         "@BUILD_CONFIG_DIR@"
         ${idf_path}/components/soc/${idf_target}/include
     )
+
+if("${idf_target}" IN_LIST RISCV_TARGETS)
+    include_directories(
+        ${idf_path}/components/riscv/include
+    )
+endif()

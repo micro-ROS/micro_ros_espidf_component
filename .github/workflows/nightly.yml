@@ -16,7 +16,12 @@ jobs:
       matrix:
         branch: [rolling, jazzy, humble]
         idf_target: [ esp32, esp32s2, esp32c3, esp32s3, esp32c6, esp32p4]
-        idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2", "espressif/idf:release-v5.5" ]
+        idf_version:
+          - "espressif/idf:release-v4.4"
+          - "espressif/idf:release-v5.2"
+          - "espressif/idf:release-v5.3"
+          - "espressif/idf:release-v5.4"
+          - "espressif/idf:release-v5.5"
         exclude:
           # Skip IDF v4 + ESP32C6 combination
           - idf_target: esp32c6
@@ -49,8 +54,8 @@ jobs:
           # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
           pip3 install importlib-resources
           # this installs the modules also for global python interpreter, needed for IDF v5
-          # IDF 5.5 uses Python 3.12 which has externally-managed-environment protection
-          if [ "${{ matrix.idf_version }}" == "espressif/idf:release-v5.5" ]; then \
+          # IDF 5.4, 5.5 uses Python 3.12 which has externally-managed-environment protection
+          if [ "${{ matrix.idf_version }}" == "espressif/idf:release-v5.4" ] || [ "${{ matrix.idf_version }}" == "espressif/idf:release-v5.5" ]; then \
             /usr/bin/pip3 install --break-system-packages catkin_pkg lark-parser colcon-common-extensions importlib-resources; \
           else \
             /usr/bin/pip3 install catkin_pkg lark-parser colcon-common-extensions importlib-resources; \

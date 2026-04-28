@@ -109,6 +109,7 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DCMAKE_C_STANDARD=$(C_STANDARD) \
 		-DUCLIENT_C_STANDARD=$(C_STANDARD);
 
+<<<<<<< HEAD
 patch_atomic:$(EXTENSIONS_DIR)/micro_ros_src/install
 # Workaround https://github.com/micro-ROS/micro_ros_espidf_component/issues/18
 ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s2 esp32c3 esp32c6))
@@ -153,6 +154,9 @@ ifeq ($(IDF_TARGET),$(filter $(IDF_TARGET),esp32s3 esp32p4 esp32))
 endif
 
 $(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install patch_atomic
+=======
+$(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install
+>>>>>>> a5bf105 (Remove atomic patch (#329))
 	mkdir -p $(UROS_DIR)/libmicroros; cd $(UROS_DIR)/libmicroros; \
 	for file in $$(find $(UROS_DIR)/install/lib/ -name '*.a'); do \
 		folder=$$(echo $$file | sed -E "s/(.+)\/(.+).a/\2/"); \

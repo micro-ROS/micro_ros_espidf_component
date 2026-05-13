@@ -79,7 +79,13 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
     touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \
     touch src/rclc/rclc_examples/COLCON_IGNORE; \
 	touch src/rcl/rcl_yaml_param_parser/COLCON_IGNORE; \
+<<<<<<< HEAD
 	cp -rf $(EXTRA_ROS_PACKAGES) src/extra_packages || :; \
+=======
+	touch src/ros2_tracing/test_tracetools/COLCON_IGNORE; \
+	touch src/ros2_tracing/lttngpy/COLCON_IGNORE; \
+	cp -rfL $(EXTRA_ROS_PACKAGES) src/extra_packages || :; \
+>>>>>>> 2f73852 (Change cp command to use -rfL option (#335))
 	test -f src/extra_packages/extra_packages.repos && cd src/extra_packages && vcs import --input extra_packages.repos || :;
 
 

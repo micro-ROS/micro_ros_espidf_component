@@ -23,23 +23,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-<<<<<<< HEAD
-        idf_target: [ esp32, esp32s2, esp32s3, esp32c3, esp32c6, esp32p4]
-        idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2", "espressif/idf:release-v5.5" ]
-        exclude:
-          # Skip IDF v4 + ESP32C6 combination
-          - idf_target: esp32c6
-            idf_version: espressif/idf:release-v4.4
-          # Skip IDF v4 + ESP32-P4 combination
-          - idf_target: esp32p4
-            idf_version: espressif/idf:release-v4.4
-          # Skip IDF v5.2 + ESP32-P4 combination
-          - idf_target: esp32p4
-            idf_version: espressif/idf:release-v5.2
-=======
-        idf_target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6]
-        idf_version: [v5.2, v5.3, v5.4]
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))
+        idf_target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6, esp32p4]
+        idf_version: [v5.2, v5.3, v5.4, v5.5]
 
     container:
       image: "espressif/idf:release-${{ matrix.idf_version }}"
@@ -54,28 +39,7 @@ jobs:
         shell: bash
         run: |
           . $IDF_PATH/export.sh
-<<<<<<< HEAD
-          pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4
-          # This line avoids the error when using Python < 3.7 https://importlib-resources.readthedocs.io/en/latest/
-          pip3 install importlib-resources
-          # this installs the modules also for global python interpreter, needed for IDF v5
-          # IDF 5.5 uses Python 3.12 which has externally-managed-environment protection
-          if [ "${{ matrix.idf_version }}" == "espressif/idf:release-v5.5" ]; then \
-            /usr/bin/pip3 install --break-system-packages catkin_pkg lark-parser colcon-common-extensions empy==3.3.4 importlib-resources; \
-          else \
-            /usr/bin/pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4 importlib-resources; \
-          fi
-
-      # This line can be removed when https://github.com/colcon/colcon-python-setup-py/issues/56 is solved
-      - name: Patch setuptools
-        shell: bash
-        if: matrix.idf_version == 'espressif/idf:release-v4.4'
-        run: |
-          . $IDF_PATH/export.sh
-          pip3 install setuptools==68.1.2
-=======
           pip install catkin_pkg colcon-common-extensions lark
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))
 
       - name: Build sample - int32_publisher
         shell: bash
@@ -132,16 +96,3 @@ jobs:
           cd examples/multithread_publisher
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
-<<<<<<< HEAD
-
-      - name: EmbeddedRTPS
-        shell: bash
-        run: |
-          . $IDF_PATH/export.sh
-          cd micro_ros_espidf_component
-          make -f libmicroros.mk clean
-          cd examples/int32_publisher_embeddedrtps
-          idf.py set-target ${{ matrix.idf_target }}
-          idf.py build
-=======
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))

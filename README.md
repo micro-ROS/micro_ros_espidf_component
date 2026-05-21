@@ -3,11 +3,7 @@
 
 # micro-ROS component for ESP-IDF
 
-<<<<<<< HEAD
-This component has been tested in ESP-IDF v4.4, v5.2, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3, ESP32-C6 and ESP32-P4.
-=======
-This component has been tested in ESP-IDF v5.2, v5.3, and v5.4 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))
+This component has been tested in ESP-IDF v5.2, v5.3, v5.4, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3, ESP32-C6, and ESP32-P4.
 
 ## Dependencies
 
@@ -15,11 +11,7 @@ This component needs `colcon` and other Python 3 packages inside the IDF virtual
 
 ```bash
 . $IDF_PATH/export.sh
-<<<<<<< HEAD
-pip3 install catkin_pkg lark-parser colcon-common-extensions empy==3.3.4
-=======
 pip3 install catkin_pkg colcon-common-extensions lark
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))
 ```
 
 ## Middlewares available
@@ -44,11 +36,7 @@ In order to test a int32_publisher example:
 ```bash
 . $IDF_PATH/export.sh
 cd examples/int32_publisher
-<<<<<<< HEAD
 # Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6|esp32p4]
-=======
-# Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6]
->>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))
 idf.py set-target esp32
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings

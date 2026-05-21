@@ -1,19 +1,16 @@
 name: Nightly
 
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: "Manual trigger"
   schedule:
-    - cron:  '0 4 * * *'
+    - cron: '0 4 * * *'
+  workflow_dispatch:
 
 jobs:
   micro_ros_idf:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         branch: [rolling, kilted, jazzy, humble]
         idf_target: [ esp32, esp32s2, esp32c3, esp32s3, esp32c6]
         idf_version: [ "espressif/idf:release-v4.4", "espressif/idf:release-v5.2" ]
@@ -115,3 +112,9 @@ jobs:
           cd examples/int32_publisher_embeddedrtps
           idf.py set-target ${{ matrix.idf_target }}
           idf.py build
+=======
+        branch: [humble, jazzy, kilted, rolling]
+    uses: ./.github/workflows/ci.yml
+    with:
+      branch: ${{ matrix.branch }}
+>>>>>>> d749ff1 (Multiple CI and README.md Improvements (#324))

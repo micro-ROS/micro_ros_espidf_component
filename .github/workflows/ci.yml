@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           . $IDF_PATH/export.sh
-          pip install catkin_pkg colcon-common-extensions lark
+          pip install catkin_pkg colcon-common-extensions lark "empy<4"
 
       - name: Build sample - int32_publisher
         shell: bash

@@ -11,7 +11,7 @@ This component needs `colcon` and other Python 3 packages inside the IDF virtual
 
 ```bash
 . $IDF_PATH/export.sh
-pip3 install catkin_pkg colcon-common-extensions lark
+pip3 install catkin_pkg colcon-common-extensions lark "empy<4"
 ```
 
 ## Middlewares available
@@ -69,7 +69,7 @@ git clone -b humble https://github.com/micro-ROS/micro_ros_espidf_component.git
 cd micro_ros_espidf_component/
 
 # Install dependencies
-pip install catkin_pkg colcon-common-extensions lark
+pip install catkin_pkg colcon-common-extensions lark "empy<4"
 
 cd examples/int32_publisher
 # Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6]

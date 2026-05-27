@@ -3,7 +3,7 @@
 
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v5.2, v5.3, and v5.4 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
+This component has been tested in ESP-IDF v5.2, v5.3, v5.4, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
 
 ## Dependencies
 
@@ -63,7 +63,7 @@ docker run -it --rm --net=host microros/micro-ros-agent:kilted udp4 --port 8888 
 It's possible to build this example application using the official Espressif [docker images](https://hub.docker.com/r/espressif/idf), following the same steps:
 
 ```bash
-docker run --name micro-ros-espidf-component -it espressif/idf:release-v5.4 bash
+docker run --name micro-ros-espidf-component -it espressif/idf:release-v5.5 bash
 
 git clone -b kilted https://github.com/micro-ROS/micro_ros_espidf_component.git
 cd micro_ros_espidf_component/

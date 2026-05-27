@@ -63,7 +63,7 @@ docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888 
 It's possible to build this example application using the official Espressif [docker images](https://hub.docker.com/r/espressif/idf), following the same steps:
 
 ```bash
-docker run --name micro-ros-espidf-component -it espressif/idf:release-v5.4 bash
+docker run --name micro-ros-espidf-component -it espressif/idf:release-v5.5 bash
 
 git clone -b humble https://github.com/micro-ROS/micro_ros_espidf_component.git
 cd micro_ros_espidf_component/

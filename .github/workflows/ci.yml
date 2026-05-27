@@ -44,9 +44,6 @@ jobs:
           TARGET_BRANCH: ${{ inputs.branch || github.base_ref || github.ref_name }}
         run: |
           . $IDF_PATH/export.sh
-<<<<<<< HEAD
-          pip install catkin_pkg colcon-common-extensions lark "empy<4"
-=======
           echo "::notice::TARGET_BRANCH=$TARGET_BRANCH"
           if [ "$TARGET_BRANCH" = "humble" ]; then
             python3 -m pip uninstall -y em empy || true
@@ -54,7 +51,6 @@ jobs:
           else
             python3 -m pip install catkin_pkg colcon-common-extensions lark
           fi
->>>>>>> 267a735 (fix humble dependencies issue in ci (#347))
 
       - name: Build sample - int32_publisher
         shell: bash

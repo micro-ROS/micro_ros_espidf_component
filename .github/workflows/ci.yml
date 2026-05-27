@@ -40,9 +40,17 @@ jobs:
 
       - name: Dependencies
         shell: bash
+        env:
+          TARGET_BRANCH: ${{ inputs.branch || github.base_ref || github.ref_name }}
         run: |
           . $IDF_PATH/export.sh
-          pip install catkin_pkg colcon-common-extensions lark "empy<4"
+          echo "::notice::TARGET_BRANCH=$TARGET_BRANCH"
+          if [ "$TARGET_BRANCH" = "humble" ]; then
+            python3 -m pip uninstall -y em empy || true
+            python3 -m pip install catkin_pkg colcon-common-extensions lark "empy==3.3.4"
+          else
+            python3 -m pip install catkin_pkg colcon-common-extensions lark
+          fi
 
       - name: Build sample - int32_publisher
         shell: bash

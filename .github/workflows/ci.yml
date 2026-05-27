@@ -27,7 +27,7 @@ jobs:
         idf_version: [v5.2, v5.3, v5.4, v5.5]
         exclude:
           - idf_target: esp32p4
-            idf_version: espressif/idf:release-v5.2
+            idf_version: v5.2
 
     container:
       image: "espressif/idf:release-${{ matrix.idf_version }}"

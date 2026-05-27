@@ -23,12 +23,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-<<<<<<< HEAD
         idf_target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6, esp32p4]
-=======
-        idf_target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6]
->>>>>>> 56d5afc (Add Support for ESP-IDF v5.5 (#325))
         idf_version: [v5.2, v5.3, v5.4, v5.5]
+        exclude:
+          - idf_target: esp32p4
+            idf_version: espressif/idf:release-v5.2
 
     container:
       image: "espressif/idf:release-${{ matrix.idf_version }}"

@@ -1,0 +1,12 @@
+name: Nightly (jazzy)
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  micro_ros_idf:
+    uses: ./.github/workflows/ci.yml
+    with:
+      branch: jazzy

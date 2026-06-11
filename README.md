@@ -1,6 +1,10 @@
 ![banner](.images/banner-dark-theme.png#gh-dark-mode-only)
 ![banner](.images/banner-light-theme.png#gh-light-mode-only)
 
+| humble | jazzy | kilted | rolling |
+|:------:|:-----:|:------:|:-------:|
+| [![Nightly (humble)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-humble.yml/badge.svg)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-humble.yml) | [![Nightly (jazzy)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-jazzy.yml/badge.svg)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-jazzy.yml) | [![Nightly (kilted)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-kilted.yml/badge.svg)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-kilted.yml) | [![Nightly (rolling)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-rolling.yml/badge.svg)](https://github.com/micro-ROS/micro_ros_espidf_component/actions/workflows/nightly-rolling.yml) |
+
 # micro-ROS component for ESP-IDF
 
 This component has been tested in ESP-IDF v5.2, v5.3, v5.4, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3, ESP32-C6, and ESP32-P4.

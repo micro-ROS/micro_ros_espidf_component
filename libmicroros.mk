@@ -32,14 +32,15 @@ $(EXTENSIONS_DIR)/esp32_toolchain.cmake: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	rm -rf micro_ros_dev; \
 	mkdir micro_ros_dev; cd micro_ros_dev; \
-	git clone -b rolling https://github.com/ament/ament_cmake src/ament_cmake; \
-	git clone -b rolling https://github.com/ament/ament_lint src/ament_lint; \
-	git clone -b rolling https://github.com/ament/ament_package src/ament_package; \
-	git clone -b rolling https://github.com/ament/googletest src/googletest; \
-	git clone -b rolling https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
-	git clone -b rolling https://github.com/ament/ament_index src/ament_index; \
-	touch src/ament_cmake_ros/rmw_test_fixture_implementation/COLCON_IGNORE; \
-	touch src/ament_cmake_ros/rmw_test_fixture/COLCON_IGNORE; \
+	git clone -b rolling https://github.com/ament/ament_cmake src/ament/ament_cmake; \
+	git clone -b rolling https://github.com/ament/ament_index src/ament/ament_index; \
+	git clone -b rolling https://github.com/ament/ament_lint src/ament/ament_lint; \
+	git clone -b rolling https://github.com/ament/ament_package src/ament/ament_package; \
+	git clone -b rolling https://github.com/ament/googletest src/ament/googletest; \
+	git clone -b rolling https://github.com/ros2/ament_cmake_ros src/ros2/ament_cmake_ros; \
+	set -e; \
+	rm -r src/ros2/ament_cmake_ros/rmw_test_fixture; \
+	rm -r src/ros2/ament_cmake_ros/rmw_test_fixture_implementation; \
 	colcon build --cmake-args -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=gcc;
 
 # ros2/rosidl needs to be pinned to an older version as ros2/rosidl#942 added rosidl_buffer as
@@ -48,46 +49,64 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	rm -rf micro_ros_src; \
 	mkdir micro_ros_src; cd micro_ros_src; \
 	if [ "$(MIDDLEWARE)" = "embeddedrtps" ]; then \
-		git clone -b main https://github.com/micro-ROS/embeddedRTPS src/embeddedRTPS; \
-		git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps src/rmw_embeddedrtps; \
+		git clone -b main https://github.com/micro-ROS/embeddedRTPS src/micro-ROS/embeddedRTPS; \
+		git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps src/micro-ROS/rmw_embeddedrtps; \
 	else \
-		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/Micro-XRCE-DDS-Client; \
-		git clone -b rolling https://github.com/micro-ROS/rmw_microxrcedds src/rmw_microxrcedds; \
+		git clone -b ros2 https://github.com/eProsima/Micro-XRCE-DDS-Client src/eProsima/Micro-XRCE-DDS-Client; \
+		git clone -b rolling https://github.com/micro-ROS/rmw_microxrcedds src/micro-ROS/rmw_microxrcedds; \
 	fi; \
-	git clone -b ros2 https://github.com/eProsima/micro-CDR src/micro-CDR; \
-	git clone -b upstream-patches https://github.com/micro-ROS/rcl src/rcl; \
-	git clone -b rolling https://github.com/ros2/rclc src/rclc; \
-	git clone -b rolling https://github.com/micro-ROS/rcutils src/rcutils; \
-	git clone -b rolling https://github.com/micro-ROS/micro_ros_msgs src/micro_ros_msgs; \
-	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport src/rosidl_typesupport; \
-	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/rosidl_typesupport_microxrcedds; \
-	git clone -b rolling https://github.com/ros2/rosidl src/rosidl; \
-	cd src/rosidl; \
+	git clone -b ros2 https://github.com/eProsima/micro-CDR src/eProsima/micro-CDR; \
+	git clone -b rolling https://github.com/micro-ROS/micro_ros_msgs src/micro-ROS/micro_ros_msgs; \
+	git clone -b rolling https://github.com/micro-ROS/micro_ros_utilities src/micro-ROS/micro_ros_utilities; \
+	git clone -b upstream-patches https://github.com/micro-ROS/rcl src/micro-ROS/rcl; \
+	git clone -b rolling https://github.com/micro-ROS/rcutils src/micro-ROS/rcutils; \
+	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport src/micro-ROS/rosidl_typesupport; \
+	git clone -b rolling https://github.com/micro-ROS/rosidl_typesupport_microxrcedds src/micro-ROS/rosidl_typesupport_microxrcedds; \
+	git clone -b rolling https://github.com/ros2/common_interfaces src/ros2/common_interfaces; \
+	git clone -b rolling https://github.com/ros2/example_interfaces src/ros2/example_interfaces; \
+	git clone -b rolling https://github.com/ros2/rcl_interfaces src/ros2/rcl_interfaces; \
+	git clone -b rolling https://github.com/ros2/rcl_logging src/ros2/rcl_logging; \
+	git clone -b rolling https://github.com/ros2/rclc src/ros2/rclc; \
+	git clone -b rolling https://github.com/ros2/rmw src/ros2/rmw; \
+	git clone -b rolling https://github.com/ros2/rmw_implementation src/ros2/rmw_implementation; \
+	git clone -b rolling https://github.com/ros2/ros2_tracing src/ros2/ros2_tracing; \
+	git clone -b rolling https://github.com/ros2/rosidl src/ros2/rosidl; \
+	cd src/ros2/rosidl; \
 	git reset --hard 5f4ace0288ecf942307ed62b9239ab5986884676; \
-	cd ../..; \
-	git clone -b rolling https://github.com/ros2/rosidl_dynamic_typesupport src/rosidl_dynamic_typesupport; \
-	git clone -b rolling https://github.com/ros2/rmw src/rmw; \
-	git clone -b rolling https://github.com/ros2/rcl_interfaces src/rcl_interfaces; \
-	git clone -b rolling https://github.com/ros2/rosidl_defaults src/rosidl_defaults; \
-	git clone -b rolling https://github.com/ros2/unique_identifier_msgs src/unique_identifier_msgs; \
-	git clone -b rolling https://github.com/ros2/common_interfaces src/common_interfaces; \
-	git clone -b rolling https://github.com/ros2/example_interfaces src/example_interfaces; \
-	git clone -b rolling https://github.com/ros2/test_interface_files src/test_interface_files; \
-	git clone -b rolling https://github.com/ros2/rmw_implementation src/rmw_implementation; \
-	git clone -b rolling https://github.com/ros2/rcl_logging src/rcl_logging; \
-	git clone -b rolling https://github.com/ros2/ros2_tracing src/ros2_tracing; \
-	git clone -b rolling https://github.com/micro-ROS/micro_ros_utilities src/micro_ros_utilities; \
-	git clone -b rolling https://github.com/ros2/rosidl_core src/rosidl_core; \
-	touch src/rcl/rcl_yaml_param_parser/COLCON_IGNORE; \
-	touch src/rclc/rclc_examples/COLCON_IGNORE; \
-	touch src/rcl_logging/rcl_logging_implementation/COLCON_IGNORE; \
-	touch src/rcl_logging/rcl_logging_spdlog/COLCON_IGNORE; \
-	touch src/ros2_tracing/lttngpy/COLCON_IGNORE; \
-	touch src/ros2_tracing/test_tracetools/COLCON_IGNORE; \
-	touch src/rosidl/rosidl_buffer/COLCON_IGNORE; \
-	touch src/rosidl/rosidl_buffer_backend/COLCON_IGNORE; \
-	touch src/rosidl/rosidl_buffer_backend_registry/COLCON_IGNORE; \
-	touch src/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE; \
+	cd ../../..; \
+	git clone -b rolling https://github.com/ros2/rosidl_core src/ros2/rosidl_core; \
+	git clone -b rolling https://github.com/ros2/rosidl_defaults src/ros2/rosidl_defaults; \
+	git clone -b rolling https://github.com/ros2/rosidl_dynamic_typesupport src/ros2/rosidl_dynamic_typesupport; \
+	git clone -b rolling https://github.com/ros2/test_interface_files src/ros2/test_interface_files; \
+	git clone -b rolling https://github.com/ros2/unique_identifier_msgs src/ros2/unique_identifier_msgs; \
+	set -e; \
+	rm -r src/micro-ROS/rcl/rcl_lifecycle; \
+	rm -r src/micro-ROS/rcl/rcl_yaml_param_parser; \
+	rm -r src/micro-ROS/rosidl_typesupport/rosidl_typesupport_tests; \
+	rm -r src/micro-ROS/rosidl_typesupport_microxrcedds/test; \
+	rm -r src/ros2/common_interfaces/common_interfaces; \
+	rm -r src/ros2/common_interfaces/sensor_msgs_py; \
+	rm -r src/ros2/rcl_logging/rcl_logging_implementation; \
+	rm -r src/ros2/rcl_logging/rcl_logging_spdlog; \
+	rm -r src/ros2/rclc/rclc_examples; \
+	rm -r src/ros2/rclc/rclc_lifecycle; \
+	rm -r src/ros2/rmw/rmw_security_common; \
+	rm -r src/ros2/rmw_implementation/test_rmw_implementation; \
+	rm -r src/ros2/ros2_tracing/lttngpy; \
+	rm -r src/ros2/ros2_tracing/ros2trace; \
+	rm -r src/ros2/ros2_tracing/test_ros2trace; \
+	rm -r src/ros2/ros2_tracing/test_tracetools; \
+	rm -r src/ros2/ros2_tracing/test_tracetools_launch; \
+	rm -r src/ros2/ros2_tracing/tracetools_launch; \
+	rm -r src/ros2/ros2_tracing/tracetools_read; \
+	rm -r src/ros2/ros2_tracing/tracetools_test; \
+	rm -r src/ros2/ros2_tracing/tracetools_trace; \
+	rm -r src/ros2/rosidl/rosidl_buffer; \
+	rm -r src/ros2/rosidl/rosidl_buffer_backend; \
+	rm -r src/ros2/rosidl/rosidl_buffer_backend_registry; \
+	rm -r src/ros2/rosidl/rosidl_generator_tests; \
+	rm -r src/ros2/rosidl/rosidl_typesupport_introspection_cpp; \
+	rm -r src/ros2/rosidl/rosidl_typesupport_introspection_tests; \
 	cp -rfL $(EXTRA_ROS_PACKAGES) src/extra_packages || :; \
 	test -f src/extra_packages/extra_packages.repos && cd src/extra_packages && vcs import --input extra_packages.repos || :;
 

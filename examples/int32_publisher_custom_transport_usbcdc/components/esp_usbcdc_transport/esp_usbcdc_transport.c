@@ -1,7 +1,7 @@
-#include "esp32s2_usbcdc_transport.h"
+#include "esp_usbcdc_transport.h"
 
 // Open USB-CDC
-bool esp32s2_usbcdc_open(struct uxrCustomTransport* transport) {
+bool esp_usbcdc_open(struct uxrCustomTransport* transport) {
     const tinyusb_config_t tinyusb_config = {
         .device_descriptor = NULL,
         .string_descriptor = NULL,
@@ -12,7 +12,7 @@ bool esp32s2_usbcdc_open(struct uxrCustomTransport* transport) {
     esp_err_t ret = tinyusb_driver_install(&tinyusb_config);
 
     if (ret == ESP_ERR_INVALID_ARG || ret == ESP_FAIL) {
-        return ret;
+        return false;
     }
 
     tinyusb_cdcacm_itf_t* cdc_port = (tinyusb_cdcacm_itf_t*)transport->args;
@@ -35,13 +35,13 @@ bool esp32s2_usbcdc_open(struct uxrCustomTransport* transport) {
 }
 
 // Close USB-CDC
-bool esp32s2_usbcdc_close(struct uxrCustomTransport* transport) {
+bool esp_usbcdc_close(struct uxrCustomTransport* transport) {
     tinyusb_cdcacm_itf_t* cdc_port = (tinyusb_cdcacm_itf_t*)transport->args;
     return (tusb_cdc_acm_deinit(*cdc_port) == ESP_OK) ? true : false;
 }
 
 // Write to USB-CDC
-size_t esp32s2_usbcdc_write(struct uxrCustomTransport* transport, const uint8_t* buf, size_t len, uint8_t* err) {
+size_t esp_usbcdc_write(struct uxrCustomTransport* transport, const uint8_t* buf, size_t len, uint8_t* err) {
     tinyusb_cdcacm_itf_t* cdc_port = (tinyusb_cdcacm_itf_t*)transport->args;
     size_t tx_size = tinyusb_cdcacm_write_queue(*cdc_port, buf, len);
     tinyusb_cdcacm_write_flush(*cdc_port, 0);
@@ -49,7 +49,7 @@ size_t esp32s2_usbcdc_write(struct uxrCustomTransport* transport, const uint8_t*
 }
 
 // Read from USB-CDC
-size_t esp32s2_usbcdc_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err) {
+size_t esp_usbcdc_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err) {
     tinyusb_cdcacm_itf_t* cdc_port = (tinyusb_cdcacm_itf_t*)transport->args;
     size_t rx_size = 0;
     esp_err_t ret = tinyusb_cdcacm_read(*cdc_port, buf, len, &rx_size);

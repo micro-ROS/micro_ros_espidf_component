@@ -4,8 +4,8 @@
 #include "driver/uart.h"
 #include "esp_log.h"
 #include "esp_system.h"
-#include "esp32s2_usbcdc_logging.h"
-#include "esp32s2_usbcdc_transport.h"
+#include "esp_usbcdc_logging.h"
+#include "esp_usbcdc_transport.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
  
@@ -20,7 +20,7 @@
 #define DOMAIN_ID 100
 #define TIMER_PERIOD 1000
 
-#define NODE_NAME "esp32s2"
+#define NODE_NAME CONFIG_IDF_TARGET
 #define PUBLISHER_NAME "/int32_publisher_usbcdc"
 #define TOPIC_NAME NODE_NAME PUBLISHER_NAME
 
@@ -127,7 +127,7 @@ void app_main(void) {
  
 // Initialize logging over USB-CDC
 #if (CONFIG_TINYUSB_CDC_COUNT >= 2)
-	if (esp32s2_usbcdc_logging_init() == ESP_OK) {
+	if (esp_usbcdc_logging_init() == ESP_OK) {
 		ESP_LOGI(TAG_MAIN, "USB-CDC Logging initialized");
 	}
 #endif
@@ -137,10 +137,10 @@ void app_main(void) {
 	rmw_ret_t ret = rmw_uros_set_custom_transport(
 					true, 
 					(void *)&cdc_port, 
-					esp32s2_usbcdc_open, 
-					esp32s2_usbcdc_close,
-					esp32s2_usbcdc_write, 
-					esp32s2_usbcdc_read);
+					esp_usbcdc_open, 
+					esp_usbcdc_close,
+					esp_usbcdc_write, 
+					esp_usbcdc_read);
 	
 	if (ret != RMW_RET_OK) {
 		ESP_LOGE(TAG_MAIN, "Fail to set micro-ROS custom transport layer");

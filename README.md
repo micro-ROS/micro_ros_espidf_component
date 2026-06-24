@@ -7,7 +7,7 @@
 
 # micro-ROS component for ESP-IDF
 
-This component has been tested in ESP-IDF v5.2, v5.3, v5.4, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3 and ESP32-C6.
+This component has been tested in ESP-IDF v5.2, v5.3, v5.4, and v5.5 with ESP32, ESP32-S2, ESP32-S3, ESP32-C3, ESP32-C6, and ESP32-P4.
 
 ## Dependencies
 
@@ -40,7 +40,7 @@ In order to test a int32_publisher example:
 ```bash
 . $IDF_PATH/export.sh
 cd examples/int32_publisher
-# Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6]
+# Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6|esp32p4]
 idf.py set-target esp32
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
@@ -76,7 +76,7 @@ cd micro_ros_espidf_component/
 pip install catkin_pkg colcon-common-extensions lark
 
 cd examples/int32_publisher
-# Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6]
+# Set target board [esp32|esp32s2|esp32s3|esp32c3|esp32c6|esp32p4]
 idf.py set-target esp32
 idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings

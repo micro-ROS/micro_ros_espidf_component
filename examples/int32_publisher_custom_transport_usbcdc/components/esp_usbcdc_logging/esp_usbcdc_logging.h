@@ -1,5 +1,5 @@
-#ifndef ESP32S2_USBCDC_LOGGING_H
-#define ESP32S2_USBCDC_LOGGING_H
+#ifndef ESP_USBCDC_LOGGING_H
+#define ESP_USBCDC_LOGGING_H
 
 #include "esp_err.h"
 #include "tinyusb.h"
@@ -18,8 +18,8 @@ extern "C"
 {
 #endif
 
-esp_err_t esp32s2_usbcdc_logging_init(void);
-esp_err_t esp32s2_usbcdc_logging_deinit(void);
+esp_err_t esp_usbcdc_logging_init(void);
+esp_err_t esp_usbcdc_logging_deinit(void);
 
 #ifdef __cplusplus
 }
@@ -29,4 +29,4 @@ esp_err_t esp32s2_usbcdc_logging_deinit(void);
 #error "Logging over USB-CDC is only supported on ESP32-S2 or ESP32-S3 targets"
 #endif
 
-#endif // ESP32S2_USBCDC_LOGGING_H
+#endif // ESP_USBCDC_LOGGING_H

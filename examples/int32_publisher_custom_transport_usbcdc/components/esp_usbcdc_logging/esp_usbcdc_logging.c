@@ -1,7 +1,7 @@
-#include "esp32s2_usbcdc_logging.h"
+#include "esp_usbcdc_logging.h"
 
 // Initialize USB-CDC logging
-esp_err_t esp32s2_usbcdc_logging_init(void)
+esp_err_t esp_usbcdc_logging_init(void)
 {
     const tinyusb_config_t tinyusb_config = {
         .descriptor = NULL,
@@ -38,7 +38,7 @@ esp_err_t esp32s2_usbcdc_logging_init(void)
 }
 
 // Deinitialize USB-CDC logging
-esp_err_t esp32s2_usbcdc_logging_deinit(void)
+esp_err_t esp_usbcdc_logging_deinit(void)
 {
     esp_err_t ret = esp_tusb_deinit_console(TINYUSB_CDC_ACM_1);
 

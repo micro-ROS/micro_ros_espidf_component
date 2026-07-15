@@ -120,22 +120,19 @@ void app_main(void)
     // Configure dynamic frequency scaling:
     // maximum and minimum frequencies are set in sdkconfig,
     // automatic light sleep is enabled if tickless idle support is enabled.
-#ifdef CONFIG_IDF_TARGET_ESP32S2
-    esp_pm_config_esp32s2_t pm_config = {};
-#elif CONFIG_IDF_TARGET_ESP32C3
-	esp_pm_config_esp32c3_t pm_config = {};
-#else
-    esp_pm_config_esp32_t pm_config = {};
-#endif
+    esp_pm_config_t pm_config = {};
     pm_config.max_freq_mhz = 240;
+
 #ifdef CONFIG_IDF_TARGET_ESP32S2
     pm_config.min_freq_mhz = 10;
 #else
     pm_config.min_freq_mhz = 20;
-#endif
+#endif /* CONFIG_IDF_TARGET_ESP32S2 */
+
 #if CONFIG_FREERTOS_USE_TICKLESS_IDLE
     pm_config.light_sleep_enable = true;
-#endif
+#endif /* CONFIG_FREERTOS_USE_TICKLESS_IDLE */
+
     ESP_ERROR_CHECK(esp_pm_configure(&pm_config));
 #endif /* CONFIG_PM_ENABLE */
 

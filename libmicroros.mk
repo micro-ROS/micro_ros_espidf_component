@@ -35,6 +35,9 @@ $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	git clone -b rolling https://github.com/ament/ament_cmake src/ament_cmake; \
 	git clone -b rolling https://github.com/ament/ament_lint src/ament_lint; \
 	git clone -b rolling https://github.com/ament/ament_package src/ament_package; \
+	cd src/ament_package; \
+	git apply ../../../remove-traversable.patch; \
+	cd ../../..; \
 	git clone -b rolling https://github.com/ament/googletest src/googletest; \
 	git clone -b rolling https://github.com/ros2/ament_cmake_ros src/ament_cmake_ros; \
 	git clone -b rolling https://github.com/ament/ament_index src/ament_index; \

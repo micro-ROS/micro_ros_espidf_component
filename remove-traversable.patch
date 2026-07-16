@@ -1,0 +1,43 @@
+diff --git a/ament_package/templates.py b/ament_package/templates.py
+index 41b0175..2db4fd5 100644
+--- a/ament_package/templates.py
++++ b/ament_package/templates.py
+@@ -13,18 +13,17 @@
+ # limitations under the License.
+ 
+ from importlib import resources
+-from importlib.resources.abc import Traversable
+ import os
+ import re
+ 
+ IS_WINDOWS = os.name == 'nt'
+ 
+ 
+-def _get_path(template: str, name: str) -> Traversable:
++def _get_path(template: str, name: str):
+     return resources.files(template).joinpath(name)
+ 
+ 
+-def get_environment_hook_template_path(name: str) -> Traversable:
++def get_environment_hook_template_path(name: str):
+     return _get_path('ament_package.template.environment_hook', name)
+ 
+ 
+@@ -41,7 +40,7 @@ def get_package_level_template_names(all_platforms: bool = False) -> list[str]:
+     return names
+ 
+ 
+-def get_package_level_template_path(name: str) -> Traversable:
++def get_package_level_template_path(name: str):
+     return _get_path('ament_package.template.package_level', name)
+ 
+ 
+@@ -61,7 +60,7 @@ def get_prefix_level_template_names(*, all_platforms: bool = False) -> list[str]
+     return names
+ 
+ 
+-def get_prefix_level_template_path(name: str) -> Traversable:
++def get_prefix_level_template_path(name: str):
+     return _get_path('ament_package.template.prefix_level', name)
+ 
+ 

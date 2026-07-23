@@ -18,13 +18,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      target_branch: ${{ steps.set.outputs.target_branch }}
+      idf_versions: ${{ steps.set.outputs.idf_versions }}
+    steps:
+      - id: set
+        shell: bash
+        env:
+          TARGET_BRANCH: ${{ inputs.branch || github.base_ref || github.ref_name }}
+        run: |
+          echo "::notice::TARGET_BRANCH=$TARGET_BRANCH"
+          if [ "$TARGET_BRANCH" = "rolling" ]; then
+            idf_versions='["v5.4","v5.5","v6.0"]'
+          else
+            idf_versions='["v5.2","v5.3","v5.4","v5.5","v6.0"]'
+          fi
+          echo "target_branch=$TARGET_BRANCH" >> "$GITHUB_OUTPUT"
+          echo "idf_versions=$idf_versions" >> "$GITHUB_OUTPUT"
+
   micro_ros_idf:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         idf_target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6]
-        idf_version: [v5.2, v5.3, v5.4, v5.5, v6.0]
+        idf_version: ${{ fromJson(needs.setup.outputs.idf_versions) }}
 
     container:
       image: "espressif/idf:release-${{ matrix.idf_version }}"
@@ -38,10 +59,9 @@ jobs:
       - name: Dependencies
         shell: bash
         env:
-          TARGET_BRANCH: ${{ inputs.branch || github.base_ref || github.ref_name }}
+          TARGET_BRANCH: ${{ needs.setup.outputs.target_branch }}
         run: |
           . $IDF_PATH/export.sh
-          echo "::notice::TARGET_BRANCH=$TARGET_BRANCH"
           if [ "$TARGET_BRANCH" = "humble" ]; then
             python3 -m pip uninstall -y em empy || true
             python3 -m pip install catkin_pkg colcon-common-extensions lark "empy==3.3.4"

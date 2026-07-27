@@ -21,11 +21,7 @@ else()
 set(submake "make")
 endif()
 
-if (${IDF_VERSION_MAJOR} EQUAL 5)
-    set(CMAKE_C_STANDARD 17)
-else()
-    set(CMAKE_C_STANDARD 11)
-endif()
+set(CMAKE_C_STANDARD 17)
 
 set(APP_COLCON_META "${PROJECT_DIR}/app-colcon.meta")
 if(NOT EXISTS "${APP_COLCON_META}")

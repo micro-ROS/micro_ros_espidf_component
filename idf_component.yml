@@ -1,0 +1,20 @@
+version: "25.0.0"
+description: "Micro-ROS ESP-IDF component and sample code"
+url: "https://github.com/micro-ROS/micro_ros_espidf_component"
+repository: "https://github.com/micro-ROS/micro_ros_espidf_component.git"
+license: "Apache-2.0"
+tags:
+  - micro-ros
+  - ros2
+targets:
+  - esp32
+  - esp32s2
+  - esp32s3
+  - esp32c3
+  - esp32c6
+dependencies:
+  idf: ">=5.2"
+files:
+  use_gitignore: true
+  exclude:
+    - ".github/**"

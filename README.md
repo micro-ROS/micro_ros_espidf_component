@@ -29,7 +29,45 @@ In order to select it, use `idf.py menuconfig` and go to `micro-ROS Settings > m
 
 ## Usage
 
-You can clone this repo directly in the `components` folder of your project.
+### From the ESP Component Registry
+
+To align with the semantic versioning scheme of the ESP Component Registry, the ROS 2 distribution release year is used as the major version of the component:
+
+| ROS 2 distro | Version |
+|:------------:|:-------:|
+| humble       | 22.x.y  |
+| iron         | 23.x.y  |
+| jazzy        | 24.x.y  |
+| kilted       | 25.x.y  |
+| lyrical      | 26.x.y  |
+
+Rolling is published as a prerelease of the next version, for example `27.0.0-rolling.20260806`.
+
+This branch corresponds to humble and publishes `22.x.y` versions.
+
+Add the component to your project with the IDF Component Manager:
+
+```bash
+idf.py add-dependency "micro-ros/micro_ros_espidf_component^22"
+```
+
+Or declare it in your main component's `idf_component.yml`:
+
+```yaml
+dependencies:
+  micro-ros/micro_ros_espidf_component: "^22"
+```
+
+Then build your project as usual. The Component Manager downloads the matching `22.x.y` release for Humble.
+
+### From this repository
+
+You can also clone this repo into the `components` folder of your project:
+
+```bash
+cd your_project/components
+git clone -b humble https://github.com/micro-ROS/micro_ros_espidf_component.git
+```
 
 If you encounter issues during the build process, ensure that you are running in a clean shell environment _without_ the ROS 2 setup script sourced.
 

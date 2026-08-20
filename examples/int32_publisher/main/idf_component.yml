@@ -1,0 +1,4 @@
+dependencies:
+  micro-ros/micro_ros_espidf_component:
+    version: "^27.0.0-rolling.0"
+    override_path: "../../../"

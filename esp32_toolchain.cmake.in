@@ -5,7 +5,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(idf_target "@IDF_TARGET@")
 set(idf_path "@IDF_PATH@")
 
-set(RISCV_TARGETS "esp32c3" "esp32c6" "esp32p4")
+set(RISCV_TARGETS "esp32c3" "esp32c5" "esp32c6" "esp32p4")
 set(RISCV_HARD_FLOAT_TARGETS "esp32p4")
 
 if("${idf_target}" IN_LIST RISCV_TARGETS)
@@ -14,7 +14,7 @@ if("${idf_target}" IN_LIST RISCV_TARGETS)
         # ESP32-P4 uses hardware floating point
         set(FLAGS "-march=rv32imafc -mabi=ilp32f -ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
     else()
-        # ESP32-C3/C6 use soft-float
+        # ESP32-C3/C5/C6 use soft-float
         set(FLAGS "-ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
     endif()
 else()

@@ -1,7 +1,7 @@
 option(BUILD_ETHERNET_INTERFACE "Build ethernet interface support" OFF)
 option(BUILD_WLAN_INTERFACE "Build wlan interface support" ON)
 
-set(COMPONENT_SRC "")
+set(COMPONENT_SRC "posix_functions/nanosleep.c")
 
 if(BUILD_ETHERNET_INTERFACE)
     list(APPEND COMPONENT_SRC "network_interfaces/uros_ethernet_netif.c")
@@ -101,6 +101,10 @@ endforeach()
 target_compile_definitions(${COMPONENT_LIB} PUBLIC RCL_MICROROS)
 add_dependencies(${COMPONENT_LIB} libmicroros-prebuilt)
 target_link_libraries(${COMPONENT_LIB} INTERFACE libmicroros-prebuilt)
+
+# libmicroros.a is linked after this component, so force the linker to pull
+# in the nanosleep() shim before rclc references it
+target_link_libraries(${COMPONENT_LIB} INTERFACE "-u nanosleep")
 
 set_directory_properties( PROPERTIES ADDITIONAL_CLEAN_FILES
     "${COMPONENT_DIR}/include;${COMPONENT_DIR}/micro_ros_dev;${COMPONENT_DIR}/micro_ros_src;${COMPONENT_DIR}/esp32_toolchain.cmake" )

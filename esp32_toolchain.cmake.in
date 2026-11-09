@@ -1,23 +1,19 @@
 include(CMakeForceCompiler)
 
+# Configuration fingerprints also invalidate the Make build stamp when settings
+# change without changing compiler flags (including removal of app-colcon.meta).
+# sdkconfig: @MICROROS_SDKCONFIG_HASH@
+# app-colcon.meta: @MICROROS_APP_META_HASH@
+
 set(CMAKE_SYSTEM_NAME Generic)
 
 set(idf_target "@IDF_TARGET@")
 set(idf_path "@IDF_PATH@")
 
-set(RISCV_TARGETS "esp32c3" "esp32c6")
-
-if("${idf_target}" IN_LIST RISCV_TARGETS)
-    set(CMAKE_SYSTEM_PROCESSOR riscv)
-    set(FLAGS "-ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
-else()
-    set(CMAKE_SYSTEM_PROCESSOR xtensa)
-    set(FLAGS "-mlongcalls -ffunction-sections -fdata-sections" CACHE STRING "" FORCE)
-endif()
+set(CMAKE_SYSTEM_PROCESSOR "@IDF_TARGET_ARCH@")
 
 include("@BUILD_CONFIG_DIR@/sdkconfig.cmake" OPTIONAL)
 if(CONFIG_LIBC_PICOLIBC)
-    set(FLAGS "${FLAGS} --specs=picolibc.specs" CACHE STRING "" FORCE)
     # `__STDC_WANT_LIB_EXT1__` (C11 Annex K) is only implemented by picolibc.
     # Temporary workaround for ros2/rcutils#552. Remove this once micro-ROS/rcutils picks up ros2/rcutils#555
     add_compile_definitions(__STDC_WANT_LIB_EXT1__=1)
@@ -31,14 +27,21 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
-set(CMAKE_C_COMPILER @CMAKE_C_COMPILER@)
-set(CMAKE_CXX_COMPILER @CMAKE_CXX_COMPILER@)
+set(CMAKE_C_COMPILER "@CMAKE_C_COMPILER@")
+set(CMAKE_CXX_COMPILER "@CMAKE_CXX_COMPILER@")
 
-if(NOT MICROROS_TOOLCHAIN_FLAGS_APPLIED)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${FLAGS} ${IDF_INCLUDES}" CACHE STRING "" FORCE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti ${FLAGS} ${IDF_INCLUDES}" CACHE STRING "" FORCE)
-    set(MICROROS_TOOLCHAIN_FLAGS_APPLIED TRUE CACHE INTERNAL "micro-ROS toolchain flags were applied")
-endif()
+# Replace, rather than append to, cached flags on every configuration. This also
+# updates existing colcon workspaces when IDF options change.
+set(CMAKE_C_FLAGS [==[@MICROROS_C_FLAGS@ @IDF_INCLUDES@]==] CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS [==[@MICROROS_CXX_FLAGS@ @IDF_INCLUDES@]==] CACHE STRING "" FORCE)
+
+# IDF supplies optimization, debug and assertion settings above. CMake's Release
+# defaults (-O3 -DNDEBUG) must not override them in individual ROS packages.
+foreach(language C CXX)
+    foreach(config DEBUG RELEASE RELWITHDEBINFO MINSIZEREL)
+        set(CMAKE_${language}_FLAGS_${config} "" CACHE STRING "" FORCE)
+    endforeach()
+endforeach()
 
 add_compile_definitions(ESP_PLATFORM LWIP_IPV4 LWIP_IPV6 PLATFORM_NAME_FREERTOS)
 

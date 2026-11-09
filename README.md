@@ -71,6 +71,18 @@ git clone -b rolling https://github.com/micro-ROS/micro_ros_espidf_component.git
 
 If you encounter issues during the build process, ensure that you are running in a clean shell environment _without_ the ROS 2 setup script sourced.
 
+The micro-ROS target libraries inherit IDF's C/C++ compiler flags and global
+compile definitions, including architecture, ABI, libc, hardware workarounds,
+optimization and stack protection. ROS packages retain their own warning policy
+and language standards. Changes to `sdkconfig`, the exported flags or colcon
+metadata invalidate the library build and refresh the target packages' CMake
+caches; the host-side build tools continue to use the native compiler.
+
+The library is still built during CMake configuration. Set shared compiler
+options in the outer IDF build before this component is processed; options added
+afterwards and generator expressions cannot be propagated by this configure-time
+integration.
+
 ## Example
 
 In order to test a int32_publisher example:

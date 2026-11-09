@@ -23,10 +23,10 @@ endif()
 
 set(CMAKE_C_STANDARD 17)
 
-set(APP_COLCON_META "${PROJECT_DIR}/app-colcon.meta")
-if(NOT EXISTS "${APP_COLCON_META}")
-set(APP_COLCON_META "")
-endif()
+# Detect creation/removal as well as edits of the optional application metadata.
+file(GLOB APP_COLCON_META CONFIGURE_DEPENDS "${PROJECT_DIR}/app-colcon.meta")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+             "${COMPONENT_DIR}/colcon.meta" ${APP_COLCON_META})
 
 set(EXTRA_ROS_PACKAGES "${PROJECT_DIR}/extra_ros_packages")
 if(NOT EXISTS "${EXTRA_ROS_PACKAGES}")
@@ -60,20 +60,29 @@ foreach(package ${PACKAGES})
     string(APPEND IDF_INCLUDES "${${package}_includes_string}")
 endforeach()
 
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/microros_flags.cmake)
+microros_get_flags(C MICROROS_C_FLAGS)
+microros_get_flags(CXX MICROROS_CXX_FLAGS)
+idf_build_get_property(IDF_TARGET_ARCH IDF_TARGET_ARCH)
+set(BUILD_CONFIG_DIR "${CMAKE_BINARY_DIR}/config")
+file(SHA256 "${BUILD_CONFIG_DIR}/sdkconfig.h" MICROROS_SDKCONFIG_HASH)
+set(MICROROS_APP_META_HASH "")
+if(APP_COLCON_META)
+    file(SHA256 "${APP_COLCON_META}" MICROROS_APP_META_HASH)
+endif()
+# configure_file only updates the output when its contents change. Generate it
+# here rather than substituting compiler flags through Make and sed.
+configure_file(esp32_toolchain.cmake.in "${COMPONENT_DIR}/esp32_toolchain.cmake" @ONLY)
+
 execute_process(
     WORKING_DIRECTORY ${COMPONENT_DIR}
     RESULT_VARIABLE libmicroros_ret
     COMMAND
         ${submake} -j -f libmicroros.mk
-                X_CC=${CMAKE_C_COMPILER}
                 X_AR=${CMAKE_AR}
-                X_CXX=${CMAKE_CXX_COMPILER}
                 C_STANDARD=${CMAKE_C_STANDARD}
                 MIDDLEWARE=${MIDDLEWARE}
                 BUILD_DIR=${CMAKE_BINARY_DIR}
-                IDF_INCLUDES=${IDF_INCLUDES}
-                IDF_PATH=${IDF_PATH}
-                IDF_TARGET=${IDF_TARGET}
                 APP_COLCON_META=${APP_COLCON_META}
                 EXTRA_ROS_PACKAGES=${EXTRA_ROS_PACKAGES}
 )

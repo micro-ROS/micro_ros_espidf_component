@@ -19,16 +19,6 @@ clean:
 	rm -rf $(EXTENSIONS_DIR)/micro_ros_dev; \
 	rm -rf $(EXTENSIONS_DIR)/micro_ros_src;
 
-$(EXTENSIONS_DIR)/esp32_toolchain.cmake: $(EXTENSIONS_DIR)/esp32_toolchain.cmake.in
-	rm -f $(EXTENSIONS_DIR)/esp32_toolchain.cmake; \
-	cat $(EXTENSIONS_DIR)/esp32_toolchain.cmake.in | \
-		sed "s/@CMAKE_C_COMPILER@/$(subst /,\/,$(X_CC))/g" | \
-		sed "s/@CMAKE_CXX_COMPILER@/$(subst /,\/,$(X_CXX))/g" | \
-		sed "s/@IDF_TARGET@/$(subst /,\/,$(IDF_TARGET))/g" | \
-		sed "s/@IDF_PATH@/$(subst /,\/,$(IDF_PATH))/g" | \
-		sed "s/@BUILD_CONFIG_DIR@/$(subst /,\/,$(BUILD_DIR)/config)/g" \
-		> $(EXTENSIONS_DIR)/esp32_toolchain.cmake
-
 $(EXTENSIONS_DIR)/micro_ros_dev/install:
 	rm -rf micro_ros_dev; \
 	mkdir micro_ros_dev; cd micro_ros_dev; \
@@ -91,13 +81,19 @@ $(EXTENSIONS_DIR)/micro_ros_src/src:
 	cp -rfL $(EXTRA_ROS_PACKAGES) src/extra_packages || :; \
 	test -f src/extra_packages/extra_packages.repos && cd src/extra_packages && vcs import --input extra_packages.repos || :;
 
-
-$(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake $(EXTENSIONS_DIR)/micro_ros_dev/install $(EXTENSIONS_DIR)/micro_ros_src/src
+# A directory's timestamp may stay unchanged after rebuilding its contents.
+# Record successful colcon builds explicitly so the combined archive is refreshed.
+$(UROS_DIR)/.built: $(EXTENSIONS_DIR)/esp32_toolchain.cmake \
+                  $(BUILD_DIR)/config/sdkconfig.h $(BUILD_DIR)/config/sdkconfig.cmake \
+                  $(EXTENSIONS_DIR)/colcon.meta $(APP_COLCON_META) \
+                  $(EXTENSIONS_DIR)/libmicroros.mk \
+                  $(EXTENSIONS_DIR)/micro_ros_dev/install $(EXTENSIONS_DIR)/micro_ros_src/src
 	cd $(UROS_DIR); \
 	unset AMENT_PREFIX_PATH; \
 	PATH="$(subst /opt/ros/$(ROS_DISTRO)/bin,,$(PATH))"; \
 	. ../micro_ros_dev/install/local_setup.sh; \
 	colcon build \
+		--cmake-clean-cache \
 		--merge-install \
 		--packages-ignore-regex=.*_cpp \
 		--metas $(EXTENSIONS_DIR)/colcon.meta $(APP_COLCON_META) \
@@ -110,11 +106,11 @@ $(EXTENSIONS_DIR)/micro_ros_src/install: $(EXTENSIONS_DIR)/esp32_toolchain.cmake
 		-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
 		-DCMAKE_TOOLCHAIN_FILE=$(EXTENSIONS_DIR)/esp32_toolchain.cmake \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF \
-        -DIDF_INCLUDES='${IDF_INCLUDES}' \
 		-DCMAKE_C_STANDARD=$(C_STANDARD) \
-		-DUCLIENT_C_STANDARD=$(C_STANDARD);
+		-DUCLIENT_C_STANDARD=$(C_STANDARD) && \
+	touch $@
 
-$(EXTENSIONS_DIR)/libmicroros.a: $(EXTENSIONS_DIR)/micro_ros_src/install
+$(EXTENSIONS_DIR)/libmicroros.a: $(UROS_DIR)/.built
 	mkdir -p $(UROS_DIR)/libmicroros; cd $(UROS_DIR)/libmicroros; \
 	for file in $$(find $(UROS_DIR)/install/lib/ -name '*.a'); do \
 		folder=$$(echo $$file | sed -E "s/(.+)\/(.+).a/\2/"); \
